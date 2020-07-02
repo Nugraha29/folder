@@ -17,6 +17,7 @@ class ProfileRequest extends FormRequest
     {
         return auth()->check();
     }
+    
 
     /**
      * Get the validation rules that apply to the request.
@@ -33,4 +34,5 @@ class ProfileRequest extends FormRequest
             'jabatan' => ['required', 'min:3'],
         ];
     }
+    
 }

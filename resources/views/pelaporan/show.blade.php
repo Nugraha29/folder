@@ -54,64 +54,42 @@
                     <td>{{ $pelaporan->bidang_usaha }}</td>
                   </tr>
                   <tr>
-                    <td style="width: 180px">Periode/Semester</td>
+                    <td style="width: 180px">Jenis Pelaporan</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $pelaporan->jenis }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Periode</td>
                     <td style="width: 1px">:</td>
                     <td>{{ $pelaporan->periode }}</td>
                   </tr>
                   <tr>
-                    <th colspan="3">Jenis Pelaporan Air</th>
-                  </tr>  
+                    <th colspan="3">Dokumen</th>
+                  </tr> 
                   <tr>
                     <td style="width: 180px">Dokumen Pelaporan</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_air) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan) }}" target="_blank">Download</a></td>
                   </tr>
                   <tr>
                     <td style="width: 180px">Dokumen Izin</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_air) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_izin) }}" target="_blank">Download</a></td>
                   </tr>
+                  @if ($pelaporan->jenis == 'Air')
                   <tr>
                     <td style="width: 180px">Dokumen Hasil Uji Lab</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_air) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
                   </tr>
-                  <tr>
-                    <th colspan="3">Jenis Pelaporan Limbah B3</th>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Pelaporan</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_limbah) }}" target="_blank">Download</a></td>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Izin</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_limbah) }}" target="_blank">Download</a></td>
-                  </tr>
+                  @elseif ($pelaporan->jenis == 'Udara')
                   <tr>
                     <td style="width: 180px">Dokumen Hasil Uji Lab</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_limbah) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
                   </tr>
-                  <tr>
-                    <th colspan="3">Jenis Pelaporan Udara</th>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Pelaporan</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_udara) }}" target="_blank">Download</a></td>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Izin</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_udara) }}" target="_blank">Download</a></td>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Hasil Uji Lab</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_udara) }}" target="_blank">Download</a></td>
-                  </tr>
+                  @else
+                  @endif
                 </tbody>
               </table>
             </div>

@@ -25,19 +25,17 @@ class PelaporanRequest extends FormRequest
     {
         return [
             //
-            'nama' => 'required|min:3',
-            'telp' => 'required|min:6',
-            'periode' => 'required|min:1',
-            'bidang_usaha'=>'required',
-            'dok_pelaporan_air' => 'required|mimes:docx,doc,pdf',
-            'dok_izin_air' => 'required|mimes:docx,doc,pdf',
-            'dok_lab_air' => 'required|mimes:docx,doc,pdf',
-            'dok_pelaporan_limbah' => 'required|mimes:docx,doc,pdf',
-            'dok_izin_limbah' => 'required|mimes:docx,doc,pdf',
-            'dok_lab_limbah' => 'required|mimes:docx,doc,pdf',
-            'dok_pelaporan_udara' => 'mimes:docx,doc,pdf',
-            'dok_izin_udara' => 'mimes:docx,doc,pdf',
-            'dok_lab_udara' => 'mimes:docx,doc,pdf',
+            'nama' => ['required', 'min:3'],
+            'telp' => ['required', 'min:6'],
+            'email' => ['required', 'min:6'],
+            'nama_perusahaan' => ['required', 'min:6'],
+            'bidang_usaha'=> ['required', 'min:3'],
+            'jenis' => ['required', 'min:3'],
+            'periode' => ['required', 'min:1'],
+            'dok_pelaporan' => ['required', 'mimes:docx,doc,pdf'],
+            'dok_izin' => ['required', 'mimes:docx,doc,pdf'],
+            'dok_lab' => ['mimes:docx,doc,pdf'],
         ];
     }
+
 }

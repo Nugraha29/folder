@@ -98,25 +98,27 @@ class PelaporanController extends Controller
         $model = new Pelaporan;
         $model->nama= $request->get('nama');
         $model->telp= $request->get('telp');
-        $model->nama_perusahaan = auth()->user()->nama_perusahaan;
-        $model->email = auth()->user()->email;
+        $model->nama_perusahaan = $request->get('nama_perusahaan');
+        $model->email = $request->get('email');
         $model->bidang_usaha = $request->get('bidang_usaha');
+        $model->jenis = $request->get('jenis');
         $model->periode = $request->get('periode');  
-        $model->dok_pelaporan_air = $request->file('dok_pelaporan_air')->store('DokumenPelaporan', 'public');
-        $model->dok_izin_air = $request->file('dok_izin_air')->store('DokumenIzin', 'public');
-        $model->dok_lab_air = $request->file('dok_lab_air')->store('DokumenLab', 'public');
-        $model->dok_pelaporan_limbah = $request->file('dok_pelaporan_limbah')->store('DokumenPelaporan', 'public');
-        $model->dok_izin_limbah = $request->file('dok_izin_limbah')->store('DokumenIzin', 'public');
-        $model->dok_lab_limbah = $request->file('dok_lab_limbah')->store('DokumenLab', 'public');
-        $model->dok_pelaporan_udara = $request->file('dok_pelaporan_udara')->store('DokumenPelaporan', 'public');
-        $model->dok_izin_udara = $request->file('dok_izin_udara')->store('DokumenIzin', 'public');
-        $model->dok_lab_udara = $request->file('dok_lab_udara')->store('DokumenLab', 'public');
+        $model->dok_pelaporan = $request->file('dok_pelaporan')->store('DokumenPelaporan', 'public');
+        $model->dok_izin = $request->file('dok_izin')->store('DokumenIzin', 'public');
+        if ($request->get('jenis') == 'Air') {
+            $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+        } elseif ($request->get('jenis') == 'Udara') {
+            $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+        } else {
+
+        }
+        
         $model->user_id = auth()->user()->id;
 
 
         $model->save();
 
-        return redirect()->route('pelaporan.create')->withStatus(__('Pelaporan berhasil dikirim.'));
+        return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
     }
 

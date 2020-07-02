@@ -15,7 +15,7 @@ class Pelaporan extends Model
      * @var array
      */
     protected $fillable = [
-        'nama', 'telp', 'bidang_usaha', 'jenis', 'dok_pelaporan', 'dok_izin','dok_lab', 'user_id'
+        'nama', 'telp', 'email', 'nama_perusahaan', 'bidang_usaha', 'jenis', 'periode', 'dok_pelaporan', 'dok_izin','dok_lab', 'user_id'
     ];
 
     public function users()
