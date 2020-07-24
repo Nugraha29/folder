@@ -40,6 +40,24 @@
                 </div>
               @endif
             </div>
+            <div class="bmd-form-group{{ $errors->has('img4') ? ' has-danger' : '' }} mt-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">image</i>
+                  </span>
+                </div>
+                <label class="form-control-label custom-file-upload" for="input-img4">
+                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Foto KTP') }}
+                </label>
+                <input type="file" name="img4" id="input-img4" class="form-control form-control-alternative{{ $errors->has('img4') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img4') }}" style="display:none;">  
+              </div>
+              @if ($errors->has('img4'))
+                <div id="deskripsi-error" class="error text-danger pl-3" for="img4" style="display: block;">
+                  <strong>{{ $errors->first('img4') }}</strong>
+                </div>
+              @endif
+            </div>
             <div class="bmd-form-group{{ $errors->has('nama') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -87,7 +105,7 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div id="map" style="width:100%;height:300px;"></div>   
+                <div id="map" style="width:100%;height:350px;"></div>   
               </div>
               <div class="col-md-6">
                   <div class="bmd-form-group{{ $errors->has('lat') ? ' has-danger' : '' }} mt-3">
@@ -170,27 +188,9 @@
                   </span>
                 </div>
                 <label class="form-control-label custom-file-upload" for="input-img1">
-                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Foto KTP') }}
-                </label>
-                <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;" autofocus required>  
-              </div>
-              @if ($errors->has('img1'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="img1" style="display: block;">
-                  <strong>{{ $errors->first('img1') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('img1') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">image</i>
-                  </span>
-                </div>
-                <label class="form-control-label custom-file-upload" for="input-img1">
                   <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
                 </label>
-                <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;" autofocus required>  
+                <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;">  
               </div>
               @if ($errors->has('img1'))
                 <div id="deskripsi-error" class="error text-danger pl-3" for="img1" style="display: block;">
@@ -208,7 +208,7 @@
                 <label class="form-control-label custom-file-upload" for="input-img2">
                   <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
                 </label>
-                <input type="file" name="img2" id="input-img2" class="form-control form-control-alternative{{ $errors->has('img2') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img2') }}" style="display:none;" autofocus>  
+                <input type="file" name="img2" id="input-img2" class="form-control form-control-alternative{{ $errors->has('img2') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img2') }}" style="display:none;">  
               </div>
               @if ($errors->has('img2'))
                 <div id="deskripsi-error" class="error text-danger pl-3" for="img2" style="display: block;">
@@ -226,7 +226,7 @@
                 <label class="form-control-label custom-file-upload" for="input-img3">
                   <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
                 </label>
-                <input type="file" name="img3" id="input-img3" class="form-control form-control-alternative{{ $errors->has('img3') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img3') }}" style="display:none;" autofocus>  
+                <input type="file" name="img3" id="input-img3" class="form-control form-control-alternative{{ $errors->has('img3') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img3') }}" style="display:none;">  
               </div>
               @if ($errors->has('img3'))
                 <div id="deskripsi-error" class="error text-danger pl-3" for="img3" style="display: block;">
@@ -239,13 +239,13 @@
                 <div class="col-md-12">
                   <div class="captcha">
                     <span>{!! captcha_img() !!}</span>
-                    <button class="btn btn-danger btn-fab btn-fab-mini btn-round">
+                    <button class="btn btn-danger btn-fab btn-fab-mini btn-round btn-refresh">
                       <i class="material-icons">refresh</i>
                     </button>
                   </div>
                 </div>
                 <div class="col-12">
-                  <input type="text" id="captcha" name="captcha" class="form-control" placeholder="{{ __('Masukkan Captcha...') }}" value="{{ old('captcha') }}">
+                  <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="{{ __('Masukkan Captcha...') }}">
                 </div>
               </div>
               @if ($errors->has('captcha'))
@@ -293,5 +293,16 @@
 
     },
 });
+</script>
+<script>
+  $('.btn-refresh').click(function(){
+    $.ajax({
+      type: 'GET',
+      url: '{{ url('/refresh_captcha')}}',
+      success: function (data){
+        $('.captcha span').html(data);
+      }
+    });
+  });
 </script>
 @endpush

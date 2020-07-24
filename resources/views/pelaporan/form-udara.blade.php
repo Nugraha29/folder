@@ -71,11 +71,22 @@
                     </div>
                 </div>
                 <div class="row">
+                  <label class="col-sm-3 col-form-label text-dark">{{ __('Nama Perusahaan') }}</label>
+                  <div class="col-sm-9">
+                    <div class="form-group{{ $errors->has('nama_perusahaan') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('nama_perusahaan') ? ' is-invalid' : '' }}" name="nama_perusahaan" id="input-nama_perusahaan" type="text" placeholder="{{ __('Nama Penanggung Jawab') }}" value="{{ auth()->user()->nama_perusahaan }}" required="true" aria-required="true" readonly/>
+                      @if ($errors->has('nama_perusahaan'))
+                        <span id="nama_perusahaan-error" class="error text-danger" for="input-nama_perusahaan">{{ $errors->first('nama_perusahaan') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                     <label class="col-sm-3 col-form-label text-dark">{{ __('Bidang Usaha') }}</label>
                     <div class="col-sm-9">
                       <div class="form-group">
                         <select class="form-control" data-style="btn btn-link" name="bidang_usaha" id="input-bidang_usaha" required>
-                          <option hidden>Pilih Bidang Usaha</option>   
+                          <option disabled selected>Pilih Bidang Usaha</option>   
                           <optgroup label="Fasilitas Kesehatan">
                             <option value="Apotek">Apotek</option>
                             <option value="Toko Obat">Toko Obat</option>
@@ -107,6 +118,17 @@
                         </select>
                       </div>
                     </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 col-form-label text-dark">{{ __('Jenis Pelaporan') }}</label>
+                  <div class="col-sm-9">
+                    <div class="form-group{{ $errors->has('jenis') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('jenis') ? ' is-invalid' : '' }}" name="jenis" id="input-jenis" type="text" value="Udara" required="false" aria-required="false" readonly/>
+                      @if ($errors->has('jenis'))
+                        <span id="jenis-error" class="error text-danger" for="input-jenis">{{ $errors->first('jenis') }}</span>
+                      @endif
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <label class="col-sm-3 col-form-label text-dark">{{ __('Periode/Triwulan') }}</label>
@@ -156,14 +178,14 @@
                 <div class="row">
                   <label class="col-sm-3 col-form-label text-dark">{{ __('Unggah Dok.Pelaporan') }}</label>
                   <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_pelaporana_air') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_pelaporan_air">
+                    <div class="form-group{{ $errors->has('dok_pelaporan') ? ' has-danger' : '' }} text-left">
+                      <label class="form-control-label custom-file-upload" for="input-dok_pelaporan">
                         <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Pelaporan') }}
                       </label>
-                      <input type="file" name="dok_pelaporan_air" id="input-dok_pelaporan_air" class="form-control form-control-alternative{{ $errors->has('dok_pelaporan_air') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Pelaporan') }}" value="{{ old('dok_pelaporan_air') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_pelaporan_air'))
+                      <input type="file" name="dok_pelaporan" id="input-dok_pelaporan" class="form-control form-control-alternative{{ $errors->has('dok_pelaporan') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Pelaporan') }}" value="{{ old('dok_pelaporan') }}" style="display:none;" autofocus required>
+                      @if ($errors->has('dok_pelaporan'))
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_pelaporan_air') }}</strong>
+                              <strong>{{ $errors->first('dok_pelaporan') }}</strong>
                           </span>
                       @endif
                     </div>
@@ -172,14 +194,14 @@
                 <div class="row">
                   <label class="col-sm-3 col-form-label text-dark">{{ __('Unggak Dok.Izin') }}</label>
                   <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_izin_air') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_izin_air">
+                    <div class="form-group{{ $errors->has('dok_izin') ? ' has-danger' : '' }} text-left">
+                      <label class="form-control-label custom-file-upload" for="input-dok_izin">
                         <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Izin') }}
                       </label>
-                      <input type="file" name="dok_izin_air" id="input-dok_izin_air" class="form-control form-control-alternative{{ $errors->has('dok_izin_air') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Izin') }}" value="{{ old('dok_izin_air') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_izin_air'))
+                      <input type="file" name="dok_izin" id="input-dok_izin" class="form-control form-control-alternative{{ $errors->has('dok_izin') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Izin') }}" value="{{ old('dok_izin') }}" style="display:none;" autofocus required>
+                      @if ($errors->has('dok_izin'))
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_izin_air') }}</strong>
+                              <strong>{{ $errors->first('dok_izin') }}</strong>
                           </span>
                       @endif
                     </div>
@@ -188,14 +210,14 @@
                 <div class="row">
                   <label class="col-sm-3 col-form-label text-dark">{{ __('Unggak Dok.Uji Lab') }}</label>
                   <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_lab_air') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_lab_air">
+                    <div class="form-group{{ $errors->has('dok_lab') ? ' has-danger' : '' }} text-left">
+                      <label class="form-control-label custom-file-upload" for="input-dok_lab">
                         <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Hasil Uji Lab') }}
                       </label>
-                      <input type="file" name="dok_lab_air" id="input-dok_lab_air" class="form-control form-control-alternative{{ $errors->has('dok_lab_air') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Hasil Uji Lab') }}" value="{{ old('dok_lab_air') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_lab_air'))
+                      <input type="file" name="dok_lab" id="input-dok_lab" class="form-control form-control-alternative{{ $errors->has('dok_lab') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Hasil Uji Lab') }}" value="{{ old('dok_lab') }}" style="display:none;" autofocus required>
+                      @if ($errors->has('dok_lab'))
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_lab_air') }}</strong>
+                              <strong>{{ $errors->first('dok_lab') }}</strong>
                           </span>
                       @endif
                     </div>

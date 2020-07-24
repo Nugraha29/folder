@@ -77,4 +77,9 @@ class RegisterController extends Controller
             'status' => "menunggu"
         ]);
     }
+
+    public function refreshCaptcha()
+    {
+        return captcha_img();
+    }
 }

@@ -165,7 +165,8 @@
                   <th>Nama Pelapor</th>
                   <th>Telepon</th>
                   <th>Nama Perusahaan</th>
-                  <th>Periode/Semester</th>
+                  <th>Jenis</th>
+                  <th>Periode</th>
                   <th>Aksi</th>
                 </thead>
                 <tbody>
@@ -175,6 +176,7 @@
                         <td>{{ $p->nama }}</td>
                         <td>{{ $p->telp }}</td>
                         <td>{{ $p->nama_perusahaan}}</td>
+                        <td>{{ $p->jenis}}</td>
                         <td>{{ $p->periode}}</td>
                         <td class="text-left">
                           <div class="dropdown">

@@ -86,49 +86,19 @@
         <script src="http://maps.google.com/maps/api/js?key=AIzaSyBOVfpPuuh3VHFvtoas3ZuNTt2Kp9KIkTU"></script>
         <script src="{{asset('js/gmaps.js')}}"></script>
         <script>
-            $('#input-dok_pelaporan_air').change(function() {
+            $('#input-dok_pelaporan').change(function() {
                 var i = $(this).prev('label').clone();
-                var file = $('#input-dok_pelaporan_air')[0].files[0].name;
+                var file = $('#input-dok_pelaporan')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
-            $('#input-dok_izin_air').change(function() {
+            $('#input-dok_izin').change(function() {
                 var i = $(this).prev('label').clone();
-                var file = $('#input-dok_izin_air')[0].files[0].name;
+                var file = $('#input-dok_izin')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
-            $('#input-dok_lab_air').change(function() {
+            $('#input-dok_lab').change(function() {
                 var i = $(this).prev('label').clone();
-                var file = $('#input-dok_lab_air')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_pelaporan_limbah').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_pelaporan_limbah')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_izin_limbah').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_izin_limbah')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_lab_limbah').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_lab_limbah')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_pelaporan_udara').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_pelaporan_udara')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_izin_udara').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_izin_udara')[0].files[0].name;
-                $(this).prev('label').text(file);
-            });
-            $('#input-dok_lab_udara').change(function() {
-                var i = $(this).prev('label').clone();
-                var file = $('#input-dok_lab_udara')[0].files[0].name;
+                var file = $('#input-dok_lab')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
             $('#input-img1').change(function() {
@@ -144,6 +114,11 @@
             $('#input-img3').change(function() {
                 var i = $(this).prev('label').clone();
                 var file = $('#input-img3')[0].files[0].name;
+                $(this).prev('label').text(file);
+            });
+            $('#input-img4').change(function() {
+                var i = $(this).prev('label').clone();
+                var file = $('#input-img4')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
         </script>
