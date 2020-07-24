@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 Route::get('pengaduan/create', ['as' => 'pengaduan.create', 'uses' => 'PengaduanController@create']);
 Route::post('pengaduan', ['as' => 'pengaduan.store', 'uses' => 'PengaduanController@store']);
-
+Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

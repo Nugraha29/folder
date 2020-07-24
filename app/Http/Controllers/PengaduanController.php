@@ -56,26 +56,35 @@ class PengaduanController extends Controller
      */
     public function store(Request $request, Pengaduan $model)
     {
-        /**
+        
         $this->validate($request, [
                 'nik' => 'required|min:3',
                 'nama' => 'required|min:3',
                 'telp' => 'required|min:6',
                 'email' => 'required|min:3',
-                'lokasi'=>'required|min:3',
-                'dekripsi' => 'required|min:3',
+                'lat'=>'required|min:3',
+                'long'=>'required|min:3',
+                'deskripsi' => 'required|min:3',
                 'img1' => 'required|mimes:jpg,jpeg,png',
-                'img2' => 'mimes:jpg,jpeg,png',
-                'img3' => 'mimes:jpg,jpeg,png',
+                'img2' => 'required|mimes:jpg,jpeg,png',
+                'img3' => 'required|mimes:jpg,jpeg,png',
+                'img4' => 'required|mimes:jpg,jpeg,png',
+                'captcha' => 'required|captcha',
             ],
             [
                 'img1.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',    
                 'img2.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',    
-                'img3.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.'                    
+                'img3.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',                      
+                'img4.mimes' => 'Inputan Foto KTP harus berupa file bertipe: jpg, jpeg, png.',  
+                'img1.required' => 'Inputan Bukti Foto wajib diisi.',    
+                'img2.required' => 'Inputan Bukti Foto wajib diisi.',    
+                'img3.required' => 'Inputan Bukti Foto wajib diisi.',                      
+                'img4.required' => 'Inputan Bukti Foto wajib diisi.',                      
+                'captcha.captcha' => 'Inputan Captcha salah.',                     
             ]
 
         );
-        */
+        
         $model = new Pengaduan;
         $model->nik= $request->get('nik');
         $model->nama= $request->get('nama');
@@ -93,10 +102,14 @@ class PengaduanController extends Controller
         {
             $model->img3 = $request->file('img3')->store('FotoPengaduan', 'public');
         }
+        if ($request->file('img4'))
+        {
+            $model->img4 = $request->file('img4')->store('FotoKTP', 'public');
+        }
 
         $model->save();
 
-        return redirect()->route('pengaduan.create')->withStatus(__('Pelaporan berhasil dikirim.'));
+        return redirect()->route('pengaduan.create')->withStatus(__('Pengaduan berhasil dikirim.'));
 
     }
 
@@ -156,8 +169,11 @@ class PengaduanController extends Controller
         if(file_exists(storage_path('app/public/' . $pengaduan->img3))){
             \Storage::delete('public/' . $pengaduan->img3); 
         }
+        if(file_exists(storage_path('app/public/' . $pengaduan->img4))){
+            \Storage::delete('public/' . $pengaduan->img4); 
+        }
         $pengaduan->delete();
 
-        return redirect()->route('pengaduan.index')->withStatus(__('Pelaporan successfully deleted.'));
+        return redirect()->route('pengaduan.index')->withStatus(__('Pengaduan berhasil dihapus.'));
     }
 }

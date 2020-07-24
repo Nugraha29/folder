@@ -116,6 +116,11 @@
                 var file = $('#input-img3')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
+            $('#input-img4').change(function() {
+                var i = $(this).prev('label').clone();
+                var file = $('#input-img4')[0].files[0].name;
+                $(this).prev('label').text(file);
+            });
         </script>
         @stack('js')
     </body>

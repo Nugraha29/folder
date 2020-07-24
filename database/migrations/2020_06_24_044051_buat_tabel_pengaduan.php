@@ -26,6 +26,7 @@ class BuatTabelPengaduan extends Migration
             $table->string('img1', 255);
             $table->string('img2', 255);
             $table->string('img3', 255);
+            $table->string('img4', 255);
             $table->timestamps();
             
         });
