@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('reset', function (){
+    Artisan::call('storage:link');
+});
+Route::get('config', function (){
+    Artisan::call('config:cache');
+});
 Route::get('pengaduan/create', ['as' => 'pengaduan.create', 'uses' => 'PengaduanController@create']);
 Route::post('pengaduan', ['as' => 'pengaduan.store', 'uses' => 'PengaduanController@store']);
 Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh');
