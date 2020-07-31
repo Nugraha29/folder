@@ -35,7 +35,7 @@
                 <i class="material-icons">assignment</i>
               </div>
               <p class="card-category">Data Pelaporan</p>
-              <h3 class="card-title">{{ $countpelaporan }}
+              <h3 class="card-title">
                 <small>Pelaporan</small>
               </h3>
             </div>
@@ -53,7 +53,7 @@
                 <i class="material-icons">assignment</i>
               </div>
               <p class="card-category">Data Pengaduan</p>
-              <h3 class="card-title">{{ $countpengaduan }}
+              <h3 class="card-title">
                 <small>Pengaduan</small>
               </h3>                
             </div>
@@ -103,12 +103,10 @@
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header card-header-warning">
-            <h4 class="card-title">Grafik Data Pelaporan {{ date('Y') }}</h4>
-
+            <h4 class="card-title">Grafik Data Pelaporan </h4>
+            
             </div>
             <div class="card-body">
-              <div id="chartpelaporan"></div>            
-
             </div>
             <div class="card-footer">
               
@@ -118,12 +116,17 @@
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header card-header-danger">
-            <h4 class="card-title">Grafik Data Pengaduan {{ date('Y') }}</h4>
-
+            <h4 class="card-title">Grafik Data Pengaduan </h4>
+            <select class="sel" name="year">
+              <option value="2020">Year 2019</option>
+              <option value="2018">Year 2018</option>
+              <option value="2017">Year 2017</option>
+            </select>
             </div>
             <div class="card-body">
-              <div id="chartpengaduan"></div>            
+              {!! $chart->container() !!}
 
+              {!! $chart->script() !!}    
             </div>
             <div class="card-footer">
               
@@ -154,100 +157,20 @@
 @endsection
 @endif
 @push('js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
     });
   </script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
+
   <script type="text/javascript">
-      var chartpelaporan =  {{ json_encode($chartpelaporan) }};
-      Highcharts.chart('chartpelaporan', {
-          title: {
-              text: '' 
-          },
-           xAxis: {
-              categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-          },
-          yAxis: {
-              title: {
-                  text: 'Jumlah Data Pelaporan Perbulan'
-              }
-          },
-          legend: {
-              layout: 'vertical',
-              align: 'right',
-              verticalAlign: 'middle'
-          },
-          plotOptions: {
-              series: {
-                  allowPointSelect: true
-              }
-          },
-          series: [{
-              name: 'Data Pelaporan',
-              data: chartpelaporan
-          }],
-          responsive: {
-              rules: [{
-                  condition: {
-                      maxWidth: 500
-                  },
-                  chartOptions: {
-                      legend: {
-                          layout: 'horizontal',
-                          align: 'center',
-                          verticalAlign: 'bottom'
-                      }
-                  }
-              }]
-          }
-  });
-  </script>
-  <script type="text/javascript">
-    var chartpengaduan =  {{ json_encode($chartpengaduan) }};
-    Highcharts.chart('chartpengaduan', {
-        title: {
-            text: '' 
-        },
-         xAxis: {
-            categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-        },
-        yAxis: {
-            title: {
-                text: 'Jumlah Data Pengaduan Perbulan'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-        plotOptions: {
-            series: {
-                allowPointSelect: true
-            }
-        },
-        series: [{
-            name: 'Data Pengaduan',
-            data: chartpengaduan
-        }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-    });
+      var original_api_url = {{ $chart->id }}_api_url;
+      $(".sel").change(function(){
+          var year = $(this).val();
+          {{ $chart->id }}_refresh(original_api_url + "?year="+year);
+      });
   </script>
 @endpush  
 

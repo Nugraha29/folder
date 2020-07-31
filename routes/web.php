@@ -27,10 +27,9 @@ Route::post('pengaduan', ['as' => 'pengaduan.store', 'uses' => 'PengaduanControl
 Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/chart-ajax', 'HomeController@chartAjax');
+
 
 Route::group(['middleware' => 'auth'], function () {
 	//User
