@@ -18,12 +18,15 @@ class BuatTabelReview extends Migration
             $table->increments('id');
             $table->string('nama', 35);
             $table->string('nama_pelapor', 35);
+            $table->string('email', 35);
             $table->string('nama_perusahaan', 35);
             $table->string('bidang_usaha', 35);
             $table->string('jenis', 35);
+            $table->string('periode', 35);
             $table->string('review_dok_pelaporan', 50);
             $table->string('review_dok_izin', 50);
-            $table->string('review_dok_lab', 50);   
+            $table->string('review_dok_lab', 50); 
+            $table->string('kesimpulan', 35);  
             $table->integer('pelaporan_id')->unsigned();    
             $table->integer('user_id')->unsigned();     
             $table->timestamps();

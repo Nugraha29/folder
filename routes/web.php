@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('pelaporan/export', ['as' => 'pelaporan.export', 'uses' => 'PelaporanController@export']);
 	Route::get('pelaporan/tanggapi/{id}', ['as' => 'pelaporan.pelaporanreview', 'uses' => 'PelaporanController@pelaporanreview']);
-	Route::put('pelaporan', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
+	Route::put('pelaporan/', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
 	Route::get('pelaporan/{id}', ['as'     => 'pelaporan.show', 'uses' => 'PelaporanController@show']);	
 	Route::get('pelaporan/destroy/{id}', ['as' => 'pelaporan.destroy', 'uses' => 'PelaporanController@destroy']);
 	//Review

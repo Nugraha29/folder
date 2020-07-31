@@ -56,15 +56,15 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h2 class="modal-title">Konfirmasi</h2>
+            <h4 class="modal-title">Konfirmasi</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-              <h4 align="center" style="margin:0;">Apakah Anda yakin akan mengapus data ini?</h4>
+            <h5 align="center" style="margin:0;">Apakah Anda yakin akan mengapus data ini?</h5>
           </div>
           <div class="modal-footer">
-           <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+            <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-danger">OK</button>
+            <button type="button" class="btn btn-sm" data-dismiss="modal">Batal</button>
           </div>
       </div>
   </div>
@@ -88,6 +88,7 @@
         processing: true,
         serverSide: true,
         ajax: 'tanggapan/json',
+        
         columns: [
             { data: 'id', name: 'id' },
             { data: 'nama', name: 'nama' },
@@ -95,7 +96,8 @@
             { data: 'nama_perusahaan', name: 'nama_perusahaan' },
             { data: 'periode', name: 'periode' },
             { data: 'action', name: 'action' },
-        ]
+        ],
+        order: [[ 0, 'desc' ]]
        
     } );
     var user_id;

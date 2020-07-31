@@ -29,11 +29,6 @@
                     <td colspan="3" class="text-right">Dibuat pada {{ $pelaporan->created_at }}</td>
                   </tr>
                   <tr>
-                    <td style="width: 180px">ID</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{ $pelaporan->id }}</td>
-                  </tr>
-                  <tr>
                     <td style="width: 180px">Nama Pelapor</td>
                     <td style="width: 1px">:</td>
                     <td>{{ $pelaporan->nama }}</td>
