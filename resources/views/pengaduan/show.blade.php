@@ -49,15 +49,15 @@
                     <td>{{$pengaduan->telp}}</td>
                   </tr>
                   <tr>
-                    <td style="width: 150px">Lokasi</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->lokasi}}</td>
-                  </tr>
-                  <tr>
                     <td style="width: 150px">Deskripsi Pengaduan</td>
                     <td style="width: 1px">:</td>
                     <td>{{$pengaduan->deskripsi}}</td>
-                  </tr>               
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <div id="map"></div>
+                    </td>
+                  </tr>           
                 </tbody>
               </table>
             </div>
@@ -111,3 +111,21 @@
   </div>
 </div>
 @endsection
+@push('js')
+  <script>
+      new GMaps({
+        div: '#map',
+        zoom: 14,
+        lat: -7.238248104303887,
+        lng: 107.87712903792578,
+      }).addMarker({
+        lat: -7.238248104303887,
+        lng: 107.87712903792578,
+        title: "title",
+        // icon: 'blah',
+        infoWindow: {
+        content:'test'
+        }
+      });
+  </script>
+@endpush

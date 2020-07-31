@@ -266,43 +266,43 @@
 @endsection
 
 @push('js')
-<script>
-    var map = new GMaps({
-      el: '#map',
-      zoom: 12,
-      lat: -7.2146505,
-      lng: 107.8959374,
-      click: function(e) {
-        // alert('click');
-        var latLng = e.latLng;
-        console.log(latLng);
-        var lat = $('#lat');
-        var long = $('#long');
+  <script>
+      var map = new GMaps({
+        el: '#map',
+        zoom: 12,
+        lat: -7.2146505,
+        lng: 107.8959374,
+        click: function(e) {
+          // alert('click');
+          var latLng = e.latLng;
+          console.log(latLng);
+          var lat = $('#lat');
+          var long = $('#long');
 
-        lat.val(latLng.lat());
-        long.val(latLng.lng());
-        map.removeMarkers();
-        map.addMarker({
-            lat: latLng.lat(),
-            lng: latLng.lng(),
-            title: 'Create Here',
-            click: function(e) {
-                alert('You clicked in this marker');
-            }
-        });
+          lat.val(latLng.lat());
+          long.val(latLng.lng());
+          map.removeMarkers();
+          map.addMarker({
+              lat: latLng.lat(),
+              lng: latLng.lng(),
+              title: 'Create Here',
+              click: function(e) {
+                  alert('You clicked in this marker');
+              }
+          });
 
-    },
-});
-</script>
-<script>
-  $('.btn-refresh').click(function(){
-    $.ajax({
-      type: 'GET',
-      url: '{{ url('/refresh_captcha')}}',
-      success: function (data){
-        $('.captcha span').html(data);
-      }
-    });
+      },
   });
-</script>
+  </script>
+  <script>
+    $('.btn-refresh').click(function(){
+      $.ajax({
+        type: 'GET',
+        url: '{{ url('/refresh_captcha')}}',
+        success: function (data){
+          $('.captcha span').html(data);
+        }
+      });
+    });
+  </script>
 @endpush
