@@ -113,18 +113,23 @@
 @endsection
 @push('js')
   <script>
+      var deskripsi = {!! json_encode($pengaduan->deskripsi) !!};
+      var lat = {!! json_encode($pengaduan->lat) !!};
+      var lng = {!! json_encode($pengaduan->long) !!};
+
       new GMaps({
         div: '#map',
-        zoom: 14,
-        lat: -7.238248104303887,
-        lng: 107.87712903792578,
+        zoom: 12,
+        lat: -7.2146505,
+        lng: 107.8959374,
+        
       }).addMarker({
-        lat: -7.238248104303887,
-        lng: 107.87712903792578,
-        title: "title",
+        lat: lat,
+        lng: lng,
+        title: deskripsi,
         // icon: 'blah',
         infoWindow: {
-        content:'test'
+        content: deskripsi
         }
       });
   </script>

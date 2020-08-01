@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <form method="post" action="{{ route('pelaporan.review', $pelaporan->id) }}" autocomplete="off" class="form-horizontal">
+        <form method="post" action="{{ route('pelaporan.review') }}" autocomplete="off" class="form-horizontal">
             @csrf
             @method('put')
             <div class="card">
@@ -65,114 +65,51 @@
                         <td><input type="text" value="{{ $pelaporan->bidang_usaha }}" name="bidang_usaha" hidden></td>
                     </tr>
                     <tr>
+                        <td style="width: 180px">Jenis Pelaporan</td>
+                        <td style="width: 1px">:</td>
+                        <td>{{ $pelaporan->jenis }}</td>
+                        <td><input type="text" value="{{ $pelaporan->jenis }}" name="jenis" hidden></td>
+                    </tr>
+                    <tr>
                         <td style="width: 180px">Periode</td>
                         <td style="width: 1px">:</td>
                         <td>{{ $pelaporan->periode }}</td>
                         <td><input type="text" value="{{ $pelaporan->periode }}" name="periode" hidden></td>
                     </tr>
                     <tr>
-                      <th colspan="4">Jenis Pelaporan Air</th>
-                    </tr>  
-                    <tr>
                         <td style="width: 180px">Dokumen Pelaporan</td>
                         <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_air) }}" target="_blank">Download</a></td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_pelaporan_air" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_pelaporan" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
                             </div> 
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 180px">Dokumen Izin</td>
                         <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_air) }}" target="_blank">Download</a></td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_izin) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_izin_air" type="text" placeholder="{{ __('Tanggapi Dokumen Izin') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_izin" type="text" placeholder="{{ __('Tanggapi Dokumen Izin') }}" required="true" aria-required="true"/>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 180px">Dokumen Hasil Uji Lab</td>
                         <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_air) }}" target="_blank">Download</a></td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
                         <td style="width: 600px">
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_lab_air" type="text" placeholder="{{ __('Tanggapi Dokumen Hasil Uji Lab') }}" required="true" aria-required="true"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                      <th colspan="4">Jenis Pelaporan Limbah B3</th>
-                    </tr>  
-                    <tr>
-                        <td style="width: 180px">Dokumen Pelaporan</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_limbah) }}" target="_blank">Download</a></td>
-                        <td>
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_pelaporan_limbah" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
-                            </div> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 180px">Dokumen Izin</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_limbah) }}" target="_blank">Download</a></td>
-                        <td>
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_izin_limbah" type="text" placeholder="{{ __('Tanggapi Dokumen Izin') }}" required="true" aria-required="true"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 180px">Dokumen Hasil Uji Lab</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_limbah) }}" target="_blank">Download</a></td>
-                        <td style="width: 600px">
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_lab_limbah" type="text" placeholder="{{ __('Tanggapi Dokumen Hasil Uji Lab') }}" required="true" aria-required="true"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                      <th colspan="4">Jenis Pelaporan Udara</th>
-                    </tr>  
-                    <tr>
-                        <td style="width: 180px">Dokumen Pelaporan</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan_udara) }}" target="_blank">Download</a></td>
-                        <td>
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_pelaporan_udara" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
-                            </div> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 180px">Dokumen Izin</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_izin_udara) }}" target="_blank">Download</a></td>
-                        <td>
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_izin_udara" type="text" placeholder="{{ __('Tanggapi Dokumen Izin') }}" required="true" aria-required="true"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 180px">Dokumen Hasil Uji Lab</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_lab_udara) }}" target="_blank">Download</a></td>
-                        <td style="width: 600px">
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_lab_udara" type="text" placeholder="{{ __('Tanggapi Dokumen Hasil Uji Lab') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_lab" type="text" placeholder="{{ __('Tanggapi Dokumen Hasil Uji Lab') }}" required="true" aria-required="true"/>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 180px">Kesimpulan</td>
                         <td style="width: 1px">:</td>
-                        <td>
+                        <td colspan="2">
                             <div class="form-group">
                                 <div class="form-check form-check-radio">
                                   <label class="form-check-label">
@@ -194,6 +131,7 @@
                                 </div>                                
                             </div>
                         </td>
+                        
                     </tr>
 
                     </tbody>

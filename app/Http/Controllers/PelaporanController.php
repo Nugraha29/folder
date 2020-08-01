@@ -17,7 +17,7 @@ use DataTables;
 class PelaporanController extends Controller
 {
     public function json(){
-        return Datatables::of(Pelaporan::all())->addColumn('action', function($data){
+        return Datatables::of(Pelaporan::where('status', '=', 'Reviewing'))->addColumn('action', function($data){
             $button = '<a class="btn btn-sm btn-warning" href="/pelaporan/tanggapi/'.$data->id.'">Tanggapi</a>';
             $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-info" href="/pelaporan/'.$data->id.'">Lihat Detail</a>';
             $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
@@ -34,8 +34,7 @@ class PelaporanController extends Controller
     {
         //
         if (Gate::allows('isAdmin')) {
-            $pelaporan = Pelaporan::paginate(10);
-            return view('pelaporan.index', ['pelaporan' => $pelaporan]);
+            return view('pelaporan.index');
         } elseif (Gate::allows('isUser')) {
             $pelaporan = Pelaporan::where('user_id', '=', auth()->user()->id)->paginate(10);
             //$kecamatan = Kecamatan::where('id')->get();
@@ -175,21 +174,20 @@ class PelaporanController extends Controller
         $model->email = $request->get('email');
         $model->nama_perusahaan = $request->get('nama_perusahaan');
         $model->bidang_usaha = $request->get('bidang_usaha');
+        $model->jenis = $request->get('jenis');  
         $model->periode = $request->get('periode');  
-        $model->review_dok_pelaporan_air = $request->get('review_dok_pelaporan_air');
-        $model->review_dok_izin_air = $request->get('review_dok_izin_air');
-        $model->review_dok_lab_air = $request->get('review_dok_lab_air');
-        $model->review_dok_pelaporan_limbah = $request->get('review_dok_pelaporan_limbah');
-        $model->review_dok_izin_limbah = $request->get('review_dok_izin_limbah');
-        $model->review_dok_lab_limbah = $request->get('review_dok_lab_limbah');
-        $model->review_dok_pelaporan_udara = $request->get('review_dok_pelaporan_udara');
-        $model->review_dok_izin_udara = $request->get('review_dok_izin_udara');
-        $model->review_dok_lab_udara = $request->get('review_dok_lab_udara');
+        $model->review_dok_pelaporan = $request->get('review_dok_pelaporan');
+        $model->review_dok_izin = $request->get('review_dok_izin');
+        $model->review_dok_lab = $request->get('review_dok_lab');
         $model->kesimpulan = $request->get('kesimpulan');
         $model->pelaporan_id = $request->get('pelaporan_id');  
         $model->user_id = auth()->user()->id;
-
+        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+        $update->status ='Reviewed';
+        $update->save();
         $model->save();
+
+        
 
         \Mail::raw('Halo '.$model->nama_pelapor.', terimakasih telah melakukan pelaporan. 
 Hasil dari penilaian pelaporan Perusahaan '.$model->nama_perusahaan.' memperoleh nilai '.$model->kesimpulan, function ($message) use($model) {

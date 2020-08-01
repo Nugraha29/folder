@@ -27,10 +27,9 @@ Route::post('pengaduan', ['as' => 'pengaduan.store', 'uses' => 'PengaduanControl
 Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/chart-ajax', 'HomeController@chartAjax');
+
 
 Route::group(['middleware' => 'auth'], function () {
 	//User
@@ -47,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('pelaporan/export', ['as' => 'pelaporan.export', 'uses' => 'PelaporanController@export']);
 	Route::get('pelaporan/tanggapi/{id}', ['as' => 'pelaporan.pelaporanreview', 'uses' => 'PelaporanController@pelaporanreview']);
-	Route::put('pelaporan', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
+	Route::put('pelaporan/', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
 	Route::get('pelaporan/{id}', ['as'     => 'pelaporan.show', 'uses' => 'PelaporanController@show']);	
 	Route::get('pelaporan/destroy/{id}', ['as' => 'pelaporan.destroy', 'uses' => 'PelaporanController@destroy']);
 	//Review
