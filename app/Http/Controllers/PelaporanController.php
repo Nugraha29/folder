@@ -13,6 +13,7 @@ use App\Exports\PelaporanExport;
 use App\Exports\ReviewExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use PDF;
 
 class PelaporanController extends Controller
 {
@@ -182,19 +183,47 @@ class PelaporanController extends Controller
         $model->kesimpulan = $request->get('kesimpulan');
         $model->pelaporan_id = $request->get('pelaporan_id');  
         $model->user_id = auth()->user()->id;
-        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
-        $update->status ='Reviewed';
-        $update->save();
+        //$update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+        //$update->status ='Reviewed';
+        //$update->save();
         $model->save();
 
-        
+        $data["email"]=$request->get("email");
+        $data["client_name"]=$request->get("nama_pelapor");
+        $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
 
-        \Mail::raw('Halo '.$model->nama_pelapor.', terimakasih telah melakukan pelaporan. 
-Hasil dari penilaian pelaporan Perusahaan '.$model->nama_perusahaan.' memperoleh nilai '.$model->kesimpulan, function ($message) use($model) {
-            $message->from('admin@himagrib.co.id', 'Admin');
-            $message->to($model->email, $model->nama_pelapor);
-            $message->subject('Hasil Penilaian Pelaporan');
-        });
+        //$review = Review::where('pelaporan_id', '=', $request->get('pelaporan_id'))->get();
+        $pdf = PDF::loadView('pelaporan.mail', ['model' => $model])->setPaper('a4');
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create([
+                'ssl' => [
+                    'allow_self_signed'=> TRUE,
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                ]
+            ])
+        );
+        try{
+            Mail::raw('Halo '.$model->nama_pelapor.', terimakasih telah melakukan pelaporan.
+Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', function($message)use($data,$pdf,$model) {
+            $message->to($data["email"], $data["client_name"])
+            ->subject($data["subject"])
+            ->attachData($pdf->output(), "Pelaporan ".$model->jenis." ".$model->nama_perusahaan.".pdf");
+            });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (Mail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+
+        }else{
+
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+
         return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil dikirim.'));
 
     }
@@ -202,6 +231,11 @@ Hasil dari penilaian pelaporan Perusahaan '.$model->nama_perusahaan.' memperoleh
     public function exportreview()
     {
         return Excel::download(new ReviewExport, 'tanggapan.xlsx');
+    }
+
+    public function mail()
+    {
+        return view('pelaporan.mail');
     }
 
     public function showreview($id)

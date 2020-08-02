@@ -30,6 +30,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/chart-ajax', 'HomeController@chartAjax');
 
+Route::get('/mail', 'PelaporanController@mail');
 
 Route::group(['middleware' => 'auth'], function () {
 	//User

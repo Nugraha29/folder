@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        
         /*
          * Application Service Providers...
          */
@@ -177,6 +177,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
