@@ -49,7 +49,7 @@
                     <i class="material-icons">phone</i>
                   </span>
                 </div>
-                <input type="number" name="telp" class="form-control" placeholder="{{ __('Telepon...') }}" value="{{ old('telepon') }}" required>
+                <input type="number" name="telp" class="form-control" placeholder="{{ __('Telepon...') }}" value="{{ old('telp') }}" required>
               </div>
               @if ($errors->has('telp'))
                 <div id="telp-error" class="error text-danger pl-3" for="telp" style="display: block;">
