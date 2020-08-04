@@ -183,9 +183,9 @@ class PelaporanController extends Controller
         $model->kesimpulan = $request->get('kesimpulan');
         $model->pelaporan_id = $request->get('pelaporan_id');  
         $model->user_id = auth()->user()->id;
-        //$update = Pelaporan::findOrFail($request->get('pelaporan_id'));
-        //$update->status ='Reviewed';
-        //$update->save();
+        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+        $update->status ='Reviewed';
+        $update->save();
         $model->save();
 
         $data["email"]=$request->get("email");

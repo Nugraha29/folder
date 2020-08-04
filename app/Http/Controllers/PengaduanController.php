@@ -69,7 +69,7 @@ class PengaduanController extends Controller
                 'img2' => 'required|mimes:jpg,jpeg,png',
                 'img3' => 'required|mimes:jpg,jpeg,png',
                 'img4' => 'required|mimes:jpg,jpeg,png',
-                'captcha' => 'required|captcha',
+                'g-recaptcha-response' => 'required|captcha'
             ],
             [
                 'img1.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',    
@@ -79,8 +79,9 @@ class PengaduanController extends Controller
                 'img1.required' => 'Inputan Bukti Foto wajib diisi.',    
                 'img2.required' => 'Inputan Bukti Foto wajib diisi.',    
                 'img3.required' => 'Inputan Bukti Foto wajib diisi.',                      
-                'img4.required' => 'Inputan Bukti Foto wajib diisi.',                      
-                'captcha.captcha' => 'Inputan Captcha salah.',                     
+                'img4.required' => 'Inputan Bukti Foto wajib diisi.',                   
+                'g-recaptcha-response.required' => 'Please verify that you are not a robot.',                  
+                'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',                     
             ]
 
         );

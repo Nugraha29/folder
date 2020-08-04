@@ -74,7 +74,7 @@
 @push('js')
 <script>
   $(document).ready(function() {
-    $('#example').DataTable( {
+    var t = $('#example').DataTable( {
         language: {
             url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
             sEmptyTable: "Tidak ada data di database"
@@ -99,6 +99,12 @@
         ]
        
     } );
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
     var user_id;
 
     $(document).on('click', '.delete', function(){

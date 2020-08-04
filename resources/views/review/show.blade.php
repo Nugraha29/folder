@@ -66,58 +66,24 @@
                           <td>{{ $review->periode }}</td>
                         </tr>
                         <tr>
-                          <th colspan="3">Jenis Pelaporan Air</th>
-                        </tr>  
-                        <tr>
                           <td style="width: 180px">Dokumen Pelaporan</td>
                           <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_pelaporan_air }}</td>
+                          <td>{{ $review->review_dok_pelaporan }}</td>
                         </tr>
                         <tr>
                           <td style="width: 180px">Dokumen Izin</td>
                           <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_izin_air }}</td>
+                          <td>{{ $review->review_dok_izin }}</td>
                         </tr>
                         <tr>
                           <td style="width: 180px">Dokumen Hasil Uji Lab</td>
                           <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_lab_air }}</td>
+                          <td>{{ $review->review_dok_lab }}</td>
                         </tr>
                         <tr>
-                          <th colspan="3">Jenis Pelaporan Limbah B3</th>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Pelaporan</td>
+                          <td style="width: 180px">Kesimpulan</td>
                           <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_pelaporan_limbah }}</td>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Izin</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_izin_limbah }}</td>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Hasil Uji Lab</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_lab_limbah }}</td>
-                        </tr>
-                        <tr>
-                          <th colspan="3">Jenis Pelaporan Udara</th>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Pelaporan</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_pelaporan_udara }}</td>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Izin</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_izin_udara}}</td>
-                        </tr>
-                        <tr>
-                          <td style="width: 180px">Dokumen Hasil Uji Lab</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_lab_udara}}</td>
+                          <td>{{ $review->kesimpulan }}</td>
                         </tr>
                       </tbody>
                 </table>

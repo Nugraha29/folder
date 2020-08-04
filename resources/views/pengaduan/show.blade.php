@@ -26,12 +26,21 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <td colspan="3" class="text-right">Dibuat pada {{ $pengaduan->created_at }}</td>
+                    <td colspan="4" class="text-right">Dibuat pada {{ $pengaduan->created_at }}</td>
                   </tr>
                   <tr>
                     <td style="width: 150px">NIK</td>
                     <td style="width: 1px">:</td>
                     <td>{{$pengaduan->nik}}</td>
+                    <td rowspan="4" width="45%">
+                      <div class="row d-flex justify-content-center mb-2">
+                          <a class="text-dark">KTP Pengadu</a>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <img src="{{ asset('storage/'.$pengaduan->img4) }}" width="350px">               
+                      </div>
+                      
+                    </td>
                   </tr>
                   <tr>
                     <td style="width: 150px">Nama Pengadu</td>
@@ -54,7 +63,7 @@
                     <td>{{$pengaduan->deskripsi}}</td>
                   </tr>
                   <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                       <div id="map"></div>
                     </td>
                   </tr>           

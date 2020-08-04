@@ -80,6 +80,6 @@ class RegisterController extends Controller
 
     public function refreshCaptcha()
     {
-        return captcha_img();
+        return captcha_img('flat');
     }
 }

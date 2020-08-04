@@ -25,8 +25,8 @@
             <div class="table-responsive">
               <table id="pengaduan" class="mdl-data-table" style="width:100%">
                 <thead class=" text-primary">
-                  <th>ID</th>
-                  <th>NIK</th>
+                  <th>No</th>
+                  <th>Tanggal</th>
                   <th>Nama Pengadu</th>
                   <th>Telepon</th>
                   <th>Email</th>
@@ -66,7 +66,7 @@
 @push('js')
 <script>
   $(document).ready(function() {
-    $('#pengaduan').DataTable( {
+    var t = $('#pengaduan').DataTable( {
         language: {
             url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
             sEmptyTable: "Tidak ada data di database"
@@ -83,14 +83,25 @@
         ajax: 'pengaduan/json',
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'nik', name: 'nik' },
+            { data: 'created_at', name: 'created_at' },
             { data: 'nama', name: 'nama' },
             { data: 'telp', name: 'telp' },
             { data: 'email', name: 'email' },
             { data: 'action', name: 'action' },
-        ]
+        ],
+        columnDefs:[{targets:1, render:function(data){
+          return moment(data).format('D MMMM YYYY');
+        }}],
+        order: [[1, 'desc']]
        
     } );
+
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
     var user_id;
 
     $(document).on('click', '.delete', function(){

@@ -10,7 +10,7 @@
 
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-success text-center">
-            <h4 class="card-title"><strong>{{ __('Form Pengaduan') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Formulir Pengaduan') }}</strong></h4>
           </div>
           <div class="card-body ">
                 @if (session('status'))
@@ -51,6 +51,7 @@
                   <i class="fa fa-cloud-upload"></i> {{ __('Unggah Foto KTP') }}
                 </label>
                 <input type="file" name="img4" id="input-img4" class="form-control form-control-alternative{{ $errors->has('img4') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img4') }}" style="display:none;">  
+                 <a class="text-warning pl-2"><small>*Data KTP anda dilindungi oleh kebijakan privasi Dinas Lingkungan Hidup</small></a> 
               </div>
               @if ($errors->has('img4'))
                 <div id="deskripsi-error" class="error text-danger pl-3" for="img4" style="display: block;">
@@ -104,6 +105,9 @@
               @endif
             </div>
             <div class="row">
+              <div class="col-md-12 mt-3 pl-3">
+              <a class="form-control text-center h6">Titik Lokasi Pengaduan </a>
+              </div>
               <div class="col-md-12">
                 <div id="map" style="width:100%;height:350px;"></div>   
               </div>
@@ -180,77 +184,84 @@
                 </div>
               @endif
             </div>
-            <div class="bmd-form-group{{ $errors->has('img1') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">image</i>
-                  </span>
+            <!-- Form Foto -->
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="bmd-form-group{{ $errors->has('img1') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">image</i>
+                      </span>
+                    </div>
+                    <label class="form-control-label custom-file-upload" for="input-img1">
+                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
+                    </label>
+                    <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;">  
+                  </div>
+                  @if ($errors->has('img1'))
+                    <div id="deskripsi-error" class="error text-danger pl-3" for="img1" style="display: block;">
+                      <strong>{{ $errors->first('img1') }}</strong>
+                    </div>
+                  @endif
                 </div>
-                <label class="form-control-label custom-file-upload" for="input-img1">
-                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
-                </label>
-                <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;">  
               </div>
-              @if ($errors->has('img1'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="img1" style="display: block;">
-                  <strong>{{ $errors->first('img1') }}</strong>
+              <div class="col-sm-4">
+                <div class="bmd-form-group{{ $errors->has('img2') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">image</i>
+                      </span>
+                    </div>
+                    <label class="form-control-label custom-file-upload" for="input-img2">
+                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
+                    </label>
+                    <input type="file" name="img2" id="input-img2" class="form-control form-control-alternative{{ $errors->has('img2') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img2') }}" style="display:none;">  
+                  </div>
+                  @if ($errors->has('img2'))
+                    <div id="deskripsi-error" class="error text-danger pl-3" for="img2" style="display: block;">
+                      <strong>{{ $errors->first('img2') }}</strong>
+                    </div>
+                  @endif
                 </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('img2') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">image</i>
-                  </span>
-                </div>
-                <label class="form-control-label custom-file-upload" for="input-img2">
-                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
-                </label>
-                <input type="file" name="img2" id="input-img2" class="form-control form-control-alternative{{ $errors->has('img2') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img2') }}" style="display:none;">  
               </div>
-              @if ($errors->has('img2'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="img2" style="display: block;">
-                  <strong>{{ $errors->first('img2') }}</strong>
+              <div class="col-sm-4">
+                <div class="bmd-form-group{{ $errors->has('img3') ? ' has-danger' : '' }} mt-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">image</i>
+                      </span>
+                    </div>
+                    <label class="form-control-label custom-file-upload" for="input-img3">
+                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
+                    </label>
+                    <input type="file" name="img3" id="input-img3" class="form-control form-control-alternative{{ $errors->has('img3') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img3') }}" style="display:none;">  
+                  </div>
+                  @if ($errors->has('img3'))
+                    <div id="deskripsi-error" class="error text-danger pl-3" for="img3" style="display: block;">
+                      <strong>{{ $errors->first('img3') }}</strong>
+                    </div>
+                  @endif
                 </div>
-              @endif
+              </div>    
             </div>
-            <div class="bmd-form-group{{ $errors->has('img3') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">image</i>
-                  </span>
-                </div>
-                <label class="form-control-label custom-file-upload" for="input-img3">
-                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Bukti Foto') }}
-                </label>
-                <input type="file" name="img3" id="input-img3" class="form-control form-control-alternative{{ $errors->has('img3') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img3') }}" style="display:none;">  
-              </div>
-              @if ($errors->has('img3'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="img3" style="display: block;">
-                  <strong>{{ $errors->first('img3') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('captcha') ? ' has-danger' : '' }} mt-3">
+            <!-- Form Foto -->
+            <div class="bmd-form-group{{ $errors->has('g-recaptcha-response') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
                 <div class="col-md-12">
-                  <div class="captcha">
-                    <span>{!! captcha_img() !!}</span>
-                    <button class="btn btn-danger btn-fab btn-fab-mini btn-round btn-refresh">
-                      <i class="material-icons">refresh</i>
-                    </button>
+                  <div class="g-recaptcha-response d-flex justify-content-center">
+                    <span>
+                      {!! NoCaptcha::display() !!}                    
+                      {!! NoCaptcha::renderJs() !!}
+                    </span>
                   </div>
                 </div>
-                <div class="col-12">
-                  <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="{{ __('Masukkan Captcha...') }}">
-                </div>
               </div>
-              @if ($errors->has('captcha'))
-                <div id="captcha-error" class="error text-danger pl-3" for="captcha" style="display: block;">
-                  <strong>{{ $errors->first('captcha') }}</strong>
+              @if ($errors->has('g-recaptcha-response'))
+                <div id="g-recaptcha-response-error" class="error text-danger pl-3" for="g-recaptcha-response" style="display: block;">
+                  <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                 </div>
               @endif
             </div>
@@ -293,16 +304,5 @@
 
       },
   });
-  </script>
-  <script>
-    $('.btn-refresh').click(function(){
-      $.ajax({
-        type: 'GET',
-        url: '{{ url('/refresh_captcha')}}',
-        success: function (data){
-          $('.captcha span').html(data);
-        }
-      });
-    });
   </script>
 @endpush
