@@ -24,101 +24,6 @@
 
 </style>
 <body>
-    <!--
-    <table border="1" align="center" style="table-layout:fixed;">   
-        <tr>
-            <td><img src="{{ asset('material/img/logo-dinas.png') }}" height="70" width="70"></td>        
-            <td> 
-                <center>
-                <font size="4">KABUPATEN GARUT</font><br>     
-                <font size="3"><b>DINAS LINGKUNGAN HIDUP</b></font><br>  
-                <font size="2"><i>Jl. Terusan Pahlawan, Sukagalih, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151</i></font>      
-                </center> 
-            </td>      
-        </tr>     
-        <tr>
-           <td colspan="2"><hr></td>   
-        </tr>              
-    </table>    
-    <br>
-    <table border="1" align="center">   
-        <tr>
-            <td>Kepada</td> 
-            <td>:</td> 
-            <td>Yth. Bapak .....</td> 
-        </tr>     
-        <tr>
-            <td>Perihal</td> 
-            <td>:</td> 
-            <td>Pelaporan ......</td> 
-        </tr>  
-        <tr>
-            <td>Lampiran</td> 
-            <td>:</td> 
-            <td>1</td> 
-        </tr>  
-        <tr>
-            <td colspan="3" height="70"></td> 
-        </tr>            
-    </table> 
-    <table border="1" align="center">   
-        <tr>
-            <td width="20"></td> 
-            <td colspan="2" width="543">Meninjau ........................</td> 
-        </tr>   
-        <tr>
-            <td colspan="3" height="20"></td> 
-        </tr>                
-    </table> 
-    <table border="1" align="center">   
-        <tr>
-            <td width="358"></td>
-            <td>Ketua Dinas Lingkungan Hidup</td> 
-        </tr>   
-        <tr>
-            <td width="358"></td>
-            <td height="50"></td> 
-        </tr>
-        <tr>
-            <td width="358"></td>
-            <td>.................</td> 
-        </tr>  
-        <tr>
-            <td width="358"></td>
-            <td>NIP. </td> 
-        </tr>                
-    </table> 
-    <table border="1px" style="table-layout:fixed;">
-        <tr>
-            <th style="width:5%;">5%</th>
-            <th style="width:10%;">10%</th>
-            <th style="width:25%;">25%</th>
-            <th style="width:60%;">60%</th>
-        </tr>
-    </table>
-    <table class="bordered" style="table-layout: fixed;"> 
-        <tr class="font-12">
-            <th style="width: 25px">No</th>
-            <th style="width: 100px">Nama Alat</th>
-            <th style="width: 25px">Jml</th>
-            <th style="width: 300px">Spesifikasi</th>
-            <th style="width: 300px">Supplier</th>
-            <th style="width: 150px">Gambar</th>
-        </tr>
-        <tr>
-            <td style="width: 25px"></td>
-            <td style="width: 100px"></td>
-            <td style="width: 25px"></td>
-            <td class="font-12" style="width: 300px; word-break:break-all; word-wrap:break-word;">
-            </td>
-            <td class="font-12" style="width: 300px; word-break:break-all; word-wrap:break-word;">
-                
-            </td>
-            <td style="width: 150px">
-            </td>
-        </tr>
-    </table>
-    -->
     <div class="divTable">
         <div class="divTableBody">
             <div class="divTableRow">
@@ -148,12 +53,17 @@
                         <tr>
                             <td>Kepada </td>
                             <td>:</td>
-                            <td>Yth. Bapak ...</td>
+                            <td>Yth. Bapak {{ $model->nama_pelapor }}</td>
+                        </tr>
+                        <tr>
+                            <td>ID Verifikasi </td>
+                            <td>:</td>
+                            <td>{{ $model->id_verifikasi }}</td>
                         </tr>
                         <tr>
                             <td>Perihal</td>
                             <td>:</td>
-                            <td>Pelaporan ...</td>
+                            <td>Pelaporan {{ $model->jenis }}</td>
                         </tr>
                         <tr>
                             <td>Lampiran</td>
@@ -161,33 +71,86 @@
                             <td>-</td>
                         </tr>
                         <tr>
-                            <td colspan="3" height="70px"></td>
+                            <td colspan="3" height="15px"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="divTableCell">
+                    <table class="bordered width-100pc" width="100%">
+                        <tr>
+                            <td width="100%" style="text-align: justify">
+                                <div style="text-align: center">
+                                    PENGUMUMAN
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="text-align: center">
+                                    Nomor : {{ $model->no_surat }} 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10px"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="text-align: center">
+                                    <b style="text-transform: uppercase">PENERBITAN BUKTI PELAPORAN {{ $model->jenis }} {{ $model->nama_perusahaan }}</b>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="10px"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Memperhatikan pasal XX Peraturan Pemerintah Indonesia No XX tahun XXX tentang pelaporan linkungan secara berkala, maka dengan ini kami sampaikan bahwa :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20px"></td>
                         </tr>
                     </table>
                 </div>
                 <div class="divTableCell">
                     <table class="bordered width-100pc">
                         <tr>
-                            <td width="100%" style="text-align: justify">
-                                &nbsp;&nbsp;&nbsp;&nbsp; Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                Praesent aliquet felis id auctor ultricies. Fusce ut purus sed erat consectetur dapibus. 
-                                Phasellus vitae odio rutrum, eleifend odio et, lobortis lorem. 
-                                Duis vehicula ante et ipsum consequat, id rhoncus felis sodales. 
-                                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                                Quisque vitae ex vitae elit tempor lacinia. 
-                                Cras blandit magna augue, eget luctus leo porttitor quis. 
-                                Fusce aliquam pretium ex, non mattis eros. 
-                                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
-                                Curabitur posuere ac diam vitae finibus. Ut porttitor a augue quis semper. 
-                                Nulla at blandit neque. 
-                                Pellentesque viverra, purus ut hendrerit porttitor, nunc dui tincidunt erat, ut scelerisque orci ante at nulla. 
-                                In laoreet, libero eu dictum faucibus, metus ex consectetur dui, quis vehicula tortor nisi et diam. 
-                                Cras blandit quam a eros convallis, non finibus ex hendrerit. 
-                                Maecenas pulvinar massa a ipsum ultricies suscipit.
+                            <td width="25%">Nama Lembaga</td>
+                            <td width="1%">:</td>
+                            <td style="text-transform: uppercase">{{ $model->nama_perusahaan }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nama Penanggung Jawab </td>
+                            <td>:</td>
+                            <td>{{ $model->nama_pelapor }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="10px"></td>
+                        </tr>
+                        <tr>
+                            <td>Periode Pelaporan</td>
+                            <td>:</td>
+                            <td>Triwulan {{ $model->periode }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tahun</td>
+                            <td>:</td>
+                            <td>{{ date('Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="25px"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: justify">
+                                dinyatakan <b>{{ $model->kesimpulan }}</b>, berdasarkan keputusan Kepala Dinas Lingkungan Hidup Kabupaten Garut 
+                                dengan Nomor {{ $model->no_surat }} tanggal {{ $date }} tentang Izin Lingkungan Hidup 
+                                {{ $model->nama_perusahaan }}. Demikian surat ini kami sampaikan untuk dipergunakan sebagaimana mestinya.
                             </td>
                         </tr>
                         <tr>
-                            <td height="40px"></td>
+                            <td colspan="3" height="25px"></td>
                         </tr>
                     </table>
                 </div>
@@ -197,7 +160,9 @@
                             <td width="65%">
                             </td>
                             <td width="35%">
-                                Ketua Dinas Lingkungan Hidup <br><br><br><br>
+                                Garut, {{ $date }} <br>
+                                Kepala Dinas Lingkungan Hidup 
+                                <br><br><br><br>
                                 ................. <br>
                                 NIP.      
                             </td>

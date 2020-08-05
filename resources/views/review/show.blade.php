@@ -85,6 +85,11 @@
                           <td style="width: 1px">:</td>
                           <td>{{ $review->kesimpulan }}</td>
                         </tr>
+                        <tr>
+                          <td style="width: 180px">PDF Pelaporan</td>
+                          <td style="width: 1px">:</td>
+                          <td><a href="{{ asset('storage/'.$review->pdf) }}" target="_blank">Download</a></td>
+                        </tr>
                       </tbody>
                 </table>
                 </div>

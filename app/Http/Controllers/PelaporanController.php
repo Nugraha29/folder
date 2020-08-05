@@ -14,6 +14,9 @@ use App\Exports\ReviewExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use PDF;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PelaporanController extends Controller
 {
@@ -181,19 +184,22 @@ class PelaporanController extends Controller
         $model->review_dok_izin = $request->get('review_dok_izin');
         $model->review_dok_lab = $request->get('review_dok_lab');
         $model->kesimpulan = $request->get('kesimpulan');
+        $nextId = DB::table('review')->max('id') + 1;
+        $model->no_surat = 'XXX/XXX/XXX/00'.$nextId;
+        $model->id_verifikasi = Str::random(20);
         $model->pelaporan_id = $request->get('pelaporan_id');  
         $model->user_id = auth()->user()->id;
-        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
-        $update->status ='Reviewed';
-        $update->save();
-        $model->save();
+        //$update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+        //$update->status ='Reviewed';
+        //$update->save();
+
+        $date = Carbon::now()->format('d F Y');
 
         $data["email"]=$request->get("email");
         $data["client_name"]=$request->get("nama_pelapor");
         $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
 
-        //$review = Review::where('pelaporan_id', '=', $request->get('pelaporan_id'))->get();
-        $pdf = PDF::loadView('pelaporan.mail', ['model' => $model])->setPaper('a4');
+        $pdf = PDF::loadView('pelaporan.mail', ['model' => $model, 'date' => $date])->setPaper('a4');
         $pdf->getDomPDF()->setHttpContext(
             stream_context_create([
                 'ssl' => [
@@ -223,7 +229,9 @@ Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', funct
            $this->statusdesc  =   "Message sent Succesfully";
            $this->statuscode  =   "1";
         }
-
+        \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
+        $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
+        $model->save();
         return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil dikirim.'));
 
     }
@@ -235,7 +243,9 @@ Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', funct
 
     public function mail()
     {
-        return view('pelaporan.mail');
+        $model = Pelaporan::findOrFail(5);
+        $date = Carbon::now()->format('d F Y');
+        return view('pelaporan.mail', compact('date','model'));
     }
 
     public function showreview($id)
