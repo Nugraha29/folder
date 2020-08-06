@@ -28,7 +28,8 @@ Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/chart-ajax', 'HomeController@chartAjax');
+Route::get('/pelaporan-chart-ajax', 'HomeController@pelaporanchartAjax');
+Route::get('/pengaduan-chart-ajax', 'HomeController@pengaduanchartAjax');
 
 Route::get('/mail', 'PelaporanController@mail');
 

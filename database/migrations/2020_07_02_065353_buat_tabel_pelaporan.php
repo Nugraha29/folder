@@ -21,11 +21,12 @@ class BuatTabelPelaporan extends Migration
             $table->string('email', 50);
             $table->string('nama_perusahaan', 35);
             $table->string('bidang_usaha', 35);
-            $table->string('jenis', 35);
+            $table->enum('jenis', ['Air', 'Udara', 'LimbahB3', 'Lingkungan']);
             $table->string('periode', 15);
-            $table->string('dok_pelaporan', 50);
-            $table->string('dok_izin', 50);
-            $table->string('dok_lab', 50);   
+            $table->string('dok_pelaporan', 255);
+            $table->string('dok_izin', 255);
+            $table->string('dok_lab', 255);   
+            $table->enum('status', ['Reviewing', 'Reviewed']);  
             $table->integer('user_id')->unsigned();       
             $table->timestamps();
 

@@ -36,7 +36,7 @@
               </div>
               <p class="card-category">Data Pelaporan</p>
               <h3 class="card-title">
-                <small>Pelaporan</small>
+                {{ $countpelaporan }} <small>Pelaporan</small>
               </h3>
             </div>
             <div class="card-footer">
@@ -54,8 +54,8 @@
               </div>
               <p class="card-category">Data Pengaduan</p>
               <h3 class="card-title">
-                <small>Pengaduan</small>
-              </h3>                
+                {{ $countpengaduan }} <small>Pengaduan</small>
+              </h3>          
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -64,49 +64,37 @@
             </div>
           </div>
         </div>
-        <!--
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">info_outline</i>
-              </div>
-              <p class="card-category">Fixed Issues</p>
-              <h3 class="card-title">75</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="fa fa-twitter"></i>
-              </div>
-              <p class="card-category">Followers</p>
-              <h3 class="card-title">+245</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header card-header-warning">
-            <h4 class="card-title">Grafik Data Pelaporan </h4>
-            
+              <div class="row">
+                <div class="col-6 mt-3">
+                  <h4 class="card-title">Grafik Data Pelaporan </h4>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <select class="pelaporan form-control" data-style="btn btn-link" name="pelaporanyear">
+                      <option disabled selected>Pilih Tahun</option>   
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="card-body">
+              {!! $pelaporanchart->container() !!}
+
+              {!! $pelaporanchart->script() !!}    
             </div>
             <div class="card-footer">
               
@@ -116,17 +104,32 @@
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header card-header-danger">
-            <h4 class="card-title">Grafik Data Pengaduan </h4>
-            <select class="sel" name="year">
-              <option value="2020">Year 2019</option>
-              <option value="2018">Year 2018</option>
-              <option value="2017">Year 2017</option>
-            </select>
+              <div class="row">
+                <div class="col-6 mt-3">
+                  <h4 class="card-title">Grafik Data Pengaduan </h4>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+                  <div class="form-group">
+                    <select class="pengaduan form-control" data-style="btn btn-link" name="pengaduanyear">
+                      <option disabled selected>Pilih Tahun</option>   
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="card-body">
-              {!! $chart->container() !!}
+              {!! $pengaduanchart->container() !!}
 
-              {!! $chart->script() !!}    
+              {!! $pengaduanchart->script() !!}                 
             </div>
             <div class="card-footer">
               
@@ -164,13 +167,21 @@
       md.initDashboardPageCharts();
     });
   </script>
-
   <script type="text/javascript">
-      var original_api_url = {{ $chart->id }}_api_url;
-      $(".sel").change(function(){
-          var year = $(this).val();
-          {{ $chart->id }}_refresh(original_api_url + "?year="+year);
+      var original_api_url = {{ $pelaporanchart->id }}_api_url;
+      $(".pelaporan").change(function(){
+          var pelaporanyear = $(this).val();
+          {{ $pelaporanchart->id }}_refresh(original_api_url + "?pelaporanyear="+pelaporanyear);
       });
   </script>
+  <script type="text/javascript">
+    var original_api_url2 = {{ $pengaduanchart->id }}_api_url;
+    $(".pengaduan").change(function(){
+        var pengaduanyear = $(this).val();
+        {{ $pengaduanchart->id }}_refresh(original_api_url2 + "?pengaduanyear="+pengaduanyear);
+    });
+  </script>
+
+  
 @endpush  
 

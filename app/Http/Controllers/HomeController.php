@@ -27,39 +27,57 @@ class HomeController extends Controller
      */
     public function index(User $model)
     {
-        $api = url('/chart-ajax');
-        
-        $chart = new DashboardChart;
-        $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])->load($api);
+        $countpelaporan = Pelaporan::count();
+        $countpengaduan = Pengaduan::count();
 
-        return view('dashboard', compact('chart'));
+
+        $pelaporanapi = url('/pelaporan-chart-ajax');
+        $pengaduanapi = url('/pengaduan-chart-ajax');
+
+        $pelaporanchart = new DashboardChart;
+        $pelaporanchart->labels(['Periode 1', 'Periode 2', 'Periode 3', 'Periode 4'])->load($pelaporanapi);
+
+        $pengaduanchart = new DashboardChart;
+        $pengaduanchart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr'])->load($pengaduanapi);
+
+        return view('dashboard', compact('pelaporanchart', 'pengaduanchart', 'countpelaporan', 'countpengaduan'));
     }
 
-    public function chartAjax(Request $request)
+    public function pelaporanchartAjax(Request $request)
     {
-        $year = $request->has('year') ? $request->year : date('Y');
-
-        $pengaduan = Pengaduan::select(\DB::raw("COUNT(*) as count"))
-                    ->whereYear('created_at', $year)
-                    ->groupBy(\DB::raw("Month(created_at)"))
-                    ->pluck('count');
+        $pelaporanyear = $request->has('pelaporanyear') ? $request->pelaporanyear : date('Y');
 
         $pelaporan = Pelaporan::select(\DB::raw("COUNT(*) as count"))
-                    ->whereYear('created_at', $year)
+                    ->whereYear('created_at', $pelaporanyear)
+                    ->groupBy(\DB::raw("periode"))
+                    ->pluck('count');
+
+        $pelaporanchart = new DashboardChart;
+  
+        $pelaporanchart->dataset('Grafik Pelaporan Baru', 'line', $pelaporan)
+                        ->color("#ffa726")
+                        ->backgroundcolor("#ffa726")
+                        ->fill(false);
+  
+        return $pelaporanchart->api();
+    }
+
+    public function pengaduanchartAjax(Request $request)
+    {
+        $pengaduanyear = $request->has('pengaduanyear') ? $request->pengaduanyear : date('Y');
+
+        $pengaduan = Pengaduan::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('created_at', $pengaduanyear)
                     ->groupBy(\DB::raw("Month(created_at)"))
                     ->pluck('count');
 
-        $chart = new DashboardChart;
+        $pengaduanchart = new DashboardChart;
   
-        $chart->dataset('Grafik Pengaduan Baru', 'line', $pengaduan)->options([
-                    'fill' => 'true',
-                    'borderColor' => '#51C1C0'
-                ]);
-        $chart->dataset('Grafik Pelaporan Baru', 'line', $pelaporan)->options([
-                    'fill' => 'true',
-                    'borderColor' => '#c15151'
-                ]);
+        $pengaduanchart->dataset('Grafik Pengaduan Baru', 'line', $pengaduan)
+                    ->color("#ef5350")
+                    ->backgroundcolor("#ef5350")
+                    ->fill(false);
   
-        return $chart->api();
+        return $pengaduanchart->api();
     }
 }

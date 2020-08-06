@@ -21,13 +21,25 @@ use Illuminate\Support\Facades\DB;
 class PelaporanController extends Controller
 {
     public function json(){
-        return Datatables::of(Pelaporan::where('status', '=', 'Reviewing'))->addColumn('action', function($data){
-            $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-warning" href="/pelaporan/tanggapi/'.$data->id.'" title="Tanggapi"><i class="material-icons">find_in_page</i></a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
-            return $button;
-        })
-        ->rawColumns(['action'])->make(true);
+        if (Gate::allows('isAdmin')) {
+            return Datatables::of(Pelaporan::where('status', '=', 'Reviewing'))->addColumn('action', function($data){
+                $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-warning" href="/pelaporan/tanggapi/'.$data->id.'" title="Tanggapi"><i class="material-icons">find_in_page</i></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
+                return $button;
+            })
+            ->rawColumns(['action'])->make(true);
+        } elseif (Gate::allows('isUser')) {
+            return Datatables::of(Pelaporan::where('user_id', '=', auth()->user()->id))->addColumn('action', function($data){
+                $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
+                return $button;
+            })
+            ->rawColumns(['action'])->make(true);
+        }  else {
+            abort(404, 'Anda tidak memiliki cukup hak akses!');
+        }
+        
     }
     /**
      * Display a listing of the resource.
@@ -189,9 +201,9 @@ class PelaporanController extends Controller
         $model->id_verifikasi = Str::random(20);
         $model->pelaporan_id = $request->get('pelaporan_id');  
         $model->user_id = auth()->user()->id;
-        //$update = Pelaporan::findOrFail($request->get('pelaporan_id'));
-        //$update->status ='Reviewed';
-        //$update->save();
+        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+        $update->status ='Reviewed';
+        $update->save();
 
         $date = Carbon::now()->format('d F Y');
 

@@ -22,7 +22,7 @@ class BuatTabelPengaduan extends Migration
             $table->string('email', 35);
             $table->string('lat', 50);
             $table->string('long', 50);
-            $table->string('deskripsi', 50);
+            $table->string('deskripsi', 255);
             $table->string('img1', 255);
             $table->string('img2', 255);
             $table->string('img3', 255);
