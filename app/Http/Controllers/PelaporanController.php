@@ -22,9 +22,9 @@ class PelaporanController extends Controller
 {
     public function json(){
         return Datatables::of(Pelaporan::where('status', '=', 'Reviewing'))->addColumn('action', function($data){
-            $button = '<a class="btn btn-sm btn-warning" href="/pelaporan/tanggapi/'.$data->id.'">Tanggapi</a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-info" href="/pelaporan/'.$data->id.'">Lihat Detail</a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+            $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-warning" href="/pelaporan/tanggapi/'.$data->id.'" title="Tanggapi"><i class="material-icons">find_in_page</i></a>';
+            $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
+            $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
             return $button;
         })
         ->rawColumns(['action'])->make(true);
@@ -151,7 +151,7 @@ class PelaporanController extends Controller
 
     public function jsonreview(){
         return Datatables::of(Review::all())->addColumn('action', function($data){
-            $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-info" href="/tanggapan/'.$data->id.'">Lihat Detail</a>';
+            $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/tanggapan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
             return $button;
         })
         ->rawColumns(['action'])->make(true);

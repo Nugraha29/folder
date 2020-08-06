@@ -12,7 +12,7 @@
           <div class="card-header card-header-info">
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-                  <h4 class="card-title ">Data Pengaduan</h4>
+                  <h4 class="card-title font-weight-bold">Data Pengaduan</h4>
                   <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('pengaduan.export') }}">
                         <i class="material-icons">file_copy</i> {{ __('Export Excel') }}
@@ -24,9 +24,9 @@
           <div class="card-body">
             <div class="table-responsive">
               <table id="pengaduan" class="mdl-data-table" style="width:100%">
-                <thead class=" text-primary">
+                <thead class="text-dark">
                   <th>No</th>
-                  <th>Tanggal</th>
+                  <th>Tanggal Pengaduan</th>
                   <th>Nama Pengadu</th>
                   <th>Telepon</th>
                   <th>Email</th>

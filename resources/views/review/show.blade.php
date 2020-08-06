@@ -31,62 +31,78 @@
                           <td colspan="3" class="text-right">Dibuat pada {{ $review->created_at }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">ID</td>
+                          <td style="width: 250px">ID</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->id }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Nama Penanggap</td>
+                          <td style="width: 250px">ID Verifikasi</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->id_verifikasi }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Nama Penanggap</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->nama }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Nama Pelapor</td>
+                          <td style="width: 250px">Nama Pelapor</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->nama_pelapor }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Email</td>
+                          <td style="width: 250px">Email</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->email }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Nama Perusahaan</td>
+                          <td style="width: 250px">Nama Perusahaan</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->nama_perusahaan }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Bidang Usaha</td>
+                          <td style="width: 250px">Bidang Usaha</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->bidang_usaha }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Periode/Semester</td>
+                          <td style="width: 250px">Jenis Pelaporan</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->jenis }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">
+                            @if ($review->jenis == 'Lingkungan')
+                                Periode/Semester
+                            @else
+                                Periode/Triwulan
+                            @endif
+                          </td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->periode }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Dokumen Pelaporan</td>
+                          <td style="width: 250px">Tanggapan Dokumen Pelaporan</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->review_dok_pelaporan }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Dokumen Izin</td>
+                          <td style="width: 250px">Tanggapan Dokumen Izin</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->review_dok_izin }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Dokumen Hasil Uji Lab</td>
+                          <td style="width: 250px">Tanggapan Dokumen Hasil Uji Lab</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->review_dok_lab }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">Kesimpulan</td>
+                          <td style="width: 250px">Kesimpulan</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->kesimpulan }}</td>
                         </tr>
                         <tr>
-                          <td style="width: 180px">PDF Pelaporan</td>
+                          <td style="width: 250px">PDF Pelaporan</td>
                           <td style="width: 1px">:</td>
                           <td><a href="{{ asset('storage/'.$review->pdf) }}" target="_blank">Download</a></td>
                         </tr>

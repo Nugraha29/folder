@@ -71,7 +71,13 @@
                         <td><input type="text" value="{{ $pelaporan->jenis }}" name="jenis" hidden></td>
                     </tr>
                     <tr>
-                        <td style="width: 180px">Periode</td>
+                        <td style="width: 180px">
+                          @if ($pelaporan->jenis == 'Lingkungan')
+                              Periode/Semester
+                          @else
+                              Periode/Triwulan
+                          @endif
+                        </td>
                         <td style="width: 1px">:</td>
                         <td>{{ $pelaporan->periode }}</td>
                         <td><input type="text" value="{{ $pelaporan->periode }}" name="periode" hidden></td>

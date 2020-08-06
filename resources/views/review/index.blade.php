@@ -12,7 +12,7 @@
           <div class="card-header card-header-info">
             <!--Card image-->
             <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-              <h4 class="card-title ">Data Tanggapan</h4>
+              <h4 class="card-title font-weight-bold">Data Tanggapan</h4>
               <div>
                 <a class="btn btn-sm btn-danger" href="{{ route('review.export') }}">
                     <i class="material-icons">file_copy</i> {{ __('Export Excel') }}
@@ -35,13 +35,15 @@
                   </div>
                 @endif
             <div class="table-responsive">
-              <table id="review" class="mdl-data-table" style="width:100%">
-                <thead class=" text-primary">
-                  <th>ID</th>
+              <table id="review" class="mdl-data-table" style="width:100%; text-align: center;">
+                <thead class=" text-dark">
+                  <th>No</th>
+                  <th>Tanggal Menanggapi</th>
                   <th>Nama Penanggap</th>
                   <th>Nama Pelapor</th>
                   <th>Nama Perusahaan</th>
-                  <th>Periode/Semester</th>
+                  <th>Jenis Pelaporan</th>
+                  <th>Periode</th>
                   <th>Aksi</th>
                 </thead>
               </table>
@@ -78,7 +80,7 @@
             url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
             sEmptyTable: "Tidak ada data di database"
         },
-        autoWidth: false,
+        autoWidth: true,
         columnDefs: [
             {
                 targets: ['_all'],
@@ -91,15 +93,26 @@
         
         columns: [
             { data: 'id', name: 'id' },
+            { data: 'created_at', name: 'created_at' },
             { data: 'nama', name: 'nama' },
             { data: 'nama_pelapor', name: 'nama_pelapor' },
             { data: 'nama_perusahaan', name: 'nama_perusahaan' },
+            { data: 'jenis', name: 'jenis' },
             { data: 'periode', name: 'periode' },
             { data: 'action', name: 'action' },
         ],
-        order: [[ 0, 'desc' ]]
+        columnDefs:[{targets:1, render:function(data){
+          return moment(data).format('D MMMM YYYY');
+        }}],
+        order: [[1, 'desc']]
        
     } );
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
     var user_id;
 
     $(document).on('click', '.delete', function(){

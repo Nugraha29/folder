@@ -13,7 +13,7 @@
           <div class="card-header card-header-info">
             <!--Card image-->
             <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-              <h4 class="card-title ">Data Pelaporan</h4>
+              <h4 class="card-title font-weight-bold">Data Pelaporan</h4>
               <div>
                 <a class="btn btn-sm btn-danger" href="{{ route('pelaporan.export') }}">
                     <i class="material-icons">file_copy</i> {{ __('Export Excel') }}
@@ -36,14 +36,16 @@
                   </div>
                 @endif
             <div class="table-responsive">
-              <table id="example" class="mdl-data-table" style="width:100%">
-                <thead class=" text-primary">
-                  <th>ID</th>
-                  <th>Nama Pelapor</th>
+              <table id="example" class="mdl-data-table" style="width:100%; text-align: center;">
+                <thead class="text-dark">
+                  <th>No</th>
+                  <th width="17%">Tanggal Pelaporan</th>
+                  <th width="14%">Nama Pelapor</th>
                   <th>Telepon</th>
-                  <th>Nama Perusahaan</th>
-                  <th>Periode</th>
-                  <th>Aksi</th>
+                  <th width="17%">Nama Perusahaan</th>
+                  <th width="10%">Periode</th>
+                  <th width="17%">Jenis Pelaporan</th>
+                  <th width="15%">Aksi</th>
                 </thead>
               </table>
             </div>
@@ -91,12 +93,18 @@
         ajax: 'pelaporan/json',
         columns: [
             { data: 'id', name: 'id' },
+            { data: 'created_at', name: 'created_at' },
             { data: 'nama', name: 'nama' },
             { data: 'telp', name: 'telp' },
             { data: 'nama_perusahaan', name: 'nama_perusahaan' },
             { data: 'periode', name: 'periode' },
+            { data: 'jenis', name: 'jenis' },
             { data: 'action', name: 'action' },
-        ]
+        ],
+        columnDefs:[{targets:1, render:function(data){
+          return moment(data).format('D MMMM YYYY');
+        }}],
+        order: [[1, 'desc']]
        
     } );
     t.on( 'order.dt search.dt', function () {
@@ -161,7 +169,7 @@
                 @endif
             <div class="table-responsive">
               <table class="table">
-                <thead class=" text-primary">
+                <thead class="text-primary">
                   <th>ID</th>
                   <th>Nama Pelapor</th>
                   <th>Telepon</th>

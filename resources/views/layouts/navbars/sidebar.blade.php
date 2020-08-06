@@ -17,7 +17,7 @@
     <ul class="nav">
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
-          <i class="material-icons">dashboard</i>
+          <i class="material-icons">home</i>
             <p>{{ __('Beranda') }}</p>
         </a>
       </li>
@@ -38,8 +38,8 @@
             </li>
             <li class="nav-item{{ $activePage == 'review' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('review.index') }}">
-                <i class="material-icons">check</i>
-                <span class="sidebar-normal"> {{ __('Pelaporan Selesai') }} </span>
+                <i class="material-icons">assignment_turned_in </i>
+                <span class="sidebar-normal"> {{ __('Riwayat Pelaporan') }} </span>
               </a>
             </li>
           </ul>

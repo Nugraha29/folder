@@ -13,8 +13,8 @@ class PengaduanController extends Controller
 {
     public function json(){
         return Datatables::of(Pengaduan::all())->addColumn('action', function($data){
-            $button = '<a class="btn btn-sm btn-info" href="/pengaduan/'.$data->id.'">Lihat Detail</a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+            $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pengaduan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
+            $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="edit" id="'.$data->id.'" class="delete btn btn-fab btn-fab-mini btn-round btn-danger" title="Hapus"><i class="material-icons text-white">delete</i></a>';
             return $button;
         })
         ->rawColumns(['action'])->make(true);
