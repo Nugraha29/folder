@@ -26,10 +26,12 @@ class PelaporanExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Email',
             'Nama Perusahaan',
             'Bidang Usaha',
-            'Jenis',
+            'Jenis Pelaporan',
+            'Periode',
             'Dok.Pelaporan',
             'Dok.Izin',
             'Dok.Lab',
+            'Status',
             'User ID',
             'Tanggal Dibuat',
             'Terahir Diperbaharui'

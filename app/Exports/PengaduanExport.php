@@ -25,9 +25,13 @@ class PengaduanExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Nama Pengadu',
             'Telepon',
             'Email',
-            'Lokasi',
+            'Latitude',
+            'Longitude',
             'Deskripsi',
-            'Foto',
+            'Foto 1',
+            'Foto 2',
+            'Foto 3',
+            'Foto KTP',
             'Tanggal Dibuat',
             'Terahir Diperbaharui'
         ];
