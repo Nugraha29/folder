@@ -55,9 +55,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'telp' => ['required', 'string', 'min:6', 'max:15'],
-            'nama_perusahaan' => ['required', 'string', 'max:255'],
-            'jabatan' => ['required', 'string', 'max:255']
         ]);
     }
 
@@ -74,14 +71,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'telp' => $data['telp'],
-            'nama_perusahaan' => $data['nama_perusahaan'],
-            'jabatan' => $data['jabatan'],
             'status' => "menunggu"
         ]);
 
         try{
-            Mail::raw('Halo Operator, terdapat pendaftar atas nama '.$data['name'].' dari '.$data['nama_perusahaan'].' yang perlu di aktivasi.', function($message)use($data) {
+            Mail::raw('Halo Operator, terdapat pendaftar atas nama '.$data['name'].' yang perlu di aktivasi.', function($message)use($data) {
             $message->to('rizkymaulanamm@gmail.com', 'Operator')
             ->subject('Pendaftar Baru');
             });

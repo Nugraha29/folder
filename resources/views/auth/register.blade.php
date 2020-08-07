@@ -1,129 +1,110 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'register', 'titlePage' => __('Daftar')])
+@extends('layouts.app2')
+
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+
+@endpush
 
 @section('content')
-<div class="container" style="height: auto;">
-  <div class="row align-items-center">
-    <div class="col-lg-8 col-md-6 col-sm-8 ml-auto mr-auto">
-      <form class="form" method="POST" action="{{ route('register') }}">
-        @csrf
+<div class="page-content d-flex align-items-center justify-content-center">
 
-        <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Daftar') }}</strong></h4>
-          </div>
-          <div class="card-body ">
-            <div class="bmd-form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <i class="material-icons">face</i>
-                  </span>
-                </div>
-                <input type="text" name="name" class="form-control" placeholder="{{ __('Nama...') }}" value="{{ old('name') }}" required>
-              </div>
-              @if ($errors->has('name'))
-                <div id="name-error" class="error text-danger pl-3" for="name" style="display: block;">
-                  <strong>{{ $errors->first('name') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">email</i>
-                  </span>
-                </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" value="{{ old('email') }}" required>
-              </div>
-              @if ($errors->has('email'))
-                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('telp') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">phone</i>
-                  </span>
-                </div>
-                <input type="number" name="telp" class="form-control" placeholder="{{ __('Telepon...') }}" value="{{ old('telp') }}" required>
-              </div>
-              @if ($errors->has('telp'))
-                <div id="telp-error" class="error text-danger pl-3" for="telp" style="display: block;">
-                  <strong>{{ $errors->first('telp') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('nama_perusahaan') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">location_city</i>
-                  </span>
-                </div>
-                <input type="text" name="nama_perusahaan" class="form-control" placeholder="{{ __('Nama Perusahaan...') }}" value="{{ old('nama_perusahaan') }}" required>
-              </div>
-              @if ($errors->has('nama_perusahaan'))
-                <div id="nama_perusahaan-error" class="error text-danger pl-3" for="nama_perusahaan" style="display: block;">
-                  <strong>{{ $errors->first('nama_perusahaan') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('jabatan') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">work</i>
-                  </span>
-                </div>
-                <input type="text" name="jabatan" class="form-control" placeholder="{{ __('Jabatan...') }}" value="{{ old('jabatan') }}" required>
-              </div>
-              @if ($errors->has('jabatan'))
-                <div id="jabatan-error" class="error text-danger pl-3" for="jabatan" style="display: block;">
-                  <strong>{{ $errors->first('jabatan') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
-                  </span>
-                </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Katasandi...') }}" required>
-              </div>
-              @if ($errors->has('password'))
-                <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
-                  <strong>{{ $errors->first('password') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
-                  </span>
-                </div>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Konfimasi Katasandi...') }}" required>
-              </div>
-              @if ($errors->has('password_confirmation'))
-                <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">
-                  <strong>{{ $errors->first('password_confirmation') }}</strong>
-                </div>
-              @endif
+  <div class="row w-100 mx-0 auth-page">
+    <div class="col-md-8 col-xl-6 mx-auto">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-4 pr-md-0">
+            <div class="auth-left-wrapper" style="background-image: url({{ url('https://via.placeholder.com/219x452') }})">
+
             </div>
           </div>
-          <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Buat Akun') }}</button>
+          <div class="col-md-8 pl-md-0">
+            <div class="auth-form-wrapper px-4 py-4">
+              <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan <span>Hidup</span></a>
+              <h5 class="text-muted font-weight-normal mb-4">Buat akun baru.</h5>
+              <form class="forms-sample" id="signupForm" method="POST" action="{{ route('register') }}">
+                @csrf
+                <fieldset>
+                  <div class="form-group">
+                    <label for="name">Nama</label>
+                    <input id="name" class="form-control" minlength="10" name="name" type="text" value="{{ old('name') }}">
+                    @if ($errors->has('name'))
+                      <div id="name-error" class="error text-danger pl-3" for="name" style="display: block;">
+                        <strong>{{ $errors->first('name') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control" name="email" type="email">
+                    @if ($errors->has('email'))
+                      <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                        <strong>{{ $errors->first('email') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" class="form-control" name="password" type="password">
+                    @if ($errors->has('password'))
+                      <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
+                        <strong>{{ $errors->first('password') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="password_confirmation">Confirm password</label>
+                    <input id="password_confirmation" class="form-control" name="password_confirmation" type="password">
+                    @if ($errors->has('password_confirmation'))
+                      <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">
+                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <input class="btn btn-primary" type="submit" value="Submit">
+                </fieldset>
+                <a href="{{ url('/auth/login') }}" class="d-block mt-3 text-muted">Already a user? Sign in</a>
+              </form>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
+
 </div>
 @endsection
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/typeahead-js/typeahead.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+@endpush
+
+@push('custom-scripts')
+  <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
+  <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+  <script src="{{ asset('assets/js/tags-input.js') }}"></script>
+  <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+  <script src="{{ asset('assets/js/dropify.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-colorpicker.js') }}"></script>
+  <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+  <script src="{{ asset('assets/js/timepicker.js') }}"></script>
+@endpush

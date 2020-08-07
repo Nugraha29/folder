@@ -1,5 +1,6 @@
 @if(Auth::user()->status == "menunggu")
-
+@extends('layouts.app2')
+@section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
     
@@ -20,10 +21,10 @@
     </div>
   </div>
 </div>
-
+@endsection
 
 @else
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Beranda')])
+@extends('layouts.app')
 @section('content')
   <div class="content">
     <div class="container-fluid">
