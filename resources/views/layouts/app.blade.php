@@ -23,7 +23,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
   <!-- end common css -->
 
-  @stack('style')
+  @stack('css')
 </head>
 <body data-base-url="{{url('/')}}">
 
@@ -52,11 +52,13 @@
     <!-- plugin js -->
     @stack('plugin-scripts')
     <!-- end plugin js -->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/4.0.0/material-components-web.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.material.min.css">
+    <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet" />
     <!-- common js -->
     <script src="{{ asset('assets/js/template.js') }}"></script>
     <!-- end common js -->
 
-    @stack('custom-scripts')
+    @stack('js')
 </body>
 </html>

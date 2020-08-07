@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Pelaporan;
+use App\Review;
 use App\Pengaduan;
 use App\Charts\DashboardChart;
 
@@ -28,6 +29,7 @@ class HomeController extends Controller
     public function index(User $model)
     {
         $countpelaporan = Pelaporan::count();
+        $countreview = Review::count();
         $countpengaduan = Pengaduan::count();
 
 
@@ -38,9 +40,9 @@ class HomeController extends Controller
         $pelaporanchart->labels(['Periode 1', 'Periode 2', 'Periode 3', 'Periode 4'])->load($pelaporanapi);
 
         $pengaduanchart = new DashboardChart;
-        $pengaduanchart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr', 'Apr'])->load($pengaduanapi);
+        $pengaduanchart->labels(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'OKtober', 'November', 'Desember'])->load($pengaduanapi);
 
-        return view('dashboard', compact('pelaporanchart', 'pengaduanchart', 'countpelaporan', 'countpengaduan'));
+        return view('dashboard', compact('pelaporanchart', 'pengaduanchart', 'countpelaporan', 'countreview', 'countpengaduan'));
     }
 
     public function pelaporanchartAjax(Request $request)

@@ -22,13 +22,19 @@ class PelaporanController extends Controller
 {
     public function json(){
         if (Gate::allows('isAdmin')) {
-            return Datatables::of(Pelaporan::where('status', '=', 'Reviewing'))->addColumn('action', function($data){
-                $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-warning" href="/pelaporan/tanggapi/'.$data->id.'" title="Tanggapi"><i class="material-icons">find_in_page</i></a>';
-                $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
-                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
+            $pelaporan = Pelaporan::where('status', '=', 'Reviewing');
+            return Datatables::of($pelaporan)
+            ->addColumn('action', function($data){
+                $button = '<a class="btn btn-warning btn-icon p-2 text-white" role="button" href="/pelaporan/tanggapi/'.$data->id.'" title="Tanggapi"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit link-icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a class="btn btn-info btn-icon p-2 text-white" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>';
                 return $button;
             })
-            ->rawColumns(['action'])->make(true);
+            ->rawColumns(['action'])
+            ->editColumn('created_at', function ($pelaporan) {
+                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('m F Y') : '';
+            })
+            ->make(true);
         } elseif (Gate::allows('isUser')) {
             return Datatables::of(Pelaporan::where('user_id', '=', auth()->user()->id))->addColumn('action', function($data){
                 $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
@@ -162,11 +168,17 @@ class PelaporanController extends Controller
     }
 
     public function jsonreview(){
-        return Datatables::of(Review::all())->addColumn('action', function($data){
-            $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/tanggapan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
+        $review = Review::all();
+        return Datatables::of($review)
+        ->addColumn('action', function($data){
+            $button = '<a class="btn btn-info btn-icon p-2 text-white" href="/tanggapan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
             return $button;
         })
-        ->rawColumns(['action'])->make(true);
+        ->rawColumns(['action'])
+        ->editColumn('created_at', function ($review) {
+            return $review->created_at ? with(new Carbon($review->created_at))->format('m F Y') : '';
+        })
+        ->make(true);
     }
 
     public function indexreview()

@@ -1,4 +1,4 @@
-@extends('layouts.app2', ['class' => 'off-canvas-sidebar', 'activePage' => 'home', 'titlePage' => __('Dinas Lingkungan Hidup')])
+@extends('layouts.app2')
 
 @section('content')
 <div class="container" style="height: auto;">

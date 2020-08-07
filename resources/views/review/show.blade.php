@@ -12,19 +12,18 @@
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
 
-                    <h4 class="card-title ">Detail Pelaporan HIMAGRIB</h4>
+                    <h4 class="card-title ">Detail Tanggapan Pelaporan {{ $review->nama_perusahaan }}</h4>
 
                     <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('review.index') }}">
-                        <i class="material-icons">keyboard_backspace</i> {{ __('Kembali') }}
+                      <i class="link-icon" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
                     </a>
                     </div>
 
                 </div>
                 <!--/Card image-->
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
+              <div class="table-responsive">
                 <table class="table">
                     <tbody>
                         <tr>
@@ -108,8 +107,7 @@
                         </tr>
                       </tbody>
                 </table>
-                </div>
-            </div>      
+              </div>
           </div>
       </div>
     </div>

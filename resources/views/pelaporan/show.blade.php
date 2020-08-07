@@ -14,14 +14,13 @@
 
                 <div>
                 <a class="btn btn-sm btn-danger" href="{{ route('pelaporan.index') }}">
-                    <i class="material-icons">keyboard_backspace</i> {{ __('Kembali') }}
+                  <i class="link-icon" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
                 </a>
                 </div>
 
             </div>
             <!--/Card image-->
           </div>
-          <div class="card-body">
             <div class="table-responsive">
               <table class="table">
                 <tbody>
@@ -94,7 +93,6 @@
                 </tbody>
               </table>
             </div>
-          </div>
         </div>
       </div>
     </div>

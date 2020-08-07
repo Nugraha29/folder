@@ -9,23 +9,22 @@
             @csrf
             @method('put')
             <div class="card">
-            <div class="card-header card-header-info">
-                <!--Card image-->
-                <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
+              <div class="card-header card-header-info">
+                  <!--Card image-->
+                  <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
 
-                    <h4 class="card-title ">Detail Pelaporan HIMAGRIB</h4>
+                      <h4 class="card-title ">Detail Pelaporan HIMAGRIB</h4>
 
-                    <div>
-                    <a class="btn btn-sm btn-danger" href="{{ route('pelaporan.index') }}">
-                        <i class="material-icons">keyboard_backspace</i> {{ __('Kembali') }}
-                    </a>
-                    </div>
+                      <div>
+                      <a class="btn btn-icon-text btn-danger" href="{{ route('pelaporan.index') }}">
+                        <i class="btn-icon-prepend" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
+                      </a>
+                      </div>
 
-                </div>
-                <!--/Card image-->
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
+                  </div>
+                  <!--/Card image-->
+              </div>
+              <div class="table-responsive">
                 <table class="table">
                     <tbody>
                     <tr>
@@ -116,90 +115,31 @@
                         <td style="width: 180px">Kesimpulan</td>
                         <td style="width: 1px">:</td>
                         <td colspan="2">
-                            <div class="form-group">
-                                <div class="form-check form-check-radio">
-                                  <label class="form-check-label">
-                                      <input class="form-check-input" type="radio" name="kesimpulan" id="taat" value="Taat" required>
-                                      Taat
-                                      <span class="circle">
-                                          <span class="check"></span>
-                                      </span>
-                                  </label>
-                                </div>
-                                <div class="form-check form-check-radio">
-                                  <label class="form-check-label">
-                                      <input class="form-check-input" type="radio" name="kesimpulan" id="tidaktaat" value="Tidak Taat" required>
-                                      Tidak Taat
-                                      <span class="circle">
-                                          <span class="check"></span>
-                                      </span>
-                                  </label>
-                                </div>                                
+                          <div class="form-group">
+                            <div class="form-check form-check-inline mt-4">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="kesimpulan" id="Taat" value="Taat">
+                                Taat
+                              </label>
                             </div>
+                            <div class="form-check form-check-inline">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="kesimpulan" id="Tidak Taat" value="Tidak Taat">
+                                Tidak Taat
+                              </label>
+                            </div>                            
+                          </div>
                         </td>
-                        
                     </tr>
-
                     </tbody>
                 </table>
-                </div>
-            </div>      
-            <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
-            </div>      
+              </div>   
+                  <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
+                   
             </div>
         </form>
       </div>
     </div>
-    <!--
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-                  <h4 class="card-title ">Matriks Pengelolaan dan Pemantauan Lingkungan</h4>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table">
-                  <tbody>
-                    <tr>
-                      <td>ID</td>
-                      <td>{{ $pelaporan->id }}</td>
-                    </tr>
-                    <tr>
-                      <td>Nama Pelapor</td>
-                      <td>{{ $pelaporan->nama }}</td>
-                    </tr>
-                    <tr>
-                      <td>Telepon</td>
-                      <td>{{ $pelaporan->telp }}</td>
-                    </tr>
-                    <tr>
-                      <td>Nama Perusahaan</td>
-                      <td>{{ $pelaporan->nama_perusahaan }}</td>
-                    </tr>
-                    <tr>
-                      <td>Bidang Usaha</td>
-                      <td>{{ $pelaporan->bidang_usaha }}</td>
-                    </tr>
-                    <tr>
-                      <td>Periode Semester</td>
-                      <td>1</td>
-                    </tr>
-                    <tr>
-                      <td>Deskripsi</td>
-                      <td>Laporan Himagrib selama 6 bulan.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    -->
   </div>
 </div>
 @endsection

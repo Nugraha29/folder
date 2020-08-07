@@ -1,5 +1,4 @@
 @extends('layouts.app', ['activePage' => 'show', 'titlePage' => __('Detail Pengaduan')])
-
 @section('content')
 <div class="content">
   <div class="container-fluid">
@@ -14,62 +13,60 @@
 
                 <div>
                 <a class="btn btn-sm btn-danger" href="/pengaduan">
-                    <i class="material-icons">keyboard_backspace</i> {{ __('Kembali') }}
+                  <i class="link-icon" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
                 </a>
                 </div>
 
             </div>
             <!--/Card image-->
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td colspan="4" class="text-right">Dibuat pada {{ $pengaduan->created_at }}</td>
-                  </tr>
-                  <tr>
-                    <td style="width: 150px">NIK</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->nik}}</td>
-                    <td rowspan="4" width="45%">
-                      <div class="row d-flex justify-content-center mb-2">
-                          <a class="text-dark">KTP Pengadu</a>
-                      </div>
-                      <div class="row d-flex justify-content-center">
-                        <img src="{{ asset('storage/'.$pengaduan->img4) }}" width="350px">               
-                      </div>
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="width: 150px">Nama Pengadu</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->nama}}</td>
-                  </tr>
-                  <tr>
-                    <td style="width: 150px">Email</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->email}}</td>
-                  </tr>
-                  <tr>
-                    <td style="width: 150px">Telepon</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->telp}}</td>
-                  </tr>
-                  <tr>
-                    <td style="width: 150px">Deskripsi Pengaduan</td>
-                    <td style="width: 1px">:</td>
-                    <td>{{$pengaduan->deskripsi}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">
-                      <div id="map"></div>
-                    </td>
-                  </tr>           
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="4" class="text-right">Dibuat pada {{ $pengaduan->created_at }}</td>
+                </tr>
+                <tr>
+                  <td style="width: 150px">NIK</td>
+                  <td style="width: 1px">:</td>
+                  <td>{{$pengaduan->nik}}</td>
+                  <td rowspan="5" width="45%">
+                    <div class="row d-flex justify-content-center mb-2">
+                        <a class="text-danger">Foto KTP Pengadu</a>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                      <img src="{{ asset('storage/'.$pengaduan->img4) }}" class="wd-101p wd-sm-200" style="width: 90%; height:100%; border-radius:0%">               
+                    </div>
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 150px">Nama Pengadu</td>
+                  <td style="width: 1px">:</td>
+                  <td>{{$pengaduan->nama}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 150px">Email</td>
+                  <td style="width: 1px">:</td>
+                  <td>{{$pengaduan->email}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 150px">Telepon</td>
+                  <td style="width: 1px">:</td>
+                  <td>{{$pengaduan->telp}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 150px">Deskripsi Pengaduan</td>
+                  <td style="width: 1px">:</td>
+                  <td>{{$pengaduan->deskripsi}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <div id="map"></div>
+                  </td>
+                </tr>           
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

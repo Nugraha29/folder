@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 use App\Exports\PengaduanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use Carbon\Carbon;
 
 class PengaduanController extends Controller
 {
     public function json(){
-        return Datatables::of(Pengaduan::all())->addColumn('action', function($data){
-            $button = '<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pengaduan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
-            $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="edit" id="'.$data->id.'" class="delete btn btn-fab btn-fab-mini btn-round btn-danger" title="Hapus"><i class="material-icons text-white">delete</i></a>';
+        $pengaduan = Pengaduan::all();
+        return Datatables::of($pengaduan)
+        ->addColumn('action', function($data){
+            $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-info btn-icon p-2 text-white" href="/pengaduan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
+            $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>';
             return $button;
         })
-        ->rawColumns(['action'])->make(true);
+        ->rawColumns(['action'])
+        ->editColumn('created_at', function ($pengaduan) {
+            return $pengaduan->created_at ? with(new Carbon($pengaduan->created_at))->format('m F Y') : '';
+        })
+        ->make(true);
     }
     /**
      * Display a listing of the resource.
