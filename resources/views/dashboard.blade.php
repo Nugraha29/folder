@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+@can('isAdmin')
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
 @endpush
@@ -148,7 +150,7 @@
     </div>
   </div> <!-- row -->
   
-@endsection
+@endsection  
 
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
@@ -184,4 +186,133 @@
   <script src="{{ asset('assets/js/dashboard.js') }}"></script>
   <script src="{{ asset('assets/js/datepicker.js') }}"></script>
 @endpush  
+
+@elsecan('isOperator')
+@elsecan('isUser')
+@section('content')  
+  <div class="row">
+    <div class="col-12 col-xl-12 stretch-card">
+      <div class="row flex-grow">
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-3">Pelaporan Air</h6>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-0">{{ $countpelaporanair }}</h3>
+                </div>
+                <div class="col-6 text-center text-primary">
+                  <i class="link-icon" data-feather="file" width="50" height="50"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="{{ route('pelaporan.index')}}">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-3">Pelaporan Udara</h6>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-0">{{ $countpelaporanudara }}</h3>
+                </div>
+                <div class="col-6 text-center text-success">
+                  <i class="link-icon" data-feather="file" width="50" height="50"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="{{ route('pelaporan.index')}}">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-3">Pengaduan Limbah B3</h6>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-0">{{ $countpelaporanlimbah }}</h3>
+                </div>
+                <div class="col-6 text-center text-warning">
+                  <i class="link-icon" data-feather="file" width="50" height="50"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="{{ route('pengaduan.index')}}">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-3">Pengaduan Lingkungan</h6>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <h3 class="mb-0">{{ $countpelaporanlingkungan }}</h3>
+                </div>
+                <div class="col-6 text-center text-danger">
+                  <i class="link-icon" data-feather="file" width="50" height="50"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="{{ route('pengaduan.index')}}">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <!-- row -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Timeline</h6>
+          <div id="content">
+            <ul class="timeline">
+              @foreach ($pelaporan as $p)
+              <li class="event" data-date="{{ $p->created_at->format('d F Y-H:i:s') }}">
+                <h3>Pelaporan {{ $p->jenis }}</h3>
+                <p>Triwulan {{ $p->periode }}</p>
+                <p>
+                  @if ($p->status == 'Reviewed')
+                    <button class="btn btn-success">Telah ditanggapi</button>
+                  @else                      
+                    <button class="btn btn-warning text-white">Belum ditanggapi</button>
+                  @endif
+                </p>
+              </li>    
+              @endforeach
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection  
+@endcan
+
 

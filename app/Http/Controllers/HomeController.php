@@ -8,6 +8,8 @@ use App\Pelaporan;
 use App\Review;
 use App\Pengaduan;
 use App\Charts\DashboardChart;
+use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -19,21 +21,51 @@ class HomeController extends Controller
      */
     public function index(User $model)
     {
-        $countpelaporan = Pelaporan::count();
-        $countreview = Review::count();
-        $countpengaduan = Pengaduan::count();
+        if (Gate::allows('isAdmin')) {
+
+            $countpelaporan = Pelaporan::count();
+            $countreview = Review::count();
+            $countpengaduan = Pengaduan::count();
 
 
-        $pelaporanapi = url('/pelaporan-chart-ajax');
-        $pengaduanapi = url('/pengaduan-chart-ajax');
+            $pelaporanapi = url('/pelaporan-chart-ajax');
+            $pengaduanapi = url('/pengaduan-chart-ajax');
 
-        $pelaporanchart = new DashboardChart;
-        $pelaporanchart->labels(['Periode 1', 'Periode 2', 'Periode 3', 'Periode 4'])->load($pelaporanapi);
+            $pelaporanchart = new DashboardChart;
+            $pelaporanchart->labels(['Periode 1', 'Periode 2', 'Periode 3', 'Periode 4'])->load($pelaporanapi);
 
-        $pengaduanchart = new DashboardChart;
-        $pengaduanchart->labels(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'OKtober', 'November', 'Desember'])->load($pengaduanapi);
+            $pengaduanchart = new DashboardChart;
+            $pengaduanchart->labels(['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'OKtober', 'November', 'Desember'])->load($pengaduanapi);
 
-        return view('dashboard', compact('pelaporanchart', 'pengaduanchart', 'countpelaporan', 'countreview', 'countpengaduan'));
+            return view('dashboard', compact('pelaporanchart', 'pengaduanchart', 'countpelaporan', 'countreview', 'countpengaduan'));
+        
+        } elseif (Gate::allows('isUser')) {
+
+            $countpelaporanair = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Air')
+                                ->count();
+            $countpelaporanudara = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Udara')
+                                ->count();
+            $countpelaporanlimbah = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'LimbahB3')
+                                ->count();
+            $countpelaporanlingkungan = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Lingkungan')
+                                ->count();
+            $pelaporan = Pelaporan::where('user_id', auth()->user()->id)->get();
+
+            return view('dashboard', compact('countpelaporanair', 
+                                                'countpelaporanudara', 
+                                                'countpelaporanlimbah', 
+                                                'countpelaporanlingkungan',
+                                                'pelaporan'));
+        
+        }  else {
+            abort(404, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        
     }
 
     public function pelaporanchartAjax(Request $request)

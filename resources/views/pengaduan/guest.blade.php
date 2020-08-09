@@ -19,7 +19,7 @@
       <div class="card">
         <div class="row">
           <div class="col-md-3 pr-md-0">
-            <div class="auth-left-wrapper" style="background-image: url({{ url('https://via.placeholder.com/219x452') }})">
+            <div class="auth-left-wrapper" style="background-image: url({{ url('https://htmlcolors.com/gradients-images/53-light-purple-gradient.jpg') }})">
 
             </div>
           </div>
@@ -39,7 +39,7 @@
                   </div>
                 </div>
               @endif
-              <form class="forms-sample" method="POST" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data">
+              <form class="forms-sample" id="pengaduanForm" method="POST" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="credit-card" height="20px"></i><label for="nik">NIK</label>
@@ -84,7 +84,7 @@
                   <i class="link-icons mr-1" data-feather="mail" height="20px"></i><label for="email">Email</label>
                   <input id="email" class="form-control" name="email" type="email" placeholder="Email">
                   @if ($errors->has('email'))
-                    <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                    <div id="email-error" class="error text-danger pt-1" for="email" style="display: block;">
                       <strong>{{ $errors->first('email') }}</strong>
                     </div>
                   @endif
@@ -118,7 +118,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <i class="link-icons mr-1" data-feather="alert-triangle" height="20px"></i><label>Jenis Pengaduan</label>
+                  <i class="link-icons mr-1" data-feather="alert-triangle" height="20px"></i><label for="jenis">Jenis Pengaduan</label>
                   <select class="form-control js-example-basic-single w-100" id="jenis" name="jenis" required>
                     <option disabled selected>Pilih Jenis Pengaduan</option>
                     <option value="Pencemaran Air">Pencemaran Air</option>

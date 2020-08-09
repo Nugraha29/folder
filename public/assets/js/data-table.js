@@ -22,7 +22,7 @@ $(function() {
           { data: 'jenis', name: 'jenis' },
           { data: 'action', name: 'action' },
       ],
-      "order": [[1, 'desc']]
+      "order": [[0, 'desc']]
     });
     $('#dataTablePelaporan').each(function() {
       var datatable = $(this);
@@ -58,7 +58,7 @@ $(function() {
           { data: 'status', name: 'status' },
           { data: 'action', name: 'action' },
       ],
-      "order": [[1, 'desc']],
+      "order": [[0, 'desc']],
       "createdRow": function ( row, data, index ) {
         if ( data['status'] === 'Reviewed' ) {
           $('td', row).eq(7).html('<button class="btn btn-success">Telah ditanggapi</button>');
@@ -100,7 +100,7 @@ $(function() {
         { data: 'periode', name: 'periode' },
         { data: 'action', name: 'action' },
       ],
-      "order": [[1, 'desc']]
+      "order": [[0, 'desc']]
     });
     $('#dataTableRiwayat').each(function() {
       var datatable = $(this);
@@ -133,7 +133,7 @@ $(function() {
         { data: 'email', name: 'email' },
         { data: 'action', name: 'action' },
       ],
-      "order": [[1, 'desc']]
+      "order": [[0, 'desc']]
     });
     $('#dataTablePengaduan').each(function() {
       var datatable = $(this);

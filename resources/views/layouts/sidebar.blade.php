@@ -29,7 +29,7 @@
         <div class="collapse {{ show_class(['pelaporan/*']) }}" id="pelaporan">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/pelaporan') }}" class="nav-link {{ active_class(['pelaporan']) }}">Data Pelaporan</a>
+              <a href="{{ url('/pelaporan') }}" class="nav-link {{ active_class(['pelaporan']) }}">Tanggapi Pelaporan</a>
             </li>
             <li class="nav-item">
               <a href="{{ url('/tanggapan') }}" class="nav-link {{ active_class(['tanggapan']) }}">Riwayat Pelaporan</a>
@@ -65,7 +65,7 @@
               <a href="{{ url('/pelaporan/menu') }}" class="nav-link {{ active_class(['pelaporan/menu']) }}">Form Pengajuan Pelaporan</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/pelaporan') }}" class="nav-link {{ active_class(['pelaporan']) }}">Data Pelaporan</a>
+              <a href="{{ url('/pelaporan') }}" class="nav-link {{ active_class(['pelaporan']) }}">Arsip Pelaporan</a>
             </li>
           </ul>
         </div>

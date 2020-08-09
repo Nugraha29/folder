@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form class="forms-sample" method="post" action="{{ route('profile.update') }}">
+          <form class="forms-sample" id="profileForm" method="post" action="{{ route('profile.update') }}">
             @csrf
             @method('put')
             <div class="card">
