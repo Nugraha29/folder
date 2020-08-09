@@ -15,16 +15,16 @@
 <div class="page-content d-flex align-items-center justify-content-center">
 
   <div class="row w-100 mx-0 auth-page">
-    <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="col-md-8 col-xl-7 mx-auto">
       <div class="card">
         <div class="row">
-          <div class="col-md-4 pr-md-0">
+          <div class="col-md-2 pr-md-0">
             <div class="auth-left-wrapper" style="background-image: url({{ url('https://htmlcolors.com/gradients-images/53-light-purple-gradient.jpg') }})">
 
             </div>
           </div>
-          <div class="col-md-8 pl-md-0">
-            <div class="auth-form-wrapper px-4 py-4">
+          <div class="col-md-9 pl-md-0">
+            <div class="auth-form-wrapper px-4 py-5">
               <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan Hidup <span>1.0</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Buat akun baru.</h5>
               <form class="forms-sample" id="signupForm" method="POST" action="{{ route('register') }}">
@@ -32,7 +32,7 @@
                 <fieldset>
                   <div class="form-group">
                     <label for="name">Nama</label>
-                    <input id="name" class="form-control" minlength="10" name="name" type="text" value="{{ old('name') }}">
+                    <input id="name" class="form-control" minlength="10" name="name" type="text" value="{{ old('name') }}" placeholder="Nama">
                     @if ($errors->has('name'))
                       <div id="name-error" class="error text-danger pl-3" for="name" style="display: block;">
                         <strong>{{ $errors->first('name') }}</strong>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" class="form-control" name="email" type="email">
+                    <input id="email" class="form-control" name="email" type="email" placeholder="Email">
                     @if ($errors->has('email'))
                       <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -50,7 +50,7 @@
                   </div>
                   <div class="form-group">
                     <label for="password">Kata sandi</label>
-                    <input id="password" class="form-control" name="password" type="password">
+                    <input id="password" class="form-control" name="password" type="password" placeholder="Kata sandi">
                     @if ($errors->has('password'))
                       <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="form-group">
                     <label for="password_confirmation">Konfirmasi kata sandi</label>
-                    <input id="password_confirmation" class="form-control" name="password_confirmation" type="password">
+                    <input id="password_confirmation" class="form-control" name="password_confirmation" type="password" placeholder="Konfirmasi Kata sandi">
                     @if ($errors->has('password_confirmation'))
                       <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">
                         <strong>{{ $errors->first('password_confirmation') }}</strong>

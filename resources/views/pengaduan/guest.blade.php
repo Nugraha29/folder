@@ -18,13 +18,16 @@
     <div class="col-md-12 col-xl-8 mx-auto">
       <div class="card">
         <div class="row">
-          <div class="col-md-3 pr-md-0">
+          <div class="col-md-2 pr-md-0">
             <div class="auth-left-wrapper" style="background-image: url({{ url('https://htmlcolors.com/gradients-images/53-light-purple-gradient.jpg') }})">
 
             </div>
           </div>
-          <div class="col-md-9 pl-md-0">
-            <div class="auth-form-wrapper px-4 pt-5 pb-3">
+          <div class="col-md-10 pl-md-0">
+            <div class="mt-3 mr-3 text-right">
+              <a class="btn btn-danger btn-icon-text" href="{{ url('/') }}"><i class="btn-icon-append" data-feather="chevron-left"></i>Kembali</a> 
+            </div> 
+            <div class="auth-form-wrapper px-4 pt-3 pb-2">
               <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan Hidup <span>1.0</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Formulir Pengaduan Masyarakat.</h5>
               @if (session('status'))
