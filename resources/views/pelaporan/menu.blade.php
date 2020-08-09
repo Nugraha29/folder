@@ -32,8 +32,57 @@
          </div>
         </div> 
 
+        <!-- 
+        <div class="row mt-3">
+            <div class="col-md-12">
+               <div class="card-deck">
+   
+                   <div class="card mb-12">            
+                   
+                       <div class="card-body">
+                        <form action="{{ route('pelaporan.menu')}}" method="get">
+                        @csrf
+                          <div class="form-group">
+                            <label for="filter">Select Input</label>
+                            <div class="row">
+                                <div class="col-3">
+                                    <select class="form-control" id="filter" name="periode">
+                                        <option selected disabled>Pilih Periode</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select> 
+                                </div>
+                                <div class="col-3">
+                                    <select class="form-control" id="filter" name="tahun">
+                                        <option selected disabled>Pilih Tahun</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <button type="submit" class="btn btn-primary btn-icon"><i class="link-icons" data-feather="search"></i></button>
+                                </div>
+                            </div>    
+                          </div>
+                        </form>
+                       </div>
+               
+                   </div>
+               
+               </div>
+            </div>
+        </div> 
+        -->
+
         <!-- Card Pengajuan -->
-        <div class="row">
+        <div class="row mt-3">
          <div class="col-md-12">
             <!-- Card deck -->
             <div class="card-deck">
@@ -43,7 +92,7 @@
             
                     <!--Card image-->
                     <div class="view overlay">
-                        <img class="card-img-top" src="{{ asset('img') }}/seo-report-green.png" alt="Card image cap" height="200px">
+                        <img class="card-img-top" src="{{ asset('assets') }}/images/seo-report-green.png" alt="Card image cap" height="200px">
                         <a href="#!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
@@ -57,6 +106,7 @@
                         <!--Text -->    
                         <p class="card-text">&nbsp;</p> 
                         <a href="{{ route('pelaporan.form-air') }}" class="btn btn-light-blue btn-sm btn-success">Klik Disini</a>
+
                 
                     </div>
             
@@ -68,7 +118,7 @@
             
                     <!--Card image-->
                     <div class="view overlay">
-                        <img class="card-img-top" src="{{ asset('img') }}/seo-report-blue.png" alt="Card image cap" height="200px">
+                        <img class="card-img-top" src="{{ asset('assets') }}/images/seo-report-blue.png" alt="Card image cap" height="200px">
                         <a href="#!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
@@ -81,7 +131,7 @@
                         <h3 class="card-title">Pengajuan Laporan Udara</h3>
                         <!--Text -->    
                         <p class="card-text">&nbsp;</p> 
-                        <a href="{{ route('pelaporan.form-udara') }}" class="btn btn-light-blue btn-sm btn-info">Klik Disini</a>
+                        <a href="{{ route('pelaporan.form-udara') }}" class="btn btn-light-blue btn-sm btn-info text-white">Klik Disini</a>
                 
                     </div>
             
@@ -93,7 +143,7 @@
             
                     <!--Card image-->
                     <div class="view overlay">
-                        <img class="card-img-top" src="{{ asset('img') }}/seo-report-orange.png" alt="Card image cap" height="200px">
+                        <img class="card-img-top" src="{{ asset('assets') }}/images/seo-report-orange.png" alt="Card image cap" height="200px">
                         <a href="#!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
@@ -105,8 +155,8 @@
                         <!--Title-->
                         <h3 class="card-title">Pengajuan Laporan Limbah B3</h3>
                         <!--Text -->    
-                        <p class="card-text"></p>                  
-                        <a href="{{ route('pelaporan.form-limbah') }}" class="btn btn-light-blue btn-sm btn-warning">Klik Disini</a>
+                        <p class="card-text">&nbsp;</p>                  
+                        <a href="{{ route('pelaporan.form-limbah') }}" class="btn btn-light-blue btn-sm btn-warning text-white">Klik Disini</a>
 
                     </div>
             
@@ -118,7 +168,7 @@
             
                     <!--Card image-->
                     <div class="view overlay">
-                        <img class="card-img-top" src="{{ asset('img') }}/seo-report-red.png" alt="Card image cap" height="200px">
+                        <img class="card-img-top" src="{{ asset('assets') }}/images/seo-report-red.png" alt="Card image cap" height="200px">
                         <a href="#!">
                         <div class="mask rgba-white-slight"></div>
                         </a>
@@ -130,7 +180,7 @@
                         <!--Title-->
                         <h3 class="card-title">Pengajuan Laporan Lingkungan</h3>
                         <!--Text -->    
-                        <p class="card-text"></p>                  
+                        <p class="card-text">&nbsp;</p>                  
                         <a href="{{ route('pelaporan.form-lingkungan') }}" class="btn btn-light-blue btn-sm btn-danger">Klik Disini</a>
 
                     </div>

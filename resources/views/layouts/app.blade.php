@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>NobleUI Laravel Admin Dashboard Template</title>
+  <title>Pelaporan dan Pengaduan Dinas Lingkungan Hidup</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,6 +47,8 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyAf7FALA_C8nQFFy1A8D6NWavSyS_rqIBc&"></script>
+    <script src="{{asset('js/gmaps.js')}}"></script>
     <!-- end base js -->
 
     <!-- plugin js -->
@@ -60,5 +62,6 @@
     <!-- end common js -->
 
     @stack('js')
+    
 </body>
 </html>

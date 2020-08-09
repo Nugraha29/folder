@@ -11,38 +11,32 @@ $(function() {
         },
         password: {
           required: true,
-          minlength: 5
+          minlength: 8
         },
         password_confirmation: {
           required: true,
-          minlength: 5,
+          minlength: 8,
           equalTo: "#password"
         },
         email: {
           required: true,
           email: true
-        },
-        topic: {
-          required: "#newsletter:checked",
-          minlength: 2
-        },
-        agree: "required"
+        }
       },
       messages: {
         name: {
-          required: "Please enter a name",
-          minlength: "Name must consist of at least 3 characters"
+          required: "Harap masukkan nama.",
+          minlength: "Nama harus terdiri dari minimal 3 karakter."
         },
         password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long"
+          required: "Harap masukkan kata sandi.",
+          minlength: "Kata sandi harus terdiri dari minimal 8 karakter."
         },
-        confirm_password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long",
-          equalTo: "Please enter the same password as above"
+        password_confirmation: {
+          required: "Harap masukkan konfirmasi kata sandi.",
+          equalTo: "Harap masukkan kata sandi yang sama seperti di atas"
         },
-        email: "Please enter a valid email address",
+        email: "Harap masukkan email yang benar.",
       },
       errorPlacement: function(label, element) {
         label.addClass('mt-2 text-danger');
@@ -53,5 +47,6 @@ $(function() {
         $(element).addClass('form-control-danger')
       }
     });
+
   });
 });

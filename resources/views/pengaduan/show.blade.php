@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'show', 'titlePage' => __('Detail Pengaduan')])
+@extends('layouts.app')
 @section('content')
 <div class="content">
   <div class="container-fluid">
@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                   <td colspan="4">
-                    <div id="map"></div>
+                    <div id="map" style="width:100%;height:350px;"></div>
                   </td>
                 </tr>           
               </tbody>

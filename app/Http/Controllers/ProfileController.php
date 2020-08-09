@@ -34,9 +34,17 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'nama' => 'required|min:3',
+            'telp' => 'required|min:6',
+            'nama_perusahaan' => 'required|min:3',
+            'bidang_usaha' => 'required|min:3',
+            'jabatan' => 'required|min:3',
+            ]
+        );
         auth()->user()->update($request->all());
 
-        return back()->withStatus(__('Profile successfully updated.'));
+        return back()->withStatus(__('Profil berhasil diperbaharui.'));
     }
 
     /**

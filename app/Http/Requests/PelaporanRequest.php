@@ -38,4 +38,21 @@ class PelaporanRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            
+        ];
+    }
+
 }

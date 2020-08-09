@@ -1,25 +1,3 @@
-@if(Auth::user()->status == "menunggu")
-<div class="container" style="height: auto;">
-  <div class="row align-items-center">
-    
-    <div class="col-lg-4 col-md-6 col-sm-8 mt-5 ml-auto mr-auto">
-
-        <div class="card card-login card-hidden mb-3">
-          
-          <div class="card-body">
-            <p class="card-description text-center mt-5">{{ __('Terimakasih telah mendaftar!') }}</p>
-            <p class="card-description text-center mt-1">{{ __('Akun Anda sedang dalam tahap') }} <strong>verifikasi.</strong> {{ __(' Silahkan tunggu dalam waktu ') }}<strong>2x24jam.</strong> </p>
-          
-          </div>
-          <div class="card-footer justify-content-center">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" class="btn btn-info btn-sm ">{{ __('Kembali') }}</a>
-          </div>
-        </div>
-        
-    </div>
-  </div>
-</div>
-@else
 @extends('layouts.app')
 
 @push('plugin-styles')
@@ -60,7 +38,7 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  <h3 class="mb-0">{{ $countreview }}</h3>
+                  <h3 class="mb-0">{{ $countpelaporan }}</h3>
                 </div>
                 <div class="col-6 text-center text-success">
                   <i class="link-icon" data-feather="file" width="50" height="50"></i>
@@ -171,7 +149,7 @@
   </div> <!-- row -->
   
 @endsection
-@endif
+
 @push('plugin-scripts')
   <script src="{{ asset('assets/plugins/chartjs/Chart.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>

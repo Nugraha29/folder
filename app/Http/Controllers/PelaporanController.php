@@ -10,6 +10,7 @@ use App\Http\Requests\PelaporanRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Exports\PelaporanExport;
+use App\Exports\PelaporanUsersExport;
 use App\Exports\ReviewExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
@@ -36,12 +37,19 @@ class PelaporanController extends Controller
             })
             ->make(true);
         } elseif (Gate::allows('isUser')) {
-            return Datatables::of(Pelaporan::where('user_id', '=', auth()->user()->id))->addColumn('action', function($data){
-                $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-fab btn-fab-mini btn-round btn-info" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><i class="material-icons">info</i></a>';
-                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-fab btn-fab-mini btn-round" title="Hapus"><i class="material-icons text-white">delete</i></a>';
+
+            $pelaporan = Pelaporan::where('user_id', '=', auth()->user()->id);
+            return Datatables::of($pelaporan)
+            ->addColumn('action', function($data){
+                $button = '&nbsp;&nbsp;&nbsp;<a class="btn btn-info btn-icon p-2 text-white" href="/pelaporan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>';
                 return $button;
             })
-            ->rawColumns(['action'])->make(true);
+            ->rawColumns(['action'])
+            ->editColumn('created_at', function ($pelaporan) {
+                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('m F Y') : '';
+            })
+            ->make(true);            
         }  else {
             abort(404, 'Anda tidak memiliki cukup hak akses!');
         }
@@ -66,12 +74,31 @@ class PelaporanController extends Controller
         }
     }
 
-    public function menu()
-    {
-        return view('pelaporan.menu');
+    public function menu(Request $request)
+    { 
+        $periode = $request->has('periode') ? $request->periode: '5';
+        $tahun = $request->get('tahun') ? $request->get('tahun'): '2025';
+
+
+        $existairperiode = Pelaporan::where('periode', '5')
+                            ->where('user_id', auth()->user()->id )
+                            ->where('jenis', 'Air' );
+
+        
+        
+        if($existairperiode === null){
+            $echo = "belum";
+
+        } else {
+            $echo = "sudah";
+
+        }
+        
+
+        return view('pelaporan.menu', [ 'echo' => $echo,  ]);
     }
 
-    public function export()
+    public function pelaporanexport()
     {
         return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
     }
@@ -256,7 +283,7 @@ Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', funct
         \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
         $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
         $model->save();
-        return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil dikirim.'));
+        return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));
 
     }
 

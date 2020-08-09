@@ -28,6 +28,7 @@ Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/waiting', ['as' => 'waiting', 'uses' => 'HomeController@waiting']);
 Route::get('/pelaporan-chart-ajax', 'HomeController@pelaporanchartAjax');
 Route::get('/pengaduan-chart-ajax', 'HomeController@pengaduanchartAjax');
 
@@ -35,8 +36,11 @@ Route::get('/mail', 'PelaporanController@mail');
 
 Route::group(['middleware' => 'auth'], function () {
 	//User
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::put('user/aktivasi/{id}', ['as' => 'user.aktivasi', 'uses' => 'UserController@aktivasi']);
+	Route::resource('user', 'UserController', ['except' => ['show', 'aktivasi', 'destroy']]);
+	Route::get('user/json','UserController@json');
+	Route::post('user/aktivasi/{id}', ['as' => 'user.aktivasi', 'uses' => 'UserController@aktivasi']);
+	Route::get('user/destroy/{id}', ['as' => 'user.destroy', 'uses' => 'UserController@destroy']);
+
 	//Pelaporan
 	Route::resource('pelaporan', 'PelaporanController', ['except' => ['show', 'destroy']]);
 	Route::get('pelaporan/json','PelaporanController@json');
@@ -46,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('pelaporan/form-limbah', ['as' => 'pelaporan.form-limbah', 'uses' => 'PelaporanController@form_limbah']);
 	Route::get('pelaporan/form-lingkungan', ['as' => 'pelaporan.form-lingkungan', 'uses' => 'PelaporanController@form_lingkungan']);
 
-	Route::get('pelaporan/export', ['as' => 'pelaporan.export', 'uses' => 'PelaporanController@export']);
+	Route::get('pelaporan/export', ['as' => 'pelaporan.export', 'uses' => 'PelaporanController@pelaporanexport']);
 	Route::get('pelaporan/tanggapi/{id}', ['as' => 'pelaporan.pelaporanreview', 'uses' => 'PelaporanController@pelaporanreview']);
 	Route::put('pelaporan/', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
 	Route::get('pelaporan/{id}', ['as'     => 'pelaporan.show', 'uses' => 'PelaporanController@show']);	

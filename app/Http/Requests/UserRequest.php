@@ -32,6 +32,7 @@ class UserRequest extends FormRequest
             'password_confirmation' => ['required', 'min:6'],
             'telp' => ['required', 'min:3'],
             'nama_perusahaan' => ['required', 'min:3'],
+            'bidang_usaha' => ['required', 'min:3'],
             'jabatan' => ['required', 'min:3'],
         ];
     }

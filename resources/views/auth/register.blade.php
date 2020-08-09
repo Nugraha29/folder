@@ -9,7 +9,6 @@
   <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
-
 @endpush
 
 @section('content')
@@ -26,7 +25,7 @@
           </div>
           <div class="col-md-8 pl-md-0">
             <div class="auth-form-wrapper px-4 py-4">
-              <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan <span>Hidup</span></a>
+              <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan Hidup <span>1.0</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Buat akun baru.</h5>
               <form class="forms-sample" id="signupForm" method="POST" action="{{ route('register') }}">
                 @csrf
@@ -50,7 +49,7 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Kata sandi</label>
                     <input id="password" class="form-control" name="password" type="password">
                     @if ($errors->has('password'))
                       <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
@@ -59,7 +58,7 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="password_confirmation">Confirm password</label>
+                    <label for="password_confirmation">Konfirmasi kata sandi</label>
                     <input id="password_confirmation" class="form-control" name="password_confirmation" type="password">
                     @if ($errors->has('password_confirmation'))
                       <div id="password_confirmation-error" class="error text-danger pl-3" for="password_confirmation" style="display: block;">
@@ -67,9 +66,9 @@
                       </div>
                     @endif
                   </div>
-                  <input class="btn btn-primary" type="submit" value="Submit">
+                  <input class="btn btn-primary mb-3" type="submit" value="Submit">
                 </fieldset>
-                <a href="{{ url('/auth/login') }}" class="d-block mt-3 text-muted">Already a user? Sign in</a>
+                Sudah mempunyai akun? <a href="{{ url('/login') }}" class=" mt-4">Masuk</a>
               </form>
             </div>
           </div>
@@ -95,7 +94,7 @@
   <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
 @endpush
 
-@push('custom-scripts')
+@push('js')
   <script src="{{ asset('assets/js/form-validation.js') }}"></script>
   <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
   <script src="{{ asset('assets/js/inputmask.js') }}"></script>

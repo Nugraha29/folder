@@ -1,123 +1,141 @@
-@extends('layouts.app', ['activePage' => 'index', 'titlePage' => __('Data Pengguna')])
+@extends('layouts.app')
 
 @section('content')
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-info">
-            <!--Card image-->
-            <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-
-              <h4 class="card-title ">Data Pengguna</h4>
-              <!--
-              <div>
-                <a class="btn btn-sm btn-danger" href="{{ route('user.create') }}">
-                  <i class="material-icons">add</i>{{ __('Tambah') }}
-                </a>
-              </div>
-              -->
-            </div>
-            <!--/Card image-->
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="card-title font-weight-bold">Data Pengaduan</h4>
+          <div>
+            <a class="btn btn-success" role="button" href="{{ route('pengaduan.export') }}">
+              <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
+            </a>
           </div>
-          
-          <div class="card-body">
-            @if (session('status'))
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
-                        </button>
-                        <span>{{ session('status') }}</span>
-                      </div>
-                    </div>
-                  </div>
-            @endif
-            <div class="table-responsive">
-              <table class="table">
-                <thead class="text-center">
-                  <th>ID</th>
-                  <th>Nama</th>
-                  <th>Email</th>
-                  <th>Telepon</th>
-                  <th>Nama Perusahaan</th>
-                  <th>Jabatan</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </thead>
-                <tbody class="text-center">
-                @foreach ($users as $user)
-                  <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->telp }}</td>
-                    <td>{{ $user->nama_perusahaan }}</td>
-                    <td>{{ $user->jabatan }}</td>
-                    <td>
-                      @if ($user->status == 'aktif')
-                        <a class="btn-success btn-rounded btn-sm text-white"> {{ $user->status }}</a>
-                      @else
-                        <a class="btn-warning btn-rounded btn-sm text-white"> {{ $user->status }}</a>
-                      @endif
-                    </td>
-                    <td class="text-right">
-                      <div class="dropdown">
-                          <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">settings</i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                              @if ($user->id != auth()->id())
-                                  @if ($user->status == 'aktif')
-                                    <form action="{{ route('user.aktivasi', [$user->id]) }}" method="post">
-                                      @csrf
-                                      @method('put')
-                                      <input type="text" name="aktivasi" value="menunggu" hidden>
-                                      <button type="button" class="dropdown-item" onclick="confirm('{{ __("Yakin untuk menonaktifkan pengguna ini?") }}') ? this.parentElement.submit() : ''">
-                                            {{ __('Aktivasi') }}
-                                      </button>
-                                    </form>  
-                                  @else
-                                    <form action="{{ route('user.aktivasi', [$user->id]) }}" method="post">
-                                      @csrf
-                                      @method('put')
-                                      <input type="text" name="aktivasi" value="aktif" hidden>
-                                      <button type="button" class="dropdown-item" onclick="confirm('{{ __("Yakin untuk mengaktifkan pengguna ini?") }}') ? this.parentElement.submit() : ''">
-                                            {{ __('Aktivasi') }}
-                                      </button>
-                                    </form>   
-                                  @endif
-                                  
-                                  <form action="{{ route('user.destroy', [$user->id]) }}" method="post">
-                                      @csrf
-                                      @method('delete')
-                                      <a class="dropdown-item" href="{{ route('user.edit', [$user->id]) }}">{{ __('Edit') }}</a>
-                                      <button type="button" class="dropdown-item" onclick="confirm('{{ __("Yakin untuk menghapus pengguna ini?") }}') ? this.parentElement.submit() : ''">
-                                          {{ __('Hapus') }}
-                                      </button>
-                                  </form>    
-                              @else
-                                  <a class="dropdown-item" href="{{ route('user.edit', [$user->id]) }}">{{ __('Edit') }}</a>
-                              @endif
-                          </div>
-                      </div>
-                    </td>
-                  </tr>                    
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card-footer">
-            <nav class="d-flex justify-content-end" aria-label="...">
-                {{ $users->links() }}
-            </nav>
-          </div>
+        </div>
+        <div class="table-responsive">
+          <table id="dataTableUsers" class="table" style="width: 100%; text-align:center;">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tanggal Pendaftaran</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Nama Perusahaan</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div id="confirmModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">              
+              <h5 class="modal-title">Konfirmasi</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <h5 align="center" style="margin:0;">Apakah Anda yakin akan <a class="text-danger">menghapus</a> data ini?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" name="ok_button" id="ok_button" class="btn btn-sm btn-danger">OK</button>
+            <button type="button" class="btn btn-sm" data-dismiss="modal">Batal</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div id="confirmModal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">              
+              <h5 class="modal-title">Konfirmasi</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <h5 align="center" style="margin:0;">Apakah Anda yakin akan <a class="text-success">mengaktivasi</a> data ini?</h5>
+              
+                <input class="getinfo" value="aktif" hidden>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" name="ok_button1" id="ok_button1" class="btn btn-sm btn-danger">OK</button>
+            <button type="button" class="btn btn-sm" data-dismiss="modal">Batal</button>
+          </div>
+      </div>
+  </div>
+</div>
 @endsection
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
+@endpush
+@push('js')
+<script>
+  $(document).ready(function() {
+
+    var CSRF_TOKEN = $('meta[name="_token"]').attr('content');
+    var user_id;
+    var user_id1;
+
+    $(document).on('click', '.delete', function(){
+      user_id = $(this).attr('id');
+      $('#confirmModal').modal('show');
+    });
+
+    $(document).on('click', '.aktivasi', function(){
+      user_id1 = $(this).attr('id');
+      $('#confirmModal1').modal('show');
+    });
+
+    $('#ok_button').click(function(){
+
+
+      $.ajax({
+      url:"user/destroy/"+user_id,
+      beforeSend:function(){
+        $('#ok_button').text('Menghapus data...');
+      },
+      success:function(data)
+      {
+        setTimeout(function(){
+        $('#confirmModal').modal('hide');
+        $('#dataTableUsers').DataTable().ajax.reload();
+        alert('Data Terhapus');
+        }, 2000);
+      }
+      })
+    });
+
+    $('#ok_button1').click(function(){
+      $.ajax({
+      url:"user/aktivasi/"+user_id1,
+      method:"POST",  
+      data: {
+        _token: CSRF_TOKEN, 
+        status: $(".getinfo").val()
+      },
+      beforeSend:function(){
+        $('#ok_button1').text('Mengaktivasi data...');
+      },
+      success:function(data)
+      {
+        setTimeout(function(){
+        $('#confirmModal1').modal('hide');
+        $('#dataTableUsers').DataTable().ajax.reload();
+        alert('Data Teraktivasi');
+        }, 2000);
+      }
+      })
+    });
+
+  });
+</script>
+<script src="{{ asset('assets/js/data-table.js') }}"></script>
+@endpush

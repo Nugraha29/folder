@@ -28,9 +28,9 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:3'],
-            'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())], 
             'telp' => ['required', 'min:3'],
             'nama_perusahaan' => ['required', 'min:3'],
+            'bidang_usaha' => ['required', 'min:3'],
             'jabatan' => ['required', 'min:3'],
         ];
     }

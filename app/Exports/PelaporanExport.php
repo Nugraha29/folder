@@ -6,6 +6,7 @@ use App\Pelaporan;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Illuminate\Support\Facades\Gate;
 
 class PelaporanExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
@@ -14,7 +15,14 @@ class PelaporanExport implements FromCollection, WithHeadings, ShouldAutoSize
     */
     public function collection()
     {
-        return Pelaporan::all();
+        if (Gate::allows('isAdmin')) {
+            return Pelaporan::all();
+        } elseif (Gate::allows('isUser')) {
+            return Pelaporan::where('user_id', auth()->user()->id )->get();
+
+        }  else {
+            abort(404, 'Anda tidak memiliki cukup hak akses');
+        }
     }
 
     public function headings(): array

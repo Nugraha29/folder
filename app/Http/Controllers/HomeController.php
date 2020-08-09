@@ -11,16 +11,7 @@ use App\Charts\DashboardChart;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -81,5 +72,11 @@ class HomeController extends Controller
                     ->fill(false);
   
         return $pengaduanchart->api();
+    }
+
+    public function waiting()
+    {
+        //
+        return view('waiting');
     }
 }

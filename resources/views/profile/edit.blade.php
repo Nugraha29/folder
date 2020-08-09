@@ -1,113 +1,166 @@
-@extends('layouts.app', ['activePage' => 'profile', 'titlePage' => __('Profil Pengguna')])
-
+@extends('layouts.app')
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+@endpush
 @section('content')
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form method="post" action="{{ route('profile.update') }}" autocomplete="off" class="form-horizontal">
+          <form class="forms-sample" method="post" action="{{ route('profile.update') }}">
             @csrf
             @method('put')
-
-            <div class="card ">
-              <div class="card-header card-header-primary">
+            <div class="card">
+              <div class="card-header card-header-warning">
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
-                  <h4 class="card-title ">Edit Profil</h4>
+
+                  <h4 class="card-title">Form Pengajuan Pelaporan Air</h4>
+
+                  <div>
+                    <a class="btn btn-sm btn-danger" href="{{ route('home') }}">
+                      <i class="link-icon" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
+                    </a>
+                  </div>
+
                 </div>
                 <!--/Card image-->
               </div>
-              <div class="card-body ">
+              
+              <div class="card-body">
                 @if (session('status'))
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
+                          <i class="link-icons" data-feather="x"></i>
                         </button>
                         <span>{{ session('status') }}</span>
                       </div>
                     </div>
                   </div>
                 @endif
-                @can('isUser')
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label">{{ __('Nama Penanggung Jawab') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Nama Penanggung Jawab') }}" value="{{ old('name', auth()->user()->name) }}" required="true" aria-required="true"/>
-                        @if ($errors->has('name'))
-                          <span id="name-error" class="error text-danger" for="input-name">{{ $errors->first('name') }}</span>
-                        @endif
+                <fieldset>
+                  <div class="form-group">
+                    <label for="nama">Nama Penanggung Jawab</label>
+                    <input id="nama" class="form-control" name="nama" type="text" value="{{ auth()->user()->name }}">
+                    @if ($errors->has('nama'))
+                      <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
+                        <strong>{{ $errors->first('nama') }}</strong>
                       </div>
-                    </div>
+                    @endif
                   </div>
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label">{{ __('Telepon') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('telp') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('telp') ? ' is-invalid' : '' }}" name="telp" id="input-telp" type="number" placeholder="{{ __('Telepon') }}" value="{{ old('telp', auth()->user()->telp) }}" required />
-                        @if ($errors->has('telp'))
-                          <span id="telp-error" class="error text-danger" for="input-telp">{{ $errors->first('telp') }}</span>
-                        @endif
+                  <div class="form-group">
+                    <label for="telp">Telepon</label>
+                    <input id="telp" class="form-control" maxlength="20" name="telp" type="number" value="{{ auth()->user()->telp }}">
+                    @if ($errors->has('telp'))
+                      <div id="telp-error" class="error text-danger pt-1" for="telp" style="display: block;">
+                        <strong>{{ $errors->first('telp') }}</strong>
                       </div>
-                    </div>
+                    @endif
                   </div>
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label">{{ __('Nama Perusahaan') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('nama_perusahaan') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('nama_perusahaan') ? ' is-invalid' : '' }}" name="nama_perusahaan" id="input-nama_perusahaan" type="text" placeholder="{{ __('Nama Perusahaan') }}" value="{{ old('nama_perusahaan', auth()->user()->nama_perusahaan) }}" required="true" aria-required="true"/>
-                        @if ($errors->has('nama_perusahaan'))
-                          <span id="nama_perusahaan-error" class="error text-danger" for="input-nama_perusahaan">{{ $errors->first('nama_perusahaan') }}</span>
-                        @endif
+                  <div class="form-group">
+                    <label for="nama_perusahaan">Nama Perusahaan</label>
+                    <input id="nama_perusahaan" class="form-control" name="nama_perusahaan" type="text" value="{{ auth()->user()->nama_perusahaan }}">
+                    @if ($errors->has('nama_perusahaan'))
+                      <div id="nama_perusahaan-error" class="error text-danger pt-1" for="nama_perusahaan" style="display: block;">
+                        <strong>{{ $errors->first('nama_perusahaan') }}</strong>
                       </div>
-                    </div>
+                    @endif
                   </div>
-                  <div class="row">
-                    <label class="col-sm-3 col-form-label">{{ __('Jabatan') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('jabatan') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('jabatan') ? ' is-invalid' : '' }}" name="jabatan" id="input-jabatan" type="text" placeholder="{{ __('Jabatan') }}" value="{{ old('jabatan', auth()->user()->jabatan) }}" required="true" aria-required="true"/>
-                        @if ($errors->has('jabatan'))
-                          <span id="jabatan-error" class="error text-danger" for="input-jabatan">{{ $errors->first('jabatan') }}</span>
-                        @endif
+                  <div class="form-group">
+                    <label>Bidang Usaha</label>
+                    <select class="form-control js-example-basic-single w-100" id="bidang_usaha" name="bidang_usaha" required>
+                      <option disabled selected>Pilih Bidang Usaha</option>   
+                      <optgroup label="Fasilitas Kesehatan">
+                        <option {{ auth()->user()->bidang_usaha == "Apotek" ? "selected" : ""}} value="Apotek">Apotek</option>
+                        <option {{ auth()->user()->bidang_usaha == "Toko Obat" ? "selected" : ""}} value="Toko Obat">Toko Obat</option>
+                        <option {{ auth()->user()->bidang_usaha == "Klinik" ? "selected" : ""}} value="Klinik">Klinik</option>
+                        <option {{ auth()->user()->bidang_usaha == "Puskesmas" ? "selected" : ""}} value="Puskesmas">Puskesmas</option>
+                        <option {{ auth()->user()->bidang_usaha == "Rumah Sakit" ? "selected" : ""}} value="Rumah Sakit">Rumah Sakit</option>
+                        <option {{ auth()->user()->bidang_usaha == "Lab Kesehatan" ? "selected" : ""}} value="Lab Kesehatan">Lab Kesehatan</option>
+                      </optgroup>
+                      <optgroup label="Pertambangan Energi dan Mineral">
+                        <option {{ auth()->user()->bidang_usaha == "Pertambangan" ? "selected" : ""}} value="Pertambangan">Pertambangan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Energi" ? "selected" : ""}} value="Energi">Energi</option>
+                        <option {{ auth()->user()->bidang_usaha == "Mineral" ? "selected" : ""}} value="Mineral">Mineral</option>
+                        <option {{ auth()->user()->bidang_usaha == "Panas Bumi" ? "selected" : ""}} value="Panas Bumi">Panas Bumi</option>
+                      </optgroup>                       
+                      <optgroup label="Industri">
+                        <option {{ auth()->user()->bidang_usaha == "Makanan Olahan" ? "selected" : ""}} value="Makanan Olahan">Makanan Olahan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Bahan Baku" ? "selected" : ""}} value="Bahan Baku">Bahan Baku</option>
+                        <option {{ auth()->user()->bidang_usaha == "Perikanan" ? "selected" : ""}} value="Perikanan">Perikanan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Pertanian" ? "selected" : ""}} value="Pertanian">Pertanian</option>
+                        <option {{ auth()->user()->bidang_usaha == "Perkebunan" ? "selected" : ""}} value="Perkebunan">Perkebunan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Peternakan" ? "selected" : ""}} value="Peternakan">Peternakan</option>
+                      </optgroup>
+                      <optgroup label="Sektor Domestik">
+                        <option {{ auth()->user()->bidang_usaha == "Perumahan" ? "selected" : ""}} value="Perumahan">Perumahan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Rumah Makan" ? "selected" : ""}} value="Rumah Makan">Rumah Makan</option>
+                        <option {{ auth()->user()->bidang_usaha == "Hotel" ? "selected" : ""}} value="Hotel">Hotel</option>
+                      </optgroup>
+                      <option {{ auth()->user()->bidang_usaha == "Lainnya" ? "selected" : ""}} value="Lainnya">Lainnya</option>
+                    </select>
+                    @if ($errors->has('bidang_usaha'))
+                      <div id="bidang_usaha-error" class="error text-danger pt-1" for="bidang_usaha" style="display: block;">
+                        <strong>{{ $errors->first('bidang_usaha') }}</strong>
                       </div>
-                    </div>
+                    @endif
                   </div>
-                @else
-                  <div class="row">
-                    <label class="col-sm-2 col-form-label">{{ __('Nama') }}</label>
-                    <div class="col-sm-7">
-                      <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Nama') }}" value="{{ old('name', auth()->user()->name) }}" required="true" aria-required="true"/>
-                        @if ($errors->has('name'))
-                          <span id="name-error" class="error text-danger" for="input-name">{{ $errors->first('name') }}</span>
-                        @endif
+                  <div class="form-group">
+                    <label for="jabatan">Jabatan</label>
+                    <input id="jabatan" class="form-control" name="jabatan" type="text" value="{{ auth()->user()->jabatan }}">
+                    @if ($errors->has('jabatan'))
+                      <div id="jabatan-error" class="error text-danger pt-1" for="jabatan" style="display: block;">
+                        <strong>{{ $errors->first('jabatan') }}</strong>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
-                    <div class="col-sm-7">
-                      <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required />
-                        @if ($errors->has('email'))
-                          <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
-                        @endif
-                      </div>
-                    </div>
-                  </div>
-                @endcan
-                
+                    @endif
+                  </div>                  
+                </fieldset>                
               </div>
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
               </div>
             </div>
+
           </form>
         </div>
       </div>
     </div>
-  </div>
+  </div>   
 @endsection
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/typeahead-js/typeahead.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+@endpush
+
+@push('js')
+  <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
+  <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+  <script src="{{ asset('assets/js/tags-input.js') }}"></script>
+  <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+  <script src="{{ asset('assets/js/dropify.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-colorpicker.js') }}"></script>
+  <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+  <script src="{{ asset('assets/js/timepicker.js') }}"></script>
+@endpush

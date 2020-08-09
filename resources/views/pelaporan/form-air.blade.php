@@ -1,15 +1,23 @@
-@extends('layouts.app', ['activePage' => 'pengajuan', 'titlePage' => __('Tambah Pelaporan')])
-
+@extends('layouts.app')
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+@endpush
 @section('content')
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form method="post" action="{{ route('pelaporan.store') }}" enctype='multipart/form-data' autocomplete="off" class="form-horizontal">
+          <form class="forms-sample" id="formPengajuan" method="POST" action="{{ route('pelaporan.store') }}" enctype='multipart/form-data'>
             @csrf
-            @method('post')
-            <div class="card ">
-              <div class="card-header card-header-success">
+            <div class="card">
+              <div class="card-header card-header-warning">
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
 
@@ -17,220 +25,176 @@
 
                   <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('pelaporan.menu') }}">
-                      <i class="material-icons">keyboard_backspace</i> {{ __('Kembali') }}
+                      <i class="link-icon" data-feather="chevron-left" width="18" height="18"></i> <span>Kembali</span>
                     </a>
                   </div>
 
                 </div>
                 <!--/Card image-->
               </div>
-              <div class="card-body ">
+              
+              <div class="card-body">
                 @if (session('status'))
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
+                          <i class="link-icons" data-feather="x"></i>
                         </button>
                         <span>{{ session('status') }}</span>
                       </div>
                     </div>
                   </div>
                 @endif
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Nama Penanggung Jawab') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('nama') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" id="input-nama" type="text" placeholder="{{ __('Nama Penanggung Jawab') }}" value="{{ auth()->user()->name }}" required="true" aria-required="true" readonly/>
-                      @if ($errors->has('nama'))
-                        <span id="nama-error" class="error text-danger" for="input-nama">{{ $errors->first('nama') }}</span>
-                      @endif
-                    </div>
+                <fieldset>
+                  <div class="form-group">
+                    <label for="nama">Nama Penanggung Jawab</label>
+                    <input id="nama" class="form-control" name="nama" type="text" value="{{ auth()->user()->name }}" readonly>
+                    @if ($errors->has('nama'))
+                      <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
+                        <strong>{{ $errors->first('nama') }}</strong>
+                      </div>
+                    @endif
                   </div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-3 col-form-label text-dark">{{ __('Telepon') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('telp') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('telp') ? ' is-invalid' : '' }}" name="telp" id="input-telp" type="number" placeholder="{{ __('Telepon') }}" value="{{ auth()->user()->telp }}" required="true" aria-required="true" readonly/>
-                        @if ($errors->has('telp'))
-                          <span id="telp-error" class="error text-danger" for="input-telp">{{ $errors->first('telp') }}</span>
-                        @endif
+                  <div class="form-group">
+                    <label for="telp">Telepon</label>
+                    <input id="telp" class="form-control" maxlength="20" name="telp" type="number" value="{{ auth()->user()->telp }}" readonly>
+                    @if ($errors->has('telp'))
+                      <div id="telp-error" class="error text-danger pt-1" for="telp" style="display: block;">
+                        <strong>{{ $errors->first('telp') }}</strong>
                       </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-3 col-form-label text-dark">{{ __('Email') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                        <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-telp" type="email" placeholder="{{ __('Email') }}" value="{{ auth()->user()->email }}" required="true" aria-required="true" readonly/>
-                        @if ($errors->has('email'))
-                          <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
-                        @endif
-                      </div>
-                    </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Nama Perusahaan') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('nama_perusahaan') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('nama_perusahaan') ? ' is-invalid' : '' }}" name="nama_perusahaan" id="input-nama_perusahaan" type="text" placeholder="{{ __('Nama Penanggung Jawab') }}" value="{{ auth()->user()->nama_perusahaan }}" required="true" aria-required="true" readonly/>
-                      @if ($errors->has('nama_perusahaan'))
-                        <span id="nama_perusahaan-error" class="error text-danger" for="input-nama_perusahaan">{{ $errors->first('nama_perusahaan') }}</span>
-                      @endif
-                    </div>
+                    @endif
                   </div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-3 col-form-label text-dark">{{ __('Bidang Usaha') }}</label>
-                    <div class="col-sm-9">
-                      <div class="form-group">
-                        <select class="form-control" data-style="btn btn-link" name="bidang_usaha" id="input-bidang_usaha" required>
-                          <option disabled selected>Pilih Bidang Usaha</option>   
-                          <optgroup label="Fasilitas Kesehatan">
-                            <option value="Apotek">Apotek</option>
-                            <option value="Toko Obat">Toko Obat</option>
-                            <option value="Klinik">Klinik</option>
-                            <option value="Puskesmas">Puskesmas</option>
-                            <option value="Rumah Sakit">Rumah Sakit</option>
-                            <option value="Lab Kesehatan">Lab Kesehatan</option>
-                          </optgroup>
-                          <optgroup label="Pertambangan Energi dan Mineral">
-                            <option value="Pertambangan">Pertambangan</option>
-                            <option value="Energi">Energi</option>
-                            <option value="Mineral">Mineral</option>
-                            <option value="Panas Bumi<">Panas Bumi</option>
-                          </optgroup>                       
-                          <optgroup label="Industri">
-                            <option value="Makanan Olahan">Makanan Olahan</option>
-                            <option value="Bahan Baku">Bahan Baku</option>
-                            <option value="Perikanan">Perikanan</option>
-                            <option value="Pertanian">Pertanian</option>
-                            <option value="Perkebunan">Perkebunan</option>
-                            <option value="Peternakan">Peternakan</option>
-                          </optgroup>
-                          <optgroup label="Sektor Domestik">
-                            <option value="Perumahan">Perumahan</option>
-                            <option value="Rumah Makan">Rumah Makan</option>
-                            <option value="Hotel">Hotel</option>
-                          </optgroup>
-                          <option value="Lainnya">Lainnya</option>
-                        </select>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control" name="email" type="email" value="{{ auth()->user()->email }}" readonly>
+                    @if ($errors->has('email'))
+                      <div id="email-error" class="error text-danger pt-1" for="email" style="display: block;">
+                        <strong>{{ $errors->first('email') }}</strong>
                       </div>
-                    </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Jenis Pelaporan') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('jenis') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('jenis') ? ' is-invalid' : '' }}" name="jenis" id="input-jenis" type="text" value="Air" required="false" aria-required="false" readonly/>
-                      @if ($errors->has('jenis'))
-                        <span id="jenis-error" class="error text-danger" for="input-jenis">{{ $errors->first('jenis') }}</span>
-                      @endif
-                    </div>
+                    @endif
                   </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Periode/Triwulan') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group">
-                      <div class="form-check form-check-radio">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="periode" id="1" value="1" required>
-                            1
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
+                  <div class="form-group">
+                    <label for="nama_perusahaan">Nama Perusahaan</label>
+                    <input id="nama_perusahaan" class="form-control" name="nama_perusahaan" type="text" value="{{ auth()->user()->nama_perusahaan }}" readonly>
+                    @if ($errors->has('nama_perusahaan'))
+                      <div id="nama_perusahaan-error" class="error text-danger pt-1" for="nama_perusahaan" style="display: block;">
+                        <strong>{{ $errors->first('nama_perusahaan') }}</strong>
                       </div>
-                      <div class="form-check form-check-radio">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="periode" id="2" value="2">
-                            2
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                      </div>
-
-                      <div class="form-check form-check-radio">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="periode" id="3" value="3">
-                            3
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                      </div>
-
-                      <div class="form-check form-check-radio">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="periode" id="4" value="4">
-                            4
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                      </div>
-                    </div>
+                    @endif
                   </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Unggah Dok.Pelaporan') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_pelaporan') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_pelaporan">
-                        <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Pelaporan') }}
+                  <div class="form-group">
+                    <label for="bidang_usaha">Bidang Usaha</label>
+                    <input id="bidang_usaha" class="form-control" name="bidang_usaha" type="text" value="{{ auth()->user()->bidang_usaha }}" readonly>
+                    @if ($errors->has('bidang_usaha'))
+                      <div id="bidang_usaha-error" class="error text-danger pt-1" for="bidang_usaha" style="display: block;">
+                        <strong>{{ $errors->first('bidang_usaha') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="jenis">Jenis Pelaporan</label>
+                    <input id="jenis" class="form-control" name="jenis" type="text" value="Air" readonly>
+                    @if ($errors->has('jenis'))
+                      <div id="jenis-error" class="error text-danger pt-1" for="jenis" style="display: block;">
+                        <strong>{{ $errors->first('jenis') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label>Periode</label><br>
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="periode" id="periode1" value="1">
+                        1
                       </label>
-                      <input type="file" name="dok_pelaporan" id="input-dok_pelaporan" class="form-control form-control-alternative{{ $errors->has('dok_pelaporan') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Pelaporan') }}" value="{{ old('dok_pelaporan') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_pelaporan'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_pelaporan') }}</strong>
-                          </span>
-                      @endif
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Unggak Dok.Izin') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_izin') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_izin">
-                        <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Izin') }}
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="periode" id="periode2" value="2">
+                        2
                       </label>
-                      <input type="file" name="dok_izin" id="input-dok_izin" class="form-control form-control-alternative{{ $errors->has('dok_izin') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Izin') }}" value="{{ old('dok_izin') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_izin'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_izin') }}</strong>
-                          </span>
-                      @endif
-                    </div>
+                    </div>   
+                    @if ($errors->has('periode'))
+                      <div id="periode-error" class="error text-danger pt-1" for="periode" style="display: block;">
+                        <strong>{{ $errors->first('periode') }}</strong>
+                      </div>
+                    @endif               
                   </div>
-                </div>
-                <div class="row">
-                  <label class="col-sm-3 col-form-label text-dark">{{ __('Unggak Dok.Uji Lab') }}</label>
-                  <div class="col-sm-9">
-                    <div class="form-group{{ $errors->has('dok_lab') ? ' has-danger' : '' }} text-left">
-                      <label class="form-control-label custom-file-upload" for="input-dok_lab">
-                        <i class="fa fa-cloud-upload"></i> {{ __('Dokumen Hasil Uji Lab') }}
-                      </label>
-                      <input type="file" name="dok_lab" id="input-dok_lab" class="form-control form-control-alternative{{ $errors->has('dok_lab') ? ' is-invalid' : '' }}" placeholder="{{ __('Dokumen Hasil Uji Lab') }}" value="{{ old('dok_lab') }}" style="display:none;" autofocus required>
-                      @if ($errors->has('dok_lab'))
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('dok_lab') }}</strong>
-                          </span>
-                      @endif
+                  <div class="form-group">
+                    <label>Dokumen Pelaporan</label>
+                    <input type="file" name="dok_pelaporan" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="file" id="myDropify" class="border" name="dok_pelaporan"/>
                     </div>
+                    @if ($errors->has('dok_pelaporan'))
+                      <div id="dok_pelaporan-error" class="error text-danger pt-1" for="dok_pelaporan" style="display: block;">
+                        <strong>{{ $errors->first('dok_pelaporan') }}</strong>
+                      </div>
+                    @endif  
                   </div>
-                </div>
+                  <div class="form-group">
+                    <label>Dokumen Lab</label>
+                    <input type="file" name="dok_lab" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="file" id="myDropify1" class="border" name="dok_lab"/>
+                    </div>
+                    @if ($errors->has('dok_lab'))
+                      <div id="dok_lab-error" class="error text-danger pt-1" for="dok_lab" style="display: block;">
+                        <strong>{{ $errors->first('dok_lab') }}</strong>
+                      </div>
+                    @endif  
+                  </div>
+                  <div class="form-group">
+                    <label>Dokumen Izin</label>
+                    <input type="file" name="dok_izin" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="file" id="myDropify2" class="border" name="dok_izin"/>
+                    </div>
+                    @if ($errors->has('dok_izin'))
+                      <div id="dok_izin-error" class="error text-danger pt-1" for="dok_izin" style="display: block;">
+                        <strong>{{ $errors->first('dok_izin') }}</strong>
+                      </div>
+                    @endif  
+                  </div>
+                </fieldset>                
               </div>
               <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-success">{{ __('Simpan') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
               </div>
-            </div>            
+            </div>
+
           </form>
         </div>
       </div>
     </div>
   </div>   
 @endsection
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/typeahead-js/typeahead.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+@endpush
+
+@push('js')
+  <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
+  <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+  <script src="{{ asset('assets/js/tags-input.js') }}"></script>
+  <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+  <script src="{{ asset('assets/js/dropify.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-colorpicker.js') }}"></script>
+  <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+  <script src="{{ asset('assets/js/timepicker.js') }}"></script>
+@endpush

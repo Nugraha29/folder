@@ -36,11 +36,15 @@ class AuthServiceProvider extends ServiceProvider
              return $user->roles == 'Operator';
          });
 
-         // define a author user role
-         // returns true if user role is set to author
-         Gate::define('isUser', function($user) {
-            return $user->roles == 'User';
+        Gate::define('isUser', function($user) {
+            return $user->roles == 'User' && $user->status == 'aktif';
         });
+
+        Gate::define('isUserWaiting', function($user) {
+            return $user->roles == 'User' && $user->status == 'menunggu
+            ';
+        });
+
     
     }
 }

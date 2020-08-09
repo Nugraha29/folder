@@ -70,7 +70,8 @@ class PengaduanController extends Controller
                 'telp' => 'required|min:6',
                 'email' => 'required|min:3',
                 'lat'=>'required|min:3',
-                'long'=>'required|min:3',
+                'lng'=>'required|min:3',
+                'jenis'=>'required|min:3',
                 'deskripsi' => 'required|min:3',
                 'img1' => 'required|mimes:jpg,jpeg,png',
                 'img2' => 'required|mimes:jpg,jpeg,png',
@@ -99,7 +100,8 @@ class PengaduanController extends Controller
         $model->telp= $request->get('telp');
         $model->email= $request->get('email');
         $model->lat = $request->get('lat');
-        $model->long = $request->get('long');
+        $model->long = $request->get('lng');
+        $model->jenis = $request->get('jenis');
         $model->deskripsi = $request->get('deskripsi');
         $model->img1 = $request->file('img1')->store('FotoPengaduan', 'public');
         if ($request->file('img2'))

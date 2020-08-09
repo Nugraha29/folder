@@ -1,308 +1,263 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'pengaduan', 'titlePage' => __('Tambah Pengaduan')])
+@extends('layouts.app2')
+
+@push('plugin-styles')
+  <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropzone/dropzone.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+@endpush
 
 @section('content')
-<div class="container" style="height: auto;">
-  <div class="row align-items-center">
-    <div class="col-lg-8 col-md-6 col-sm-8 ml-auto mr-auto">
-       <form method="post" action="{{ route('pengaduan.store')}}" enctype="multipart/form-data" autocomplete="off">
-        {{ csrf_field() }}
-        @method('post')
+<div class="page-content d-flex align-items-center justify-content-center">
 
-        <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-success text-center">
-            <h4 class="card-title"><strong>{{ __('Formulir Pengaduan') }}</strong></h4>
+  <div class="row w-100 mx-0 auth-page">
+    <div class="col-md-12 col-xl-8 mx-auto">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-3 pr-md-0">
+            <div class="auth-left-wrapper" style="background-image: url({{ url('https://via.placeholder.com/219x452') }})">
+
+            </div>
           </div>
-          <div class="card-body ">
-                @if (session('status'))
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
-                        </button>
-                        <span>{{ session('status') }}</span>
-                      </div>
+          <div class="col-md-9 pl-md-0">
+            <div class="auth-form-wrapper px-4 pt-5 pb-3">
+              <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan Hidup <span>1.0</span></a>
+              <h5 class="text-muted font-weight-normal mb-4">Formulir Pengaduan Masyarakat.</h5>
+              @if (session('status'))
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-success">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="link-icons" data-feather="x"></i>
+                      </button>
+                      <span>{{ session('status') }}</span>
                     </div>
                   </div>
-                @endif
-            <div class="bmd-form-group{{ $errors->has('nik') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">credit_card</i>
-                  </span>
-                </div>
-                <input type="number" name="nik" class="form-control" placeholder="{{ __('NIK...') }}" value="{{ old('nik') }}" required>
-              </div>
-              @if ($errors->has('nik'))
-                <div id="nik-error" class="error text-danger pl-3" for="nik" style="display: block;">
-                  <strong>{{ $errors->first('nik') }}</strong>
                 </div>
               @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('img4') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">image</i>
-                  </span>
-                </div>
-                <label class="form-control-label custom-file-upload" for="input-img4">
-                  <i class="fa fa-cloud-upload"></i> {{ __('Unggah Foto KTP') }}
-                </label>
-                <input type="file" name="img4" id="input-img4" class="form-control form-control-alternative{{ $errors->has('img4') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img4') }}" style="display:none;">  
-                 <a class="text-warning pl-2"><small>*Data KTP anda dilindungi oleh kebijakan privasi Dinas Lingkungan Hidup</small></a> 
-              </div>
-              @if ($errors->has('img4'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="img4" style="display: block;">
-                  <strong>{{ $errors->first('img4') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('nama') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <i class="material-icons">face</i>
-                  </span>
-                </div>
-                <input type="text" name="nama" class="form-control" placeholder="{{ __('Nama Pengadu...') }}" value="{{ old('nama') }}" required>
-              </div>
-              @if ($errors->has('nama'))
-                <div id="nama-error" class="error text-danger pl-3" for="nama" style="display: block;">
-                  <strong>{{ $errors->first('nama') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('telp') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">phone</i>
-                  </span>
-                </div>
-                <input type="number" name="telp" class="form-control" placeholder="{{ __('Telepon...') }}" value="{{ old('telp') }}" required>
-              </div>
-              @if ($errors->has('telp'))
-                <div id="telp-error" class="error text-danger pl-3" for="telp" style="display: block;">
-                  <strong>{{ $errors->first('telp') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">email</i>
-                  </span>
-                </div>
-                <input type="email" name="email" class="form-control" placeholder="{{ __('E-mail...') }}" value="{{ old('email') }}" required>
-              </div>
-              @if ($errors->has('email'))
-                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
-                  <strong>{{ $errors->first('email') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="row">
-              <div class="col-md-12 mt-3 pl-3">
-              <a class="form-control text-center h6">Titik Lokasi Pengaduan </a>
-              </div>
-              <div class="col-md-12">
-                <div id="map" style="width:100%;height:350px;"></div>   
-              </div>
-              <div class="col-md-6">
-                  <div class="bmd-form-group{{ $errors->has('lat') ? ' has-danger' : '' }} mt-3">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="material-icons">location_on</i>
-                        </span>
-                      </div>
-                      <input type="text" name="lat" id="lat" class="form-control" placeholder="{{ __('Latitude...') }}" value="{{ old('lat') }}" required>
-                    </div>
-                    @if ($errors->has('lat'))
-                      <div id="lat-error" class="error text-danger pl-3" for="lat" style="display: block;">
-                        <strong>{{ $errors->first('lat') }}</strong>
-                      </div>
-                    @endif
-                  </div>
-              </div>
-              <div class="col-md-6">
-                <div class="bmd-form-group{{ $errors->has('long') ? ' has-danger' : '' }} mt-3">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">location_on</i>
-                      </span>
-                    </div>
-                    <input type="text" name="long" id="long" class="form-control" placeholder="{{ __('Longitude...') }}" value="{{ old('long') }}" required>
-                  </div>
-                  @if ($errors->has('long'))
-                    <div id="long-error" class="error text-danger pl-3" for="long" style="display: block;">
-                      <strong>{{ $errors->first('long') }}</strong>
+              <form class="forms-sample" method="POST" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="credit-card" height="20px"></i><label for="nik">NIK</label>
+                  <input type="number" name="nik" class="form-control" id="nik" placeholder="NIK" value="{{ old('nik') }}">
+                  @if ($errors->has('nik'))
+                    <div id="nik-error" class="error text-danger pt-1" for="nik" style="display: block;">
+                      <strong>{{ $errors->first('nik') }}</strong>
                     </div>
                   @endif
                 </div>
-              </div>
-            </div>
-            <div class="bmd-form-group{{ $errors->has('jenis') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">list</i>
-                  </span>
-                </div>
-                <select class="form-control" data-style="btn btn-link" name="bidang_usaha" id="input-bidang_usaha" required>
-                  <option hidden>Jenis Pengaduan</option>   
-                  <option value="Pencemaran Air">Pencemaran Air</option>
-                  <option value="Pencemaran Udara">Pencemaran Udara</option>
-                  <option value="Illegal Logging">Illegal Logging</option>
-                  <option value="Pembuangan Sampah">Pembuangan Sampah</option>
-                  <option value="Dumping">Dumping</option>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-              </div>
-              @if ($errors->has('deskripsi'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="deskripsi" style="display: block;">
-                  <strong>{{ $errors->first('deskripsi') }}</strong>
-                </div>
-              @endif
-            </div>
-            <div class="bmd-form-group{{ $errors->has('deskripsi') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">assignment</i>
-                  </span>
-                </div>
-                <input type="text" name="deskripsi" class="form-control" placeholder="{{ __('Deskripsi Pengaduan...') }}" value="{{ old('deskripsi') }}" required>
-              </div>
-              @if ($errors->has('deskripsi'))
-                <div id="deskripsi-error" class="error text-danger pl-3" for="deskripsi" style="display: block;">
-                  <strong>{{ $errors->first('deskripsi') }}</strong>
-                </div>
-              @endif
-            </div>
-            <!-- Form Foto -->
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="bmd-form-group{{ $errors->has('img1') ? ' has-danger' : '' }} mt-3">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">image</i>
-                      </span>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="image" height="20px"></i><label>Unggah KTP</label>
+                  <input type="file" name="img4" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="file" id="myDropify3" class="border" name="img4"/>
+                  </div>
+                  @if ($errors->has('img4'))
+                    <div id="img4-error" class="error text-danger pt-1" for="img4" style="display: block;">
+                      <strong>{{ $errors->first('img4') }}</strong>
                     </div>
-                    <label class="form-control-label custom-file-upload" for="input-img1">
-                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
-                    </label>
-                    <input type="file" name="img1" id="input-img1" class="form-control form-control-alternative{{ $errors->has('img1') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img1') }}" style="display:none;">  
+                  @endif  
+                </div>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="user" height="20px"></i><label for="nama">Nama Pengadu</label>
+                  <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                  @if ($errors->has('nama'))
+                    <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
+                      <strong>{{ $errors->first('nama') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="phone" height="20px"></i><label for="nama">Telepon</label>
+                  <input type="number" name="telp" class="form-control" id="telp" placeholder="Telepon">
+                  @if ($errors->has('telp'))
+                    <div id="telp-error" class="error text-danger pt-1" for="telp" style="display: block;">
+                      <strong>{{ $errors->first('telp') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="mail" height="20px"></i><label for="email">Email</label>
+                  <input id="email" class="form-control" name="email" type="email" placeholder="Email">
+                  @if ($errors->has('email'))
+                    <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                      <strong>{{ $errors->first('email') }}</strong>
+                    </div>
+                  @endif
+                </div>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="map-pin" height="20px"></i><label>Titik Pengaduan</label>
+                  <div id="map" style="width: 100%; height: 350px;"></div>
+                </div>
+                <div class="row">
+                  <div class="col-6 text-center">
+                    <div class="form-group">
+                      <i class="link-icons mr-1" data-feather="map-pin" height="20px"></i><label for="lat">Latitude</label>
+                      <input id="lat" class="form-control" name="lat" type="lat" placeholder="Latitude">
+                      @if ($errors->has('lat'))
+                        <div id="lat-error" class="error text-danger pl-3" for="lat" style="display: block;">
+                          <strong>{{ $errors->first('lat') }}</strong>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="form-group">
+                      <i class="link-icons mr-1" data-feather="map-pin" height="20px"></i><label for="lng">Longitude</label>
+                      <input id="lng" class="form-control" name="lng" type="lng" placeholder="Longitude">
+                      @if ($errors->has('lng'))
+                        <div id="lng-error" class="error text-danger pl-3" for="lng" style="display: block;">
+                          <strong>{{ $errors->first('lng') }}</strong>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="alert-triangle" height="20px"></i><label>Jenis Pengaduan</label>
+                  <select class="form-control js-example-basic-single w-100" id="jenis" name="jenis" required>
+                    <option disabled selected>Pilih Jenis Pengaduan</option>
+                    <option value="Pencemaran Air">Pencemaran Air</option>
+                    <option value="Pencemaran Udara">Pencemaran Udara</option>
+                    <option value="Illegal Logging">Illegal Logging</option>
+                    <option value="Pembuangan Sampah">Pembuangan Sampah</option>
+                    <option value="Dumping">Dumping</option>  
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                  @if ($errors->has('jenis'))
+                    <div id="jenis-error" class="error text-danger pt-1" for="jenis" style="display: block;">
+                      <strong>{{ $errors->first('jenis') }}</strong>
+                    </div>
+                  @endif
+                </div>   
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="clipboard" height="20px"></i><label for="deskripsi">Deskripsi Pengaduan</label>
+                  <textarea name="deskripsi" maxlength="100" class="form-control" id="maxlength-textarea" placeholder="Jelaskan secara singkat rincian pengaduan saudara." rows="8"></textarea>
+                  @if ($errors->has('deskripsi'))
+                    <div id="deskripsi-error" class="error text-danger pt-1" for="deskripsi" style="display: block;">
+                      <strong>{{ $errors->first('deskripsi') }}</strong>
+                    </div>
+                  @endif
+                </div>  
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="image" height="20px"></i><label>Bukti Pengaduan 1</label>
+                  <input type="file" name="img1" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="file" id="myDropify" class="border" name="img1"/>
                   </div>
                   @if ($errors->has('img1'))
-                    <div id="deskripsi-error" class="error text-danger pl-3" for="img1" style="display: block;">
+                    <div id="img1-error" class="error text-danger pt-1" for="img1" style="display: block;">
                       <strong>{{ $errors->first('img1') }}</strong>
                     </div>
-                  @endif
+                  @endif  
                 </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="bmd-form-group{{ $errors->has('img2') ? ' has-danger' : '' }} mt-3">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">image</i>
-                      </span>
-                    </div>
-                    <label class="form-control-label custom-file-upload" for="input-img2">
-                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
-                    </label>
-                    <input type="file" name="img2" id="input-img2" class="form-control form-control-alternative{{ $errors->has('img2') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img2') }}" style="display:none;">  
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="image" height="20px"></i><label>Bukti Pengaduan 2</label>
+                  <input type="file" name="img2" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="file" id="myDropify1" class="border" name="img2"/>
                   </div>
                   @if ($errors->has('img2'))
-                    <div id="deskripsi-error" class="error text-danger pl-3" for="img2" style="display: block;">
+                    <div id="img2-error" class="error text-danger pt-1" for="img2" style="display: block;">
                       <strong>{{ $errors->first('img2') }}</strong>
                     </div>
-                  @endif
+                  @endif  
                 </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="bmd-form-group{{ $errors->has('img3') ? ' has-danger' : '' }} mt-3">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="material-icons">image</i>
-                      </span>
-                    </div>
-                    <label class="form-control-label custom-file-upload" for="input-img3">
-                      <i class="fa fa-cloud-upload"></i> {{ __('Bukti Foto') }}
-                    </label>
-                    <input type="file" name="img3" id="input-img3" class="form-control form-control-alternative{{ $errors->has('img3') ? ' is-invalid' : '' }}" placeholder="{{ __('Unggah Bukti Foto') }}" value="{{ old('img3') }}" style="display:none;">  
+                <div class="form-group">
+                  <i class="link-icons mr-1" data-feather="image" height="20px"></i><label>Bukti Pengaduan 3</label>
+                  <input type="file" name="img3" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="file" id="myDropify2" class="border" name="img3"/>
                   </div>
                   @if ($errors->has('img3'))
-                    <div id="deskripsi-error" class="error text-danger pl-3" for="img3" style="display: block;">
+                    <div id="img3-error" class="error text-danger pt-1" for="img3" style="display: block;">
                       <strong>{{ $errors->first('img3') }}</strong>
                     </div>
-                  @endif
+                  @endif  
                 </div>
-              </div>    
-            </div>
-            <!-- Form Foto -->
-            <div class="bmd-form-group{{ $errors->has('g-recaptcha-response') ? ' has-danger' : '' }} mt-3">
-              <div class="input-group">
-                <div class="col-md-12">
+                <div class="form-group">
                   <div class="g-recaptcha-response d-flex justify-content-center">
                     <span>
                       {!! NoCaptcha::display() !!}                    
                       {!! NoCaptcha::renderJs() !!}
                     </span>
                   </div>
+                  @if ($errors->has('g-recaptcha-response'))
+                    <div id="g-recaptcha-response-error" class="error text-danger pt-1" for="g-recaptcha-response" style="display: block;">
+                      <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                    </div>
+                  @endif
+                </div>           
+                <div class="mt-3">
+                  <button type="submit" class="btn btn-primary mr-2 mb-3 mb-md-3 w-100">Kirim Pengaduan</button>
                 </div>
-              </div>
-              @if ($errors->has('g-recaptcha-response'))
-                <div id="g-recaptcha-response-error" class="error text-danger pl-3" for="g-recaptcha-response" style="display: block;">
-                  <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                </div>
-              @endif
+              </form>
             </div>
           </div>
-          <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-success btn-md">{{ __('Kirim Pengaduan') }}</button>
-          </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
+
+</div>  
 @endsection
+@push('plugin-scripts')
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/inputmask/jquery.inputmask.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/typeahead-js/typeahead.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+@endpush
 
 @push('js')
+  <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-maxlength.js') }}"></script>
+  <script src="{{ asset('assets/js/inputmask.js') }}"></script>
+  <script src="{{ asset('assets/js/select2.js') }}"></script>
+  <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+  <script src="{{ asset('assets/js/tags-input.js') }}"></script>
+  <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+  <script src="{{ asset('assets/js/dropify.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap-colorpicker.js') }}"></script>
+  <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+  <script src="{{ asset('assets/js/timepicker.js') }}"></script>
   <script>
-      var map = new GMaps({
-        el: '#map',
-        zoom: 12,
-        lat: -7.2146505,
-        lng: 107.8959374,
-        click: function(e) {
-          // alert('click');
-          var latLng = e.latLng;
-          console.log(latLng);
-          var lat = $('#lat');
-          var long = $('#long');
+    var map = new GMaps({
+      el: '#map',
+      zoom: 12,
+      lat: -7.2146505,
+      lng: 107.8959374,
+      click: function(e) {
+        // alert('click');
+        var latLng = e.latLng;
+        console.log(latLng);
+        var lat = $('#lat');
+        var long = $('#lng');
 
-          lat.val(latLng.lat());
-          long.val(latLng.lng());
-          map.removeMarkers();
-          map.addMarker({
-              lat: latLng.lat(),
-              lng: latLng.lng(),
-              title: 'Create Here',
-              click: function(e) {
-                  alert('You clicked in this marker');
-              }
-          });
+        lat.val(latLng.lat());
+        long.val(latLng.lng());
+        map.removeMarkers();
+        map.addMarker({
+            lat: latLng.lat(),
+            lng: latLng.lng(),
+            title: 'Create Here',
+            click: function(e) {
+                alert('You clicked in this marker');
+            }
+        });
 
       },
-  });
+    });
   </script>
 @endpush
