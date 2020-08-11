@@ -29,20 +29,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth', 'userwaiting');
 Route::get('/waiting', ['as' => 'waiting', 'uses' => 'HomeController@waiting']);
-Route::get('/pelaporan-chart-ajax', 'HomeController@pelaporanchartAjax');
-Route::get('/pengaduan-chart-ajax', 'HomeController@pengaduanchartAjax');
-
-Route::get('/mail', 'PelaporanController@mail');
 
 Route::middleware(['auth'])->group( function () {
 	//Pelaporan
 	Route::resource('pelaporan', 'PelaporanController', ['except' => ['show', 'destroy']]);
 	Route::get('pelaporan/json','PelaporanController@json');
-	Route::get('pelaporan/menu', ['as' => 'pelaporan.menu', 'uses' => 'PelaporanController@menu']);
-	Route::get('pelaporan/form-air', ['as' => 'pelaporan.form-air', 'uses' => 'PelaporanController@form_air']);
-	Route::get('pelaporan/form-udara', ['as' => 'pelaporan.form-udara', 'uses' => 'PelaporanController@form_udara']);
-	Route::get('pelaporan/form-limbah', ['as' => 'pelaporan.form-limbah', 'uses' => 'PelaporanController@form_limbah']);
-	Route::get('pelaporan/form-lingkungan', ['as' => 'pelaporan.form-lingkungan', 'uses' => 'PelaporanController@form_lingkungan']);
+	Route::get('/pelaporan-chart-ajax', 'HomeController@pelaporanchartAjax');
+	Route::get('pelaporan/form', ['as' => 'pelaporan.form', 'uses' => 'PelaporanController@form']);	
+	Route::post('pelaporan/form', ['as' => 'pelaporan.form-status', 'uses' => 'PelaporanController@formstatus']);
 	Route::get('pelaporan/export', ['as' => 'pelaporan.export', 'uses' => 'PelaporanController@pelaporanexport']);
 	Route::get('pelaporan/tanggapi/{id}', ['as' => 'pelaporan.pelaporanreview', 'uses' => 'PelaporanController@pelaporanreview']);
 	Route::put('pelaporan/', ['as' => 'pelaporan.review', 'uses' => 'PelaporanController@review']);
@@ -56,13 +50,6 @@ Route::middleware(['auth'])->group( function () {
 	Route::get('tanggapan/{id}', ['as' => 'review.show', 'uses' => 'PelaporanController@showreview']);
 	Route::get('tanggapan/email/{id}', ['as' => 'review.email', 'uses' => 'PelaporanController@emailreview']);
 
-	//Pengaduan
-	Route::resource('pengaduan', 'PengaduanController',  ['except' => ['create', 'store', 'show', 'destroy']]);
-	Route::get('pengaduan/json','PengaduanController@json');
-	Route::get('pengaduan/export', ['as' => 'pengaduan.export', 'uses' => 'PengaduanController@export']);
-	Route::get('pengaduan/{id}', ['as'     => 'pengaduan.show', 'uses' => 'PengaduanController@show']);	
-	Route::get('pengaduan/destroy/{id}', 'PengaduanController@destroy');
-
 	//Profile
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::get('profile/edit-password', ['as' => 'profile.editpassword', 'uses' => 'ProfileController@editpassword']);
@@ -74,6 +61,7 @@ Route::middleware(['auth', 'admin'])->group( function () {
 	//Pengaduan
 	Route::resource('pengaduan', 'PengaduanController',  ['except' => ['create', 'store', 'show', 'destroy']]);
 	Route::get('pengaduan/json','PengaduanController@json');
+	Route::get('/pengaduan-chart-ajax', 'HomeController@pengaduanchartAjax');
 	Route::get('pengaduan/export', ['as' => 'pengaduan.export', 'uses' => 'PengaduanController@export']);
 	Route::get('pengaduan/{id}', ['as'     => 'pengaduan.show', 'uses' => 'PengaduanController@show']);	
 	Route::get('pengaduan/destroy/{id}', 'PengaduanController@destroy');

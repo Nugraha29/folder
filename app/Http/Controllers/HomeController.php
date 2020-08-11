@@ -53,7 +53,7 @@ class HomeController extends Controller
             $countpelaporanlingkungan = Pelaporan::where('user_id', auth()->user()->id)
                                 ->where('jenis', 'Lingkungan')
                                 ->count();
-            $pelaporan = Pelaporan::where('user_id', auth()->user()->id)->get();
+            $pelaporan = Pelaporan::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
 
             return view('dashboard', compact('countpelaporanair', 
                                                 'countpelaporanudara', 
@@ -61,7 +61,29 @@ class HomeController extends Controller
                                                 'countpelaporanlingkungan',
                                                 'pelaporan'));
         
-        }  else {
+        } elseif (Gate::allows('isOperator')) {
+
+            $countpelaporanair = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Air')
+                                ->count();
+            $countpelaporanudara = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Udara')
+                                ->count();
+            $countpelaporanlimbah = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'LimbahB3')
+                                ->count();
+            $countpelaporanlingkungan = Pelaporan::where('user_id', auth()->user()->id)
+                                ->where('jenis', 'Lingkungan')
+                                ->count();
+            $pelaporan = Pelaporan::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+
+            return view('dashboard', compact('countpelaporanair', 
+                                                'countpelaporanudara', 
+                                                'countpelaporanlimbah', 
+                                                'countpelaporanlingkungan',
+                                                'pelaporan'));
+        
+        } else {
             abort(404, 'Anda tidak memiliki cukup hak akses');
         }
 

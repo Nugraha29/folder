@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\DB;
 
 class PelaporanController extends Controller
 {
-    public function json(){
+    public function json()
+    {
         if (Gate::allows('isAdmin')) {
             $pelaporan = Pelaporan::where('status', '=', 'Reviewing');
             return Datatables::of($pelaporan)
@@ -74,63 +75,42 @@ class PelaporanController extends Controller
         }
     }
 
-    public function menu(Request $request)
-    { 
-        $periode = $request->has('periode') ? $request->periode: '5';
-        $tahun = $request->get('tahun') ? $request->get('tahun'): '2025';
+    public function form(Request $request)
+    {      
 
-
-        $existairperiode = Pelaporan::where('periode', '5')
-                            ->where('user_id', auth()->user()->id )
-                            ->where('jenis', 'Air' );
-
-        
-        
-        if($existairperiode === null){
-            $echo = "belum";
-
-        } else {
-            $echo = "sudah";
-
-        }
-        
-
-        return view('pelaporan.menu', [ 'echo' => $echo,  ]);
+        return view('pelaporan.form');
     }
 
-    public function pelaporanexport()
-    {
-        return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
-    }
-
-    /**
-     * Show the form for creating a new resource.
+    /**  
+     * Post Request to store step1 info in session
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-    public function form_air()
+    public function formstatus(Request $request)
     {
-        //
-        return view('pelaporan.form-air');
-    }
+        $this->validate($request, [
+            'periode' => 'required',
+            'tahun' => 'required',
+            'jenis' => 'required',
+        ],
+        [
+            'periode.required' => 'Periode Wajib dipilih.',       
+            'tahun.required' => 'Tahun Wajib dipilih.',        
+            'jenis.required' => 'Jenis Wajib dipilih.',                         
+        ]);
+    
+        $periode = $request->get('periode');
+        $tahun = $request->get('tahun');
+        $jenis = $request->get('jenis');
 
-    public function form_udara()
-    {
-        //
-        return view('pelaporan.form-udara');
-    }
 
-    public function form_limbah()
-    {
-        //
-        return view('pelaporan.form-limbah');
-    }
+        $filter = Pelaporan::where('periode', $periode)
+            ->whereYear('created_at', $tahun)
+            ->where('jenis', $jenis)
+            ->first();
 
-    public function form_lingkungan()
-    {
-        //
-        return view('pelaporan.form-lingkungan');
+        return view('pelaporan.form-pengajuan',compact('filter','periode','tahun','jenis'));
     }
 
     /**
@@ -168,6 +148,41 @@ class PelaporanController extends Controller
 
         return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
+    }
+
+    public function pelaporanexport()
+    {
+        return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function form_air()
+    {
+        //
+        return view('pelaporan.form-air');
+    }
+
+    public function form_udara()
+    {
+        //
+        return view('pelaporan.form-udara');
+    }
+
+    public function form_limbah()
+    {
+        //
+        return view('pelaporan.form-limbah');
+    }
+
+    public function form_lingkungan()
+    {
+        //
+        return view('pelaporan.form-lingkungan');
     }
 
     /**
