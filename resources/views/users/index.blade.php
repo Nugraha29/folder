@@ -107,6 +107,7 @@
         setTimeout(function(){
         $('#confirmModal').modal('hide');
         $('#dataTableUsers').DataTable().ajax.reload();
+        window.location.reload();
         alert('Data Terhapus');
         }, 2000);
       }
@@ -129,6 +130,7 @@
         setTimeout(function(){
         $('#confirmModal1').modal('hide');
         $('#dataTableUsers').DataTable().ajax.reload();
+        window.location.reload();
         alert('Data Teraktivasi');
         }, 2000);
       }
