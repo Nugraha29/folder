@@ -254,7 +254,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <a href="{{ route('pengaduan.index')}}">Lihat Detail</a>
+                <a href="{{ route('pelaporan.index')}}">Lihat Detail</a>
               </div>
             </div>
           </div>
@@ -276,7 +276,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <a href="{{ route('pengaduan.index')}}">Lihat Detail</a>
+                <a href="{{ route('pelaporan.index')}}">Lihat Detail</a>
               </div>
             </div>
           </div>

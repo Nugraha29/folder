@@ -19,7 +19,6 @@ class PelaporanExport implements FromCollection, WithHeadings, ShouldAutoSize
             return Pelaporan::all();
         } elseif (Gate::allows('isUser')) {
             return Pelaporan::where('user_id', auth()->user()->id )->get();
-
         }  else {
             abort(404, 'Anda tidak memiliki cukup hak akses');
         }
