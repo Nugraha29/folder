@@ -75,9 +75,9 @@
       {
         setTimeout(function(){
         $('#confirmModal').modal('hide');
+        $('#ok_button').text('OK');
         $('#example').DataTable().ajax.reload();
-        window.location.reload();        
-        alert('Data Terhapus');
+        swal('Berhasil','Data berhasil dihapus!', 'success');
         }, 2000);
       }
       })

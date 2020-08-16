@@ -18,6 +18,7 @@ use PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PelaporanController extends Controller
 {
@@ -157,7 +158,7 @@ class PelaporanController extends Controller
 
 
             $model->save();
-
+            Alert::success('Berhasil', 'Pelaporan berhasil dikirim!');
             return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
         }
@@ -306,6 +307,7 @@ class PelaporanController extends Controller
             \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
             $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
             $model->save();
+            Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
         } else {
             abort(403, 'Anda tidak memiliki cukup hak akses');

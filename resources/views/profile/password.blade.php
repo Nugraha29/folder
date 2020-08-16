@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'profile', 'titlePage' => __('Profil Pengguna')])
+@extends('layouts.app')
 
 @section('content')
   <div class="content">
@@ -23,7 +23,7 @@
                     <div class="col-sm-12">
                       <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <i class="material-icons">close</i>
+                          <i class="link-icons" data-feather="x"></i>
                         </button>
                         <span>{{ session('status') }}</span>
                       </div>

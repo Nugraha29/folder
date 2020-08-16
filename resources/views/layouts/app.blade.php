@@ -22,7 +22,7 @@
   <!-- common css -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
   <!-- end common css -->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
   @stack('css')
 </head>
 <body data-base-url="{{url('/')}}">
@@ -38,6 +38,7 @@
       @include('layouts.header')
       <div class="page-content">
         @yield('content')
+        @include('sweetalert::alert')
       </div>
       @include('layouts.footer')
     </div>
@@ -49,6 +50,7 @@
     <script src="{{ asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyAf7FALA_C8nQFFy1A8D6NWavSyS_rqIBc&"></script>
     <script src="{{asset('js/gmaps.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     <!-- end base js -->
 
     <!-- plugin js -->

@@ -88,9 +88,9 @@
       {
         setTimeout(function(){
         $('#confirmModal').modal('hide');
-        $('#example').DataTable().ajax.reload();
-        window.location.reload();
-        alert('Data Terhapus');
+        $('#ok_button').text('OK');
+        $('#dataTablePelaporan').DataTable().ajax.reload();
+        swal('Berhasil','Data berhasil dihapus!', 'success');
         }, 2000);
       }
       })
@@ -176,9 +176,9 @@
       {
         setTimeout(function(){
         $('#confirmModal').modal('hide');
-        $('#example').DataTable().ajax.reload();
-        window.location.reload();
-        alert('Data Terhapus');
+        $('#ok_button').text('OK');
+        $('#dataTablePelaporanUsers').DataTable().ajax.reload();
+        swal('Berhasil','Data berhasil dihapus!', 'success');
         }, 2000);
       }
       })

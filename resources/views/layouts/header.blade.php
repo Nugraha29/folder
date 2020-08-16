@@ -47,6 +47,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('profile.editpassword') }}" class="nav-link">
+                  <i data-feather="settings"></i>
+                  <span>Ubah Kata sandi</span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="nav-link">
                   <i data-feather="log-out"></i>
                   <span>Keluar</span>

@@ -7,6 +7,7 @@ use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -45,7 +46,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'nama' => 'required|min:3',
+            'name' => 'required|min:3',
             'telp' => 'required|min:6',
             'nama_perusahaan' => 'required|min:3',
             'bidang_usaha' => 'required|min:3',
@@ -53,7 +54,7 @@ class ProfileController extends Controller
             ]
         );
         auth()->user()->update($request->all());
-
+        Alert::success('Berhasil', 'Data profil berhasil diperbaharui!');
         return back()->withStatus(__('Profil berhasil diperbaharui.'));
     }
 
@@ -66,7 +67,7 @@ class ProfileController extends Controller
     public function password(PasswordRequest $request)
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
-
-        return back()->withStatusPassword(__('Password successfully updated.'));
+        Alert::success('Berhasil', 'Kata sandi berhasil diperbaharui!');
+        return back()->withStatusPassword(__('Kata sandi berhasil diperbaharui.'));
     }
 }

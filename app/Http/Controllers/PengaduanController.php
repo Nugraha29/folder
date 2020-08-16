@@ -9,6 +9,7 @@ use App\Exports\PengaduanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengaduanController extends Controller
 {
@@ -119,7 +120,9 @@ class PengaduanController extends Controller
 
         $model->save();
 
-        return redirect()->route('pengaduan.create')->withStatus(__('Pengaduan berhasil dikirim.'));
+        Alert::success('Berhasil', 'Pengaduan berhasil dikirim!');
+
+        return redirect()->route('pengaduan.create');
 
     }
 
@@ -183,7 +186,7 @@ class PengaduanController extends Controller
             \Storage::delete('public/' . $pengaduan->img4); 
         }
         $pengaduan->delete();
-
-        return redirect()->route('pengaduan.index')->withStatus(__('Pengaduan berhasil dihapus.'));
+        Alert::success('Berhasil', 'Data berhasil dihapus!');
+        return redirect()->route('pengaduan.index');
     }
 }

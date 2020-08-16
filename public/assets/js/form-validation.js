@@ -131,7 +131,6 @@ $(function() {
         },
         jenis: {
           required: true,
-          minlength: 3
         },
         deskripsi: {
           required: true,

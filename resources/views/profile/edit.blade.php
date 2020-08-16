@@ -22,7 +22,7 @@
                 <!--Card image-->
                 <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
 
-                  <h4 class="card-title">Form Pengajuan Pelaporan Air</h4>
+                  <h4 class="card-title">Halaman Edit Profil</h4>
 
                   <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('home') }}">
@@ -50,7 +50,7 @@
                 <fieldset>
                   <div class="form-group">
                     <label for="nama">Nama Penanggung Jawab</label>
-                    <input id="nama" class="form-control" name="nama" type="text" value="{{ auth()->user()->name }}">
+                    <input id="name" class="form-control" name="name" type="text" value="{{ auth()->user()->name }}">
                     @if ($errors->has('nama'))
                       <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
                         <strong>{{ $errors->first('nama') }}</strong>

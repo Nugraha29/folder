@@ -259,7 +259,6 @@
                 alert('You clicked in this marker');
             }
         });
-
       },
     });
   </script>
