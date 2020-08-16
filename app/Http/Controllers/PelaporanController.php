@@ -52,7 +52,7 @@ class PelaporanController extends Controller
             })
             ->make(true);            
         }  else {
-            abort(404, 'Anda tidak memiliki cukup hak akses!');
+            abort(403, 'Anda tidak memiliki cukup hak akses!');
         }
         
     }
@@ -71,14 +71,19 @@ class PelaporanController extends Controller
             //$kecamatan = Kecamatan::where('id')->get();
             return view('pelaporan.index', ['pelaporan' => $pelaporan]);
         }  else {
-            abort(404, 'Anda tidak memiliki cukup hak akses');
+            abort(403, 'Anda tidak memiliki cukup hak akses');
         }
     }
 
     public function form(Request $request)
     {      
-
-        return view('pelaporan.form');
+        if (Gate::allows('isUser')) {
+            return view('pelaporan.form'); 
+        } else {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+           
+        }
+        
     }
 
     /**  
@@ -89,28 +94,33 @@ class PelaporanController extends Controller
      */
     public function formstatus(Request $request)
     {
-        $this->validate($request, [
-            'periode' => 'required',
-            'tahun' => 'required',
-            'jenis' => 'required',
-        ],
-        [
-            'periode.required' => 'Periode Wajib dipilih.',       
-            'tahun.required' => 'Tahun Wajib dipilih.',        
-            'jenis.required' => 'Jenis Wajib dipilih.',                         
-        ]);
-    
-        $periode = $request->get('periode');
-        $tahun = $request->get('tahun');
-        $jenis = $request->get('jenis');
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            $this->validate($request, [
+                'periode' => 'required',
+                'tahun' => 'required',
+                'jenis' => 'required',
+            ],
+            [
+                'periode.required' => 'Periode Wajib dipilih.',       
+                'tahun.required' => 'Tahun Wajib dipilih.',        
+                'jenis.required' => 'Jenis Wajib dipilih.',                         
+            ]);
+        
+            $periode = $request->get('periode');
+            $tahun = $request->get('tahun');
+            $jenis = $request->get('jenis');
 
 
-        $filter = Pelaporan::where('periode', $periode)
-            ->whereYear('created_at', $tahun)
-            ->where('jenis', $jenis)
-            ->first();
+            $filter = Pelaporan::where('periode', $periode)
+                ->whereYear('created_at', $tahun)
+                ->where('jenis', $jenis)
+                ->first();
 
-        return view('pelaporan.form-pengajuan',compact('filter','periode','tahun','jenis'));
+            return view('pelaporan.form-pengajuan',compact('filter','periode','tahun','jenis'));
+        }
+       
     }
 
     /**
@@ -122,67 +132,45 @@ class PelaporanController extends Controller
     public function store(PelaporanRequest $request, Pelaporan $model)
     {
         //
-
-        $model = new Pelaporan;
-        $model->nama= $request->get('nama');
-        $model->telp= $request->get('telp');
-        $model->nama_perusahaan = $request->get('nama_perusahaan');
-        $model->email = $request->get('email');
-        $model->bidang_usaha = $request->get('bidang_usaha');
-        $model->jenis = $request->get('jenis');
-        $model->periode = $request->get('periode');  
-        $model->dok_pelaporan = $request->file('dok_pelaporan')->store('DokumenPelaporan', 'public');
-        $model->dok_izin = $request->file('dok_izin')->store('DokumenIzin', 'public');
-        if ($request->get('jenis') == 'Air') {
-            $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
-        } elseif ($request->get('jenis') == 'Udara') {
-            $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
         } else {
+            $model = new Pelaporan;
+            $model->nama= $request->get('nama');
+            $model->telp= $request->get('telp');
+            $model->nama_perusahaan = $request->get('nama_perusahaan');
+            $model->email = $request->get('email');
+            $model->bidang_usaha = $request->get('bidang_usaha');
+            $model->jenis = $request->get('jenis');
+            $model->periode = $request->get('periode');  
+            $model->dok_pelaporan = $request->file('dok_pelaporan')->store('DokumenPelaporan', 'public');
+            $model->dok_izin = $request->file('dok_izin')->store('DokumenIzin', 'public');
+            if ($request->get('jenis') == 'Air') {
+                $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+            } elseif ($request->get('jenis') == 'Udara') {
+                $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+            } else {
+
+            }
+            
+            $model->user_id = auth()->user()->id;
+
+
+            $model->save();
+
+            return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
         }
-        
-        $model->user_id = auth()->user()->id;
-
-
-        $model->save();
-
-        return back()->withStatus(__('Pelaporan berhasil dikirim.'));
-
     }
 
     public function pelaporanexport()
     {
-        return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function form_air()
-    {
-        //
-        return view('pelaporan.form-air');
-    }
-
-    public function form_udara()
-    {
-        //
-        return view('pelaporan.form-udara');
-    }
-
-    public function form_limbah()
-    {
-        //
-        return view('pelaporan.form-limbah');
-    }
-
-    public function form_lingkungan()
-    {
-        //
-        return view('pelaporan.form-lingkungan');
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
+        }
+        
     }
 
     /**
@@ -194,8 +182,13 @@ class PelaporanController extends Controller
     public function show($id)
     {
         //
-        $pelaporan = Pelaporan::find($id);
-        return view('pelaporan.show', ['pelaporan' => $pelaporan]);
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            $pelaporan = Pelaporan::find($id);
+            return view('pelaporan.show', ['pelaporan' => $pelaporan]);
+        }
+        
     }
 
     /**
@@ -209,115 +202,136 @@ class PelaporanController extends Controller
         //
     }
 
-    public function jsonreview(){
-        $review = Review::all();
-        return Datatables::of($review)
-        ->addColumn('action', function($data){
-            $button = '<a class="btn btn-info btn-icon p-2 text-white" href="/tanggapan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
-            return $button;
-        })
-        ->rawColumns(['action'])
-        ->editColumn('created_at', function ($review) {
-            return $review->created_at ? with(new Carbon($review->created_at))->format('m F Y') : '';
-        })
-        ->make(true);
+    public function jsonreview()
+    {
+        if (Gate::allows('isAdmin')) {
+            $review = Review::all();
+            return Datatables::of($review)
+            ->addColumn('action', function($data){
+                $button = '<a class="btn btn-info btn-icon p-2 text-white" href="/tanggapan/'.$data->id.'" title="Lihat Detail"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info link-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></a>';
+                return $button;
+            })
+            ->rawColumns(['action'])
+            ->editColumn('created_at', function ($review) {
+                return $review->created_at ? with(new Carbon($review->created_at))->format('m F Y') : '';
+            })
+            ->make(true);
+        } else {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
     }
 
     public function indexreview()
     {  
-        $review = Review::all();
-        return view('review.index', ['review' => $review]);
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            $review = Review::all();
+            return view('review.index', ['review' => $review]);
+        }
     }
 
     public function pelaporanreview($id)
     {  
-        $pelaporan = Pelaporan::find($id);
-        $review = Review::all();
-        return view('pelaporan.review', ['pelaporan' => $pelaporan, 'review' => $review]);
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+           $pelaporan = Pelaporan::find($id);
+            $review = Review::all();
+            return view('pelaporan.review', ['pelaporan' => $pelaporan, 'review' => $review]); 
+        }
+        
     }
 
     public function review(Request $request, Review $model)
     {  
-        $model = new Review;
-        $model->nama = auth()->user()->name;
-        $model->nama_pelapor = $request->get('nama_pelapor');
-        $model->email = $request->get('email');
-        $model->nama_perusahaan = $request->get('nama_perusahaan');
-        $model->bidang_usaha = $request->get('bidang_usaha');
-        $model->jenis = $request->get('jenis');  
-        $model->periode = $request->get('periode');  
-        $model->review_dok_pelaporan = $request->get('review_dok_pelaporan');
-        $model->review_dok_izin = $request->get('review_dok_izin');
-        $model->review_dok_lab = $request->get('review_dok_lab');
-        $model->kesimpulan = $request->get('kesimpulan');
-        $nextId = DB::table('review')->max('id') + 1;
-        $model->no_surat = 'XXX/XXX/XXX/00'.$nextId;
-        $model->id_verifikasi = Str::random(20);
-        $model->pelaporan_id = $request->get('pelaporan_id');  
-        $model->user_id = auth()->user()->id;
-        $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
-        $update->status ='Reviewed';
-        $update->save();
+        if (Gate::allows('isAdmin')) {
+            $model = new Review;
+            $model->nama = auth()->user()->name;
+            $model->nama_pelapor = $request->get('nama_pelapor');
+            $model->email = $request->get('email');
+            $model->nama_perusahaan = $request->get('nama_perusahaan');
+            $model->bidang_usaha = $request->get('bidang_usaha');
+            $model->jenis = $request->get('jenis');  
+            $model->periode = $request->get('periode');  
+            $model->review_dok_pelaporan = $request->get('review_dok_pelaporan');
+            $model->review_dok_izin = $request->get('review_dok_izin');
+            $model->review_dok_lab = $request->get('review_dok_lab');
+            $model->kesimpulan = $request->get('kesimpulan');
+            $nextId = DB::table('review')->max('id') + 1;
+            $model->no_surat = 'XXX/XXX/XXX/00'.$nextId;
+            $model->id_verifikasi = Str::random(20);
+            $model->pelaporan_id = $request->get('pelaporan_id');  
+            $model->user_id = auth()->user()->id;
+            $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
+            $update->status ='Reviewed';
+            $update->save();
 
-        $date = Carbon::now()->format('d F Y');
+            $date = Carbon::now()->format('d F Y');
 
-        $data["email"]=$request->get("email");
-        $data["client_name"]=$request->get("nama_pelapor");
-        $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
+            $data["email"]=$request->get("email");
+            $data["client_name"]=$request->get("nama_pelapor");
+            $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
 
-        $pdf = PDF::loadView('pelaporan.mail', ['model' => $model, 'date' => $date])->setPaper('a4');
-        $pdf->getDomPDF()->setHttpContext(
-            stream_context_create([
-                'ssl' => [
-                    'allow_self_signed'=> TRUE,
-                    'verify_peer' => FALSE,
-                    'verify_peer_name' => FALSE,
-                ]
-            ])
-        );
-        try{
-            Mail::raw('Halo '.$model->nama_pelapor.', terimakasih telah melakukan pelaporan.
-Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', function($message)use($data,$pdf,$model) {
-            $message->to($data["email"], $data["client_name"])
-            ->subject($data["subject"])
-            ->attachData($pdf->output(), "Pelaporan ".$model->jenis." ".$model->nama_perusahaan.".pdf");
-            });
-        }catch(JWTException $exception){
-            $this->serverstatuscode = "0";
-            $this->serverstatusdes = $exception->getMessage();
+            $pdf = PDF::loadView('pelaporan.mail', ['model' => $model, 'date' => $date])->setPaper('a4');
+            $pdf->getDomPDF()->setHttpContext(
+                stream_context_create([
+                    'ssl' => [
+                        'allow_self_signed'=> TRUE,
+                        'verify_peer' => FALSE,
+                        'verify_peer_name' => FALSE,
+                    ]
+                ])
+            );
+            try{
+                Mail::raw('Halo '.$model->nama_pelapor.', terimakasih telah melakukan pelaporan.
+            Berikut kami lampirkan dokumen hasil dari pelaporan yang telah direview.', function($message)use($data,$pdf,$model) {
+                $message->to($data["email"], $data["client_name"])
+                ->subject($data["subject"])
+                ->attachData($pdf->output(), "Pelaporan ".$model->jenis." ".$model->nama_perusahaan.".pdf");
+                });
+            }catch(JWTException $exception){
+                $this->serverstatuscode = "0";
+                $this->serverstatusdes = $exception->getMessage();
+            }
+            if (Mail::failures()) {
+                $this->statusdesc  =   "Error sending mail";
+                $this->statuscode  =   "0";
+
+            }else{
+
+            $this->statusdesc  =   "Message sent Succesfully";
+            $this->statuscode  =   "1";
+            }
+            \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
+            $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
+            $model->save();
+            return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
+        } else {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
         }
-        if (Mail::failures()) {
-             $this->statusdesc  =   "Error sending mail";
-             $this->statuscode  =   "0";
-
-        }else{
-
-           $this->statusdesc  =   "Message sent Succesfully";
-           $this->statuscode  =   "1";
-        }
-        \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
-        $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
-        $model->save();
-        return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));
-
+        
     }
 
     public function exportreview()
     {
-        return Excel::download(new ReviewExport, 'tanggapan.xlsx');
-    }
-
-    public function mail()
-    {
-        $model = Pelaporan::findOrFail(5);
-        $date = Carbon::now()->format('d F Y');
-        return view('pelaporan.mail', compact('date','model'));
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            return Excel::download(new ReviewExport, 'tanggapan.xlsx');
+        }
+        
     }
 
     public function showreview($id)
     {  
-        $review = Review::find($id);
-        return view('review.show', ['review' => $review]);
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            $review = Review::find($id);
+            return view('review.show', ['review' => $review]);
+        }
+        
     }
 
     /**

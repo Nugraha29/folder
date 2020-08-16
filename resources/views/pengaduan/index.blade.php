@@ -74,6 +74,7 @@
         setTimeout(function(){
         $('#confirmModal').modal('hide');
         $('#dataTablePengaduan').DataTable().ajax.reload();
+        window.location.reload();
         alert('Data Terhapus');
         }, 2000);
       }

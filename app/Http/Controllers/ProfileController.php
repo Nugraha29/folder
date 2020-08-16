@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,11 @@ class ProfileController extends Controller
     public function editpassword()
     {
         //
-        return view('profile.password');
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+            return view('profile.password');
+        }
     }
 
     /**
@@ -23,7 +28,12 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        if (Gate::allows('isUserWaiting')) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        } else {
+           return view('profile.edit'); 
+        }
+        
     }
 
     /**

@@ -41,8 +41,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('isUserWaiting', function($user) {
-            return $user->roles == 'User' && $user->status == 'menunggu
-            ';
+            return $user->roles == 'User' && $user->status == 'menunggu';
         });
 
     
