@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @can('isAdmin')
 @push('plugin-styles')
   <link href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
@@ -158,17 +157,10 @@
   <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
   <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('assets/plugins/progressbar-js/progressbar.min.js') }}"></script>
 @endpush
 
 @push('js')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-    });
-  </script>
   <script type="text/javascript">
       var original_api_url = {{ $pelaporanchart->id }}_api_url;
       $(".pelaporan").change(function(){
@@ -188,7 +180,9 @@
 @endpush  
 
 @elsecan('isOperator')
+
 @elsecan('isUser')
+
 @section('content')  
   <div class="row">
     <div class="col-12 col-xl-12 stretch-card">
@@ -312,7 +306,8 @@
       </div>
     </div>
   </div>
-@endsection  
+@endsection 
+
 @endcan
 
 
