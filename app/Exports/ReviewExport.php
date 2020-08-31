@@ -28,6 +28,7 @@ class ReviewExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Bidang Usaha',
             'Jenis Pelaporan',
             'Periode',
+            'Tahun',
             'Tanggapan Dok.Pelaporan',
             'Tanggapan Dok.Izin',
             'Tanggapan Dok.Lab',

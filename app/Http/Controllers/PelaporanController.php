@@ -115,7 +115,7 @@ class PelaporanController extends Controller
 
 
             $filter = Pelaporan::where('periode', $periode)
-                ->whereYear('created_at', $tahun)
+                ->where('tahun', $tahun)
                 ->where('jenis', $jenis)
                 ->first();
 
@@ -144,6 +144,7 @@ class PelaporanController extends Controller
             $model->bidang_usaha = $request->get('bidang_usaha');
             $model->jenis = $request->get('jenis');
             $model->periode = $request->get('periode');  
+            $model->tahun = $request->get('tahun');  
             $model->dok_pelaporan = $request->file('dok_pelaporan')->store('DokumenPelaporan', 'public');
             $model->dok_izin = $request->file('dok_izin')->store('DokumenIzin', 'public');
             if ($request->get('jenis') == 'Air') {
@@ -255,6 +256,7 @@ class PelaporanController extends Controller
             $model->bidang_usaha = $request->get('bidang_usaha');
             $model->jenis = $request->get('jenis');  
             $model->periode = $request->get('periode');  
+            $model->tahun = $request->get('tahun');  
             $model->review_dok_pelaporan = $request->get('review_dok_pelaporan');
             $model->review_dok_izin = $request->get('review_dok_izin');
             $model->review_dok_lab = $request->get('review_dok_lab');

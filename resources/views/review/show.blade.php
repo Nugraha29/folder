@@ -81,6 +81,11 @@
                           <td>{{ $review->periode }}</td>
                         </tr>
                         <tr>
+                          <td style="width: 250px">Tahun</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->tahun }}</td>
+                        </tr>
+                        <tr>
                           <td style="width: 250px">Tanggapan Dokumen Pelaporan</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->review_dok_pelaporan }}</td>

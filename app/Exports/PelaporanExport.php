@@ -35,6 +35,7 @@ class PelaporanExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Bidang Usaha',
             'Jenis Pelaporan',
             'Periode',
+            'Tahun',
             'Dok.Pelaporan',
             'Dok.Izin',
             'Dok.Lab',

@@ -23,6 +23,7 @@
                 <th>Telepon</th>
                 <th>Nama Perusahaan</th>
                 <th>Periode</th>
+                <th>Tahun</th>
                 <th>Jenis Pelaporan</th>
                 <th>Aksi</th>
               </tr>

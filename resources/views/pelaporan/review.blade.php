@@ -82,6 +82,12 @@
                         <td><input type="text" value="{{ $pelaporan->periode }}" name="periode" hidden></td>
                     </tr>
                     <tr>
+                      <td style="width: 180px">Tahun</td>
+                      <td style="width: 1px">:</td>
+                      <td>{{ $pelaporan->tahun }}</td>
+                      <td><input type="text" value="{{ $pelaporan->tahun }}" name="tahun" hidden></td>
+                    </tr>
+                    <tr>
                         <td style="width: 180px">Dokumen Pelaporan</td>
                         <td style="width: 1px">:</td>
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan) }}" target="_blank">Download</a></td>

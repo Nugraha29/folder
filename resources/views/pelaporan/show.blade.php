@@ -25,7 +25,7 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <td colspan="3" class="text-right">Dibuat pada {{ $pelaporan->created_at }}</td>
+                    <td colspan="3" class="text-right">Dibuat pada {{ $pelaporan->created_at->format('d F Y') }}, pukul {{ $pelaporan->created_at->format('H:i:s') }}</td>
                   </tr>
                   <tr>
                     <td style="width: 180px">Nama Pelapor</td>
@@ -62,6 +62,11 @@
                     </td>
                     <td style="width: 1px">:</td>
                     <td>{{ $pelaporan->periode }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Tahun</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $pelaporan->tahun }}</td>
                   </tr>
                   <tr>
                     <th colspan="3">Dokumen</th>

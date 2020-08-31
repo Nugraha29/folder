@@ -32,6 +32,7 @@ class PelaporanRequest extends FormRequest
             'bidang_usaha'=> ['required', 'min:3'],
             'jenis' => ['required', 'min:3'],
             'periode' => ['required', 'min:1'],
+            'tahun' => ['required', 'min:1'],
             'dok_pelaporan' => ['required', 'mimes:docx,doc,pdf'],
             'dok_izin' => ['required', 'mimes:docx,doc,pdf'],
             'dok_lab' => ['mimes:docx,doc,pdf'],
@@ -51,7 +52,6 @@ class PelaporanRequest extends FormRequest
             'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
             'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
             'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-            
         ];
     }
 

@@ -19,6 +19,7 @@ $(function() {
           { data: 'telp', name: 'telp' },
           { data: 'nama_perusahaan', name: 'nama_perusahaan' },
           { data: 'periode', name: 'periode' },
+          { data: 'tahun', name: 'tahun' },
           { data: 'jenis', name: 'jenis' },
           { data: 'action', name: 'action' },
       ],
@@ -54,6 +55,7 @@ $(function() {
           { data: 'telp', name: 'telp' },
           { data: 'nama_perusahaan', name: 'nama_perusahaan' },
           { data: 'periode', name: 'periode' },
+          { data: 'tahun', name: 'tahun' },
           { data: 'jenis', name: 'jenis' },
           { data: 'status', name: 'status' },
           { data: 'action', name: 'action' },
@@ -61,9 +63,9 @@ $(function() {
       "order": [[0, 'desc']],
       "createdRow": function ( row, data, index ) {
         if ( data['status'] === 'Reviewed' ) {
-          $('td', row).eq(7).html('<button class="btn btn-success">Telah ditanggapi</button>');
+          $('td', row).eq(8).html('<button class="btn btn-success">Telah ditanggapi</button>');
         } else {
-          $('td', row).eq(7).html('<button class="btn btn-warning text-white">Belum ditanggapi</button>');
+          $('td', row).eq(8).html('<button class="btn btn-warning text-white">Belum ditanggapi</button>');
         }
       }    
     });
@@ -96,8 +98,9 @@ $(function() {
         { data: 'nama', name: 'nama' },
         { data: 'nama_pelapor', name: 'nama_pelapor' },
         { data: 'nama_perusahaan', name: 'nama_perusahaan' },
-        { data: 'jenis', name: 'jenis' },
         { data: 'periode', name: 'periode' },
+        { data: 'tahun', name: 'tahun' },
+        { data: 'jenis', name: 'jenis' },
         { data: 'action', name: 'action' },
       ],
       "order": [[0, 'desc']]

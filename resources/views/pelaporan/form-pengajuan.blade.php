@@ -149,6 +149,15 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
+                                    <label for="tahun">Tahun<a class="text-danger">*</a></label>
+                                    <input id="tahun" class="form-control" name="tahun" type="text" value="{{$tahun}}" readonly>
+                                    @if ($errors->has('tahun'))
+                                    <div id="tahun-error" class="error text-danger pt-1" for="tahun" style="display: block;">
+                                        <strong>{{ $errors->first('tahun') }}</strong>
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
                                     <label>Dokumen Pelaporan<a class="text-danger">*</a></label>
                                     <input type="file" name="dok_pelaporan" class="file-upload-default">
                                     <div class="input-group col-xs-12">

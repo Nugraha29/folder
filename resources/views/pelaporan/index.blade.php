@@ -36,6 +36,7 @@
                 <th>Telepon</th>
                 <th>Nama Perusahaan</th>
                 <th>Periode</th>
+                <th>Tahun</th>
                 <th>Jenis Pelaporan</th>
                 <th>Aksi</th>
               </tr>
@@ -123,6 +124,7 @@
                 <th>Telepon</th>
                 <th>Nama Perusahaan</th>
                 <th>Periode</th>
+                <th>Tahun</th>
                 <th>Jenis Pelaporan</th>
                 <th>Status</th>
                 <th>Aksi</th>
