@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pelaporan;
 use App\Review;
+use App\User;
 use App\Mail\ReviewEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\PelaporanRequest;
@@ -19,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Notifications\NotifyPelaporanStats;
 
 class PelaporanController extends Controller
 {
@@ -309,6 +311,10 @@ class PelaporanController extends Controller
             \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
             $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
             $model->save();
+
+            $pelaporan = Pelaporan::find($request->get('pelaporan_id'));
+            User::find($pelaporan->user_id)->notify(new NotifyPelaporanStats($pelaporan));
+
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
         } else {
