@@ -1974,6 +1974,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['notifications'],
   methods: {
@@ -1984,8 +1990,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('notification-pelaporan/read', data).then(function (response) {
         if (notification.data.jenis == 'Pelaporan') {
           window.location.href = "/pelaporan/" + notification.data.pelaporan.id;
-        } else {
+        } else if (notification.data.jenis == 'Pengaduan') {
           window.location.href = "/pengaduan/" + notification.data.pengaduan.id;
+        } else if (notification.data.jenis == 'Pengguna') {
+          window.location.href = "/user";
+        } else {
+          window.location.href = "/pelaporan";
         }
       });
     },
@@ -1996,7 +2006,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     ViewAll: function ViewAll() {
       axios.post('notification-pelaporan/readall').then(function (response) {
-        window.location.href = "/pengaduan";
+        if (notification.data.jenis == 'Pengguna') {
+          window.location.href = "/user";
+        } else if (notification.data.jenis == 'Review') {
+          window.location.href = "/pelaporan";
+        } else {}
       });
     }
   }
@@ -43777,29 +43791,39 @@ var render = function() {
                 _c("div", { staticClass: "icon" }, [
                   notification.data.jenis == "Pelaporan"
                     ? _c("i", { attrs: { "data-feather": "book" } })
-                    : _c("i", { attrs: { "data-feather": "alert-triangle" } })
+                    : notification.data.jenis == "Pengaduan"
+                    ? _c("i", { attrs: { "data-feather": "alert-triangle" } })
+                    : notification.data.jenis == "Pengguna"
+                    ? _c("i", { attrs: { "data-feather": "user" } })
+                    : _c("i", { attrs: { "data-feather": "book" } })
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "content" }, [
-                  notification.data.jenis == "Pelaporan"
+                  notification.data.jenis == "Review"
+                    ? _c("p", [
+                        _vm._v(
+                          "\n                 Pelaporan " +
+                            _vm._s(notification.data.review.jenis) +
+                            " periode " +
+                            _vm._s(notification.data.review.periode) +
+                            " tahun " +
+                            _vm._s(notification.data.review.tahun) +
+                            " telah ditanggapi.\n              "
+                        )
+                      ])
+                    : notification.data.jenis == "Pengguna"
                     ? _c("p", [
                         _vm._v(
                           _vm._s(notification.data.jenis) +
                             " Baru : " +
-                            _vm._s(
-                              notification.data.pelaporan.nama_perusahaan
-                            ) +
-                            " periode " +
-                            _vm._s(notification.data.pelaporan.periode) +
-                            " tahun " +
-                            _vm._s(notification.data.pelaporan.tahun)
+                            _vm._s(notification.data.user.name)
                         )
                       ])
                     : _c("p", [
                         _vm._v(
-                          _vm._s(notification.data.jenis) +
-                            " Baru : " +
-                            _vm._s(notification.data.pengaduan.jenis)
+                          "\n                " +
+                            _vm._s(notification.data.jenis) +
+                            " Baru \n              "
                         )
                       ])
                 ])
@@ -43817,18 +43841,7 @@ var render = function() {
           [
             _vm.notifications.length == 0
               ? _c("a", [_vm._v("Tidak Ada notifikasi")])
-              : _c(
-                  "a",
-                  {
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.ViewAll()
-                      }
-                    }
-                  },
-                  [_vm._v("View all")]
-                )
+              : _vm._e()
           ]
         )
       ],

@@ -4,9 +4,7 @@
   </a>
   <div class="navbar-content">
     <ul class="navbar-nav">
-      @can('isAdmin')
       <notification-pelaporan v-bind:notifications="notifications"></notification-pelaporan>
-      @endcan
       <li class="nav-item dropdown nav-profile">
         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="{{ url('https://img.favpng.com/23/0/3/computer-icons-user-profile-clip-art-portable-network-graphics-png-favpng-YEj6NsJygkt6nFTNgiXg9fg9w.jpg') }}" alt="profile">

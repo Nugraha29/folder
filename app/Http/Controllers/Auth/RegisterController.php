@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\NotifyRegister;
 
 
 class RegisterController extends Controller
@@ -93,6 +94,8 @@ class RegisterController extends Controller
            $this->statusdesc  =   "Message sent Succesfully";
            $this->statuscode  =   "1";
         }
+
+        User::find(2)->notify(new NotifyRegister($user));
 
         return $user;
     }

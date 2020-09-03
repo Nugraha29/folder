@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Notifications\NotifyPelaporanStats;
+use App\Notifications\NotifyReview;
 
 class PelaporanController extends Controller
 {
@@ -313,6 +314,9 @@ class PelaporanController extends Controller
             \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
             $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
             $model->save();
+
+            $review = Review::find($model->id);
+            User::find($update->user_id)->notify(new NotifyReview($review));
 
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            

@@ -15,17 +15,23 @@
             <a href="#" v-on:click="MarkAsRead(notification)" class="dropdown-item">
                 <div class="icon">
                     <i v-if="notification.data.jenis == 'Pelaporan'" data-feather="book"></i>
-                    <i v-else data-feather="alert-triangle"></i>
+                    <i v-else-if="notification.data.jenis == 'Pengaduan'" data-feather="alert-triangle"></i>
+                    <i v-else-if="notification.data.jenis == 'Pengguna'" data-feather="user"></i>
+                    <i v-else data-feather="book"></i>
                 </div>
                 <div class="content">
-                    <p v-if="notification.data.jenis == 'Pelaporan'">{{ notification.data.jenis }} Baru : {{ notification.data.pelaporan.nama_perusahaan }} periode {{ notification.data.pelaporan.periode }} tahun {{ notification.data.pelaporan.tahun }}</p>
-                    <p v-else>{{ notification.data.jenis }} Baru : {{ notification.data.pengaduan.jenis }}</p>
+                    <p v-if="notification.data.jenis == 'Review'">
+                       Pelaporan {{ notification.data.review.jenis }} periode {{ notification.data.review.periode }} tahun {{ notification.data.review.tahun }} telah ditanggapi.
+                    </p>
+                    <p v-else-if="notification.data.jenis == 'Pengguna'">{{ notification.data.jenis }} Baru : {{ notification.data.user.name }}</p>
+                    <p v-else>
+                      {{ notification.data.jenis }} Baru 
+                    </p>
                 </div>
             </a>
           </div>
           <div class="dropdown-footer d-flex align-items-center justify-content-center">
             <a v-if="notifications.length == 0">Tidak Ada notifikasi</a>
-            <a v-else href="#" v-on:click="ViewAll()">View all</a>
           </div>
         </div>
       </li>
@@ -42,8 +48,12 @@
                 axios.post('notification-pelaporan/read', data).then( response => {
                   if (notification.data.jenis == 'Pelaporan') {
                     window.location.href = "/pelaporan/" + notification.data.pelaporan.id;
-                  } else {
+                  } else if (notification.data.jenis == 'Pengaduan') {
                     window.location.href = "/pengaduan/" + notification.data.pengaduan.id;
+                  } else if (notification.data.jenis == 'Pengguna') {
+                    window.location.href = "/user";
+                  } else {
+                    window.location.href = "/pelaporan";
                   }
                     
                 });
@@ -55,7 +65,13 @@
             },
             ViewAll: function(){
                 axios.post('notification-pelaporan/readall').then( response => {
-                     window.location.href = "/pengaduan";
+                  if (notification.data.jenis == 'Pengguna') {
+                    window.location.href = "/user";
+                  } else if (notification.data.jenis == 'Review') {
+                    window.location.href = "/pelaporan";
+                  } else {
+                   
+                  }
                 });
             }
         }
