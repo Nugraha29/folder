@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengaduan;
+use App\User;
 use App\Http\Requests\PengaduanRequest;
 use Illuminate\Http\Request;
 use App\Exports\PengaduanExport;
@@ -10,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Notifications\NotifyPengaduan;
 
 class PengaduanController extends Controller
 {
@@ -119,6 +121,9 @@ class PengaduanController extends Controller
         }
 
         $model->save();
+
+        $pengaduan = Pengaduan::find($model->id);
+        User::find(8)->notify(new NotifyPengaduan($pengaduan));
 
         Alert::success('Berhasil', 'Pengaduan berhasil dikirim!');
 

@@ -4,7 +4,7 @@
   </a>
   <div class="navbar-content">
     <ul class="navbar-nav">
-      @can('isUser')
+      @can('isAdmin')
       <notification-pelaporan v-bind:notifications="notifications"></notification-pelaporan>
       @endcan
       <li class="nav-item dropdown nav-profile">

@@ -116,7 +116,8 @@ class PelaporanController extends Controller
             $jenis = $request->get('jenis');
 
 
-            $filter = Pelaporan::where('periode', $periode)
+            $filter = Pelaporan::where('user_id', auth()->user()->id)
+                ->where('periode', $periode)
                 ->where('tahun', $tahun)
                 ->where('jenis', $jenis)
                 ->first();
@@ -155,12 +156,13 @@ class PelaporanController extends Controller
                 $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
             } else {
 
-            }
-            
+            }   
             $model->user_id = auth()->user()->id;
-
-
             $model->save();
+
+            $pelaporan = Pelaporan::find($model->id);
+            User::find(8)->notify(new NotifyPelaporanStats($pelaporan));
+
             Alert::success('Berhasil', 'Pelaporan berhasil dikirim!');
             return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
@@ -311,9 +313,6 @@ class PelaporanController extends Controller
             \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
             $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
             $model->save();
-
-            $pelaporan = Pelaporan::find($request->get('pelaporan_id'));
-            User::find($pelaporan->user_id)->notify(new NotifyPelaporanStats($pelaporan));
 
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            

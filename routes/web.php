@@ -43,7 +43,9 @@ Route::middleware(['auth'])->group( function () {
 	Route::get('pelaporan/{id}', ['as'     => 'pelaporan.show', 'uses' => 'PelaporanController@show']);	
 	Route::get('pelaporan/destroy/{id}', ['as' => 'pelaporan.destroy', 'uses' => 'PelaporanController@destroy']);
 	Route::post('/notification-pelaporan/get', 'NotificationController@get');
+	Route::post('/notification-pengaduan/get', 'NotificationController@get_pengaduan');
 	Route::post('/notification-pelaporan/read', 'NotificationController@read');
+	Route::post('/notification-pelaporan/readall', 'NotificationController@readall');
 	//Review
 	Route::get('tanggapan', ['as' => 'review.index', 'uses' => 'PelaporanController@indexreview']);
 	Route::get('tanggapan/json','PelaporanController@jsonreview');

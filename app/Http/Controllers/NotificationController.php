@@ -20,4 +20,10 @@ class NotificationController extends Controller
         Auth::user()->unreadNotifications()->find($request->id)->markAsRead();
         return 'success';
     }
+
+    public function readall()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        return 'success';
+    }
 }

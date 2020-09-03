@@ -6,22 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Pelaporan;
+use App\Pengaduan;
 
-class NotifyPelaporanStats extends Notification
+class NotifyPengaduan extends Notification
 {
     use Queueable;
 
-    public $pelaporan;
+    public $pengaduan;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Pelaporan $pelaporan)
+    public function __construct(Pengaduan $pengaduan)
     {
         //
-        $this->pelaporan = $pelaporan;
+        $this->pengaduan = $pengaduan;
     }
 
     /**
@@ -44,8 +44,8 @@ class NotifyPelaporanStats extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'pelaporan' => $this->pelaporan,
-            'jenis' => 'Pelaporan'
+            'pengaduan' => $this->pengaduan,
+            'jenis' => 'Pengaduan'
         ];
     }
 

@@ -1971,6 +1971,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['notifications'],
   methods: {
@@ -1979,7 +1982,21 @@ __webpack_require__.r(__webpack_exports__);
         id: notification.id
       };
       axios.post('notification-pelaporan/read', data).then(function (response) {
-        window.location.href = "/pelaporan/" + notification.data.pelaporan.id;
+        if (notification.data.jenis == 'Pelaporan') {
+          window.location.href = "/pelaporan/" + notification.data.pelaporan.id;
+        } else {
+          window.location.href = "/pengaduan/" + notification.data.pengaduan.id;
+        }
+      });
+    },
+    MarkAllAsRead: function MarkAllAsRead() {
+      axios.post('notification-pelaporan/readall').then(function (response) {
+        window.location.reload();
+      });
+    },
+    ViewAll: function ViewAll() {
+      axios.post('notification-pelaporan/readall').then(function (response) {
+        window.location.href = "/pengaduan";
       });
     }
   }
@@ -43716,7 +43733,32 @@ var render = function() {
         attrs: { "aria-labelledby": "notificationDropdown" }
       },
       [
-        _vm._m(0),
+        _c(
+          "div",
+          {
+            staticClass:
+              "dropdown-header d-flex align-items-center justify-content-between"
+          },
+          [
+            _c("p", { staticClass: "mb-0 font-weight-medium" }, [
+              _vm._v("Notifikasi")
+            ]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "text-muted",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.MarkAllAsRead()
+                  }
+                }
+              },
+              [_vm._v("Hapus semua")]
+            )
+          ]
+        ),
         _vm._v(" "),
         _vm._l(_vm.notifications, function(notification) {
           return _c("div", { staticClass: "dropdown-body" }, [
@@ -43732,20 +43774,34 @@ var render = function() {
                 }
               },
               [
-                _vm._m(1, true),
+                _c("div", { staticClass: "icon" }, [
+                  notification.data.jenis == "Pelaporan"
+                    ? _c("i", { attrs: { "data-feather": "book" } })
+                    : _c("i", { attrs: { "data-feather": "alert-triangle" } })
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "content" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Pelaporan " +
-                        _vm._s(notification.data.pelaporan.jenis) +
-                        " periode " +
-                        _vm._s(notification.data.pelaporan.periode) +
-                        " tahun " +
-                        _vm._s(notification.data.pelaporan.tahun) +
-                        " telah ditanggapi."
-                    )
-                  ])
+                  notification.data.jenis == "Pelaporan"
+                    ? _c("p", [
+                        _vm._v(
+                          _vm._s(notification.data.jenis) +
+                            " Baru : " +
+                            _vm._s(
+                              notification.data.pelaporan.nama_perusahaan
+                            ) +
+                            " periode " +
+                            _vm._s(notification.data.pelaporan.periode) +
+                            " tahun " +
+                            _vm._s(notification.data.pelaporan.tahun)
+                        )
+                      ])
+                    : _c("p", [
+                        _vm._v(
+                          _vm._s(notification.data.jenis) +
+                            " Baru : " +
+                            _vm._s(notification.data.pengaduan.jenis)
+                        )
+                      ])
                 ])
               ]
             )
@@ -43761,7 +43817,18 @@ var render = function() {
           [
             _vm.notifications.length == 0
               ? _c("a", [_vm._v("Tidak Ada notifikasi")])
-              : _c("a", { attrs: { href: "/pelaporan" } }, [_vm._v("View all")])
+              : _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.ViewAll()
+                      }
+                    }
+                  },
+                  [_vm._v("View all")]
+                )
           ]
         )
       ],
@@ -43769,33 +43836,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "dropdown-header d-flex align-items-center justify-content-between"
-      },
-      [
-        _c("p", { staticClass: "mb-0 font-weight-medium" }, [
-          _vm._v("Notifikasi")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "icon" }, [
-      _c("i", { attrs: { "data-feather": "book" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
