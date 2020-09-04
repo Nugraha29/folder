@@ -23,7 +23,10 @@ Route::get('config', function (){
     Artisan::call('config:cache');
 });
 Route::get('mail','PelaporanController@mail');
-
+Route::get('qrcode-with-image', function () {
+	$image = \QrCode::format('png')->merge('https://www.garutkab.go.id/assets/img/logo-kabupaten-garut.png', .3, true)->generate('asd');
+ return response($image)->header('Content-type','image/png');
+});
 Route::get('pengaduan/create', ['as' => 'pengaduan.create', 'uses' => 'PengaduanController@create']);
 Route::post('pengaduan', ['as' => 'pengaduan.store', 'uses' => 'PengaduanController@store']);
 Route::get('/refresh_captcha', 'Auth\RegisterController@refreshCaptcha')->name('refresh');

@@ -89,7 +89,7 @@ class PelaporanController extends Controller
 
     public function mail()
     {      
-        $model = Review::find(33);
+        $model = Review::find(34);
         $date = Carbon::now()->format('d F Y');
         return view('pelaporan.mail', compact('model', 'date')); 
         
@@ -288,7 +288,7 @@ class PelaporanController extends Controller
             $data["email"]=$request->get("email");
             $data["client_name"]=$request->get("nama_pelapor");
             $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
-
+            $model->pdf = 'PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->nama_perusahaan.'.pdf';
             $pdf = PDF::loadView('pelaporan.mail', ['model' => $model, 'date' => $date])->setPaper('a4');
             $pdf->getDomPDF()->setHttpContext(
                 stream_context_create([
@@ -319,8 +319,8 @@ class PelaporanController extends Controller
             $this->statusdesc  =   "Message sent Succesfully";
             $this->statuscode  =   "1";
             }
-            \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
-            $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
+            \Storage::disk('local')->put('public/PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->nama_perusahaan.'.pdf', $pdf->output());
+           
             $model->save();
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
