@@ -87,6 +87,15 @@ class PelaporanController extends Controller
         
     }
 
+    public function mail()
+    {      
+        $model = Review::find(33);
+        $date = Carbon::now()->format('d F Y');
+        return view('pelaporan.mail', compact('model', 'date')); 
+        
+        
+    }
+
     /**  
      * Post Request to store step1 info in session
      *

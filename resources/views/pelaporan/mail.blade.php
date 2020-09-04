@@ -31,7 +31,7 @@
                     <table class="bordered width-100pc" width="100%">
                         <tr class="kop">
                             <td width="10%">
-                                <img src="{{ asset('material') }}/img/logo-dinas.png" height="70" width="70">
+                                <img src="/assets/images/logo-garut.png" width="70">
                             </td>
                             <td width="80%">
                                 <font size="4">KABUPATEN GARUT</font><br>     
@@ -155,16 +155,28 @@
                     </table>
                 </div>
                 <div class="divTableCell">
-                    <table class="bordered width-100pc" width="100%">
-                        <tr class="kop">
-                            <td width="65%">
+                    <table class="bordered width-100pc" width="100%" style="border-collapse: collapse; border: 1px solid black;">
+                        <tr class="kop" style="border: 1px solid black;">
+                            <td width="25%" style="border: 1px solid black;">
+                               {!! QrCode::format('png')
+                                ->merge('assets/images/logo.png', 0.5, true)
+                                ->size(500)->errorCorrection('H')
+                                ->generate('A simple example of QR code!'); !!} 
                             </td>
-                            <td width="35%">
-                                Garut, {{ $date }} <br>
-                                Kepala Dinas Lingkungan Hidup 
-                                <br><br><br><br>
-                                ................. <br>
-                                NIP.      
+                            <td width="75%" style="border: 1px solid black; padding: 5px">
+                                Dokumen pelaporan ini secara elektronik sudah diterima oleh
+                                <br/>
+                                Dinas Lingkungan Hidup Kabupaten Garut, sehingga tanda
+                                <br/>
+                                terima tidak memerlukan cap dan tandatangan basah. 
+                                <br/>
+                                <br/>
+                                Terimakasih telah menyampaikan laporan pengelolaan dan pemantauan lingkungan
+                                <br/>
+                                <br/>
+                                <b>TIM SISTEM INFORMASI LINGKUNGAN (S I L)</b>
+                                <br/>
+                                <b>DINAS LINGKUNGAN HIDUP KABUPATEN GARUT</b>
                             </td>
                         </tr>
                     </table>
