@@ -19,8 +19,8 @@
               <tr>
                 <th>No</th>
                 <th>Tanggal Pelaporan</th>
+                <th>Nama Penanggap</th>
                 <th>Nama Pelapor</th>
-                <th>Telepon</th>
                 <th>Nama Perusahaan</th>
                 <th>Periode</th>
                 <th>Tahun</th>

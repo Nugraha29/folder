@@ -105,6 +105,26 @@
                                     </div>
                                 </div>    
                                 </div>
+                                @if ($errors->has('bidang_usaha'))
+                                    <div id="bidang_usaha-error" class="error text-danger pt-1" for="bidang_usaha" style="display: block;">
+                                        <strong>{{ $errors->first('bidang_usaha') }}</strong>
+                                    </div>
+                                @endif
+                                @if ($errors->has('dok_pelaporan'))
+                                    <div id="dok_pelaporan-error" class="error text-danger pt-1" for="dok_pelaporan" style="display: block;">
+                                        <strong>{{ $errors->first('dok_pelaporan') }}</strong>
+                                    </div>
+                                @endif  
+                                @if ($errors->has('dok_lab'))
+                                    <div id="dok_lab-error" class="error text-danger pt-1" for="dok_lab" style="display: block;">
+                                        <strong>{{ $errors->first('dok_lab') }}</strong>
+                                    </div>
+                                @endif  
+                                @if ($errors->has('dok_izin'))
+                                    <div id="dok_izin-error" class="error text-danger pt-1" for="dok_izin" style="display: block;">
+                                        <strong>{{ $errors->first('dok_izin') }}</strong>
+                                    </div>
+                                @endif  
                         </div>
                         <div class="card-footer text-right">
                             <button type="submit" class="btn btn-primary">Selanjutnya</button>

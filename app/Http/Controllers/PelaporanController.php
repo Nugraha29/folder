@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Pelaporan;
 use App\Review;
-use App\User;
 use App\Mail\ReviewEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\PelaporanRequest;
@@ -20,8 +19,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Notifications\NotifyPelaporanStats;
-use App\Notifications\NotifyReview;
 
 class PelaporanController extends Controller
 {
@@ -38,7 +35,7 @@ class PelaporanController extends Controller
             })
             ->rawColumns(['action'])
             ->editColumn('created_at', function ($pelaporan) {
-                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('m F Y') : '';
+                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('d F Y') : '';
             })
             ->make(true);
         } elseif (Gate::allows('isUser')) {
@@ -52,7 +49,7 @@ class PelaporanController extends Controller
             })
             ->rawColumns(['action'])
             ->editColumn('created_at', function ($pelaporan) {
-                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('m F Y') : '';
+                return $pelaporan->created_at ? with(new Carbon($pelaporan->created_at))->format('d F Y') : '';
             })
             ->make(true);            
         }  else {
@@ -117,8 +114,7 @@ class PelaporanController extends Controller
             $jenis = $request->get('jenis');
 
 
-            $filter = Pelaporan::where('user_id', auth()->user()->id)
-                ->where('periode', $periode)
+            $filter = Pelaporan::where('periode', $periode)
                 ->where('tahun', $tahun)
                 ->where('jenis', $jenis)
                 ->first();
@@ -157,14 +153,15 @@ class PelaporanController extends Controller
                 $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
             } else {
 
-            }   
+            }
+            
             $model->user_id = auth()->user()->id;
+
+
             $model->save();
 
-            $pelaporan = Pelaporan::find($model->id);
-            User::find(8)->notify(new NotifyPelaporanStats($pelaporan));
-
             Alert::success('Berhasil', 'Pelaporan berhasil dikirim!');
+
             return back()->withStatus(__('Pelaporan berhasil dikirim.'));
 
         }
@@ -220,7 +217,7 @@ class PelaporanController extends Controller
             })
             ->rawColumns(['action'])
             ->editColumn('created_at', function ($review) {
-                return $review->created_at ? with(new Carbon($review->created_at))->format('m F Y') : '';
+                return $review->created_at ? with(new Carbon($review->created_at))->format('d F Y') : '';
             })
             ->make(true);
         } else {
@@ -268,7 +265,9 @@ class PelaporanController extends Controller
             $model->kesimpulan = $request->get('kesimpulan');
             $nextId = DB::table('review')->max('id') + 1;
             $model->no_surat = 'XXX/XXX/XXX/00'.$nextId;
-            $model->id_verifikasi = Str::random(20);
+            do {
+                $model->id_verifikasi = mt_rand(10000000, 99999999);
+            } while ( DB::table( 'review' )->where( 'id_verifikasi', $model->id_verifikasi )->exists());
             $model->pelaporan_id = $request->get('pelaporan_id');  
             $model->user_id = auth()->user()->id;
             $update = Pelaporan::findOrFail($request->get('pelaporan_id'));
@@ -314,10 +313,6 @@ class PelaporanController extends Controller
             \Storage::disk('local')->put('public/PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf', $pdf->output());
             $model->pdf = 'PDF Pelaporan/'.date('Y').'/Triwulan '.$model->periode.'/Pelaporan '.$model->jenis.' '.$model->nama_perusahaan.'.pdf';
             $model->save();
-
-            $review = Review::find($model->id);
-            User::find($update->user_id)->notify(new NotifyReview($review));
-
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
         } else {
