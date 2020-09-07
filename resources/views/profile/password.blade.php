@@ -73,9 +73,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary">{{ __('Ubah Katasandi') }}</button>
-              </div>
+              <button type="submit" class="btn btn-primary">{{ __('Ubah Katasandi') }}</button>
             </div>
           </form>
         </div>

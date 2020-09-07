@@ -76,8 +76,8 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label>Bidang Usaha</label>
-                    <select class="form-control js-example-basic-single w-100" id="bidang_usaha" name="bidang_usaha" required>
+                    <label for="bidang_usaha">Bidang Usaha</label>
+                    <select class="form-control js-example-basic-single js-states" style="width: 100%" id="bidang_usaha" name="bidang_usaha" required>
                       <option disabled selected>Pilih Bidang Usaha</option>   
                       <optgroup label="Fasilitas Kesehatan">
                         <option {{ auth()->user()->bidang_usaha == "Apotek" ? "selected" : ""}} value="Apotek">Apotek</option>
@@ -115,6 +115,15 @@
                     @endif
                   </div>
                   <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <input id="alamat" class="form-control" name="alamat" type="text" value="{{ auth()->user()->alamat }}">
+                    @if ($errors->has('alamat'))
+                      <div id="alamat-error" class="error text-danger pt-1" for="alamat" style="display: block;">
+                        <strong>{{ $errors->first('alamat') }}</strong>
+                      </div>
+                    @endif
+                  </div>   
+                  <div class="form-group">
                     <label for="jabatan">Jabatan</label>
                     <input id="jabatan" class="form-control" name="jabatan" type="text" value="{{ auth()->user()->jabatan }}">
                     @if ($errors->has('jabatan'))
@@ -125,9 +134,7 @@
                   </div>                  
                 </fieldset>                
               </div>
-              <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
-              </div>
+              <button type="submit" class="btn btn-primary">{{ __('Simpan') }}</button>
             </div>
 
           </form>

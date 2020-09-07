@@ -48,17 +48,24 @@
                     <td>{{ $pelaporan->bidang_usaha }}</td>
                   </tr>
                   <tr>
+                    <td style="width: 180px">Alamat</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $pelaporan->alamat }}</td>
+                  </tr>
+                  <tr>
                     <td style="width: 180px">Jenis Pelaporan</td>
                     <td style="width: 1px">:</td>
                     <td>{{ $pelaporan->jenis }}</td>
                   </tr>
                   <tr>
                     <td style="width: 180px">
-                    @if ($pelaporan->jenis == 'Lingkungan')
-                        Periode/Semester
-                    @else
-                        Periode/Triwulan
-                    @endif
+                      @if ($pelaporan->jenis == 'Lingkungan')
+                          Periode/Semester
+                      @elseif ($pelaporan->jenis == 'Udara')
+                          Periode/Semester
+                      @else
+                          Periode/Triwulan
+                      @endif
                     </td>
                     <td style="width: 1px">:</td>
                     <td>{{ $pelaporan->periode }}</td>
@@ -70,35 +77,117 @@
                   </tr>
                   <tr>
                     <th colspan="3">Dokumen</th>
-                  </tr> 
-                  <tr>
-                    <td style="width: 180px">Dokumen Pelaporan</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan) }}" target="_blank">Download</a></td>
-                  </tr>
-                  <tr>
-                    <td style="width: 180px">Dokumen Izin</td>
-                    <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_izin) }}" target="_blank">Download</a></td>
                   </tr>
                   @if ($pelaporan->jenis == 'Air')
                   <tr>
-                    <td style="width: 180px">Dokumen Hasil Uji Lab</td>
+                    <td style="width: 180px">Dokumen Gambaran Pengelolaan Air</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Sertifikat Uji Lab</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Izin Ipalasa</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
                   </tr>
                   @elseif ($pelaporan->jenis == 'Udara')
                   <tr>
-                    <td style="width: 180px">Dokumen Hasil Uji Lab</td>
+                    <td style="width: 180px">Dokumen Deskripsi Pengelolaan Pencemaran Udara</td>
                     <td style="width: 1px">:</td>
-                    <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Udara Ambien (Hasil Uji Lab)</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Udara Emisi (Hasil Uji Lab)</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
+                  </tr>
+                  @elseif ($pelaporan->jenis == 'LimbahB3')
+                  <tr>
+                    <td style="width: 180px">Dokumen Deskripsi Pengelolaan Limbah B3</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Bukti Manifest</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen MOU Pengelolaan Limbah B3</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumen Izin TPS Limbah B3</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_4) }}" target="_blank">Download</a></td>
+                  </tr>
+                  @elseif ($pelaporan->jenis == 'Lingkungan')
+                  <tr>
+                    <td style="width: 180px">Dokumen Pelaporan</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
                   </tr>
                   @else
+                      
                   @endif
                 </tbody>
               </table>
             </div>
         </div>
+        @if ($pelaporan->status == 'Reviewed')
+        <div class="card mt-3">
+          <div class="card-header my-auto">
+                <h4 class="card-title ">Hasil Review</h4>
+          </div>
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  @foreach ($pelaporan->review as $p)
+                  <tr>
+                    <td colspan="3" class="text-right">Ditanggapi pada {{ $p->created_at->format('d F Y') }}, pukul {{ $pelaporan->created_at->format('H:i:s') }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">Tanggapan Dokumen Pelaporan</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $p->review_dok_1 }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">Tanggapan Dokumen Izin</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $p->review_dok_2 }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">Tanggapan Dokumen Hasil Uji Lab</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $p->review_dok_3 }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">Kesimpulan</td>
+                    <td style="width: 1px">:</td>
+                    <td>{{ $p->kesimpulan }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 250px">PDF Hasil Review</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$p->pdf) }}" target="_blank">Download</a></td>
+                  </tr>     
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+        </div>    
+        @endif
+        
       </div>
     </div>
     <!--

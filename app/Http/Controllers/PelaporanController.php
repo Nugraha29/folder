@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pelaporan;
 use App\Review;
+use App\User;
 use App\Mail\ReviewEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\PelaporanRequest;
@@ -19,6 +20,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Notifications\NotifyPelaporanStats;
+use App\Notifications\NotifyReview;
 
 class PelaporanController extends Controller
 {
@@ -139,35 +142,165 @@ class PelaporanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PelaporanRequest $request, Pelaporan $model)
+    public function store(Request $request, Pelaporan $model)
     {
         //
         if (Gate::allows('isUserWaiting')) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         } else {
+            if ($request->jenis == 'Air') {
+               $this->validate($request, [
+                'nama' => 'required|min:3',
+                'telp' => 'required|min:6',
+                'email' => 'required|min:6',
+                'nama_perusahaan' => 'required|min:6',
+                'bidang_usaha'=> 'required|min:3',
+                'alamat'=> 'required|min:3',
+                'jenis' => 'required|min:3',
+                'periode' => 'required|min:1',
+                'tahun' => 'required|min:1',
+                'dok_1' => 'mimes:docx,doc,pdf',
+                'dok_2' => 'mimes:docx,doc,pdf',
+                'dok_3' => 'mimes:docx,doc,pdf',
+                'dok_4' => 'mimes:docx,doc,pdf',
+                ],
+                [
+                    'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'dok_1.mimes' => 'Inputan dokumen Gambaran Pengelolaan Air harus berupa file bertipe: docx, doc, pdf.',
+                    'dok_2.mimes' => 'Inputan dokumen Sertifikat Uji Lab harus berupa file bertipe: docx, doc, pdf.',
+                    'dok_3.mimes' => 'Inputan dokumen Izin Ipalasa harus berupa file bertipe: docx, doc, pdf.',
+                ]
+                );
+            } elseif ($request->jenis == 'Udara') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'telp' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat'=> 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'dok_1' => 'required|mimes:docx,doc,pdf',
+                    'dok_2' => 'required|mimes:docx,doc,pdf',
+                    'dok_3' => 'mimes:docx,doc,pdf',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'dok_1.required' => 'Inputan dokumen Deskripsi Pengelolaan Pencemaran Udara wajib.',
+                        'dok_2.required' => 'Inputan dokumen Udara Ambien (Hasil Uji Lab) wajib.',
+                        'dok_1.mimes' => 'Inputan dokumen Deskripsi Pengelolaan Pencemaran Udara harus berupa file bertipe: docx, doc, pdf.',
+                        'dok_2.mimes' => 'Inputan dokumen Udara Ambien (Hasil Uji Lab) harus berupa file bertipe: docx, doc, pdf.',
+                        'dok_3.mimes' => 'Inputan dokumen Udara Emisi (Hasil Uji Lab) harus berupa file bertipe: docx, doc, pdf.',
+                    ]
+                    );
+            } elseif ($request->jenis == 'LimbahB3') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'telp' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat'=> 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'dok_1' => 'required|mimes:docx,doc,pdf',
+                    'dok_2' => 'required|mimes:docx,doc,pdf',
+                    'dok_3' => 'required|mimes:docx,doc,pdf',
+                    'dok_4' => 'required|mimes:docx,doc,pdf',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'dok_1.required' => 'Inputan dokumen Deskripsi Pengelolaan Limbah B3 wajib.',
+                        'dok_2.required' => 'Inputan dokumen Bukti Manifest wajib.',
+                        'dok_3.required' => 'Inputan dokumen MOU Pengelolaan Limbah B3 dengan Pihak ke-3 wajib.',
+                        'dok_4.required' => 'Inputan dokumen Izin TPS Limbah B3 wajib.',
+                        'dok_1.mimes' => 'Inputan dokumen Deskripsi Pengelolaan Limbah B3 harus berupa file bertipe: docx, doc, pdf.',
+                        'dok_2.mimes' => 'Inputan dokumen Bukti Manifest harus berupa file bertipe: docx, doc, pdf.',
+                        'dok_3.mimes' => 'Inputan dokumen MOU Pengelolaan Limbah B3 dengan Pihak ke-3 harus berupa file bertipe: docx, doc, pdf.',
+                        'dok_4.mimes' => 'Inputan dokumen Izin TPS Limbah B3 harus berupa file bertipe: docx, doc, pdf.',
+                    ]
+                    );
+            } elseif ($request->jenis == 'Lingkungan') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'telp' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat'=> 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'dok_1' => 'required|mimes:docx,doc,pdf',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'dok_1.required' => 'Inputan dokumen Pelaporan wajib.',
+                        'dok_1.mimes' => 'Inputan dokumen Pelaporan harus berupa file bertipe: docx, doc, pdf.',
+                    ]
+                    );
+            } else {
+                abort(404);
+            }
+            
             $model = new Pelaporan;
             $model->nama= $request->get('nama');
             $model->telp= $request->get('telp');
             $model->nama_perusahaan = $request->get('nama_perusahaan');
             $model->email = $request->get('email');
             $model->bidang_usaha = $request->get('bidang_usaha');
+            $model->alamat = $request->get('alamat');
             $model->jenis = $request->get('jenis');
             $model->periode = $request->get('periode');  
             $model->tahun = $request->get('tahun');  
-            $model->dok_pelaporan = $request->file('dok_pelaporan')->store('DokumenPelaporan', 'public');
-            $model->dok_izin = $request->file('dok_izin')->store('DokumenIzin', 'public');
             if ($request->get('jenis') == 'Air') {
-                $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+                $model->dok_1 = $request->file('dok_1')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Gambaran-Pengelolaan-Air', 'public');
+                $model->dok_2 = $request->file('dok_2')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Sertifikat-Uji-Lab', 'public');
+                $model->dok_3 = $request->file('dok_3')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Izin-Ipalasa', 'public');
+            } elseif ($request->get('jenis') == 'LimbahB3') {
+                $model->dok_1 = $request->file('dok_1')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Deskripsi-Pengelolaan-LimbahB3', 'public');
+                $model->dok_2 = $request->file('dok_2')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Bukti-Manifest', 'public');
+                $model->dok_3 = $request->file('dok_3')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/MOU-Pengelolaan-LimbahB3', 'public');
+                $model->dok_4 = $request->file('dok_4')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Izin-TPS-LimbahB3', 'public');
             } elseif ($request->get('jenis') == 'Udara') {
-                $model->dok_lab = $request->file('dok_lab')->store('DokumenLab', 'public');
+                $model->dok_1 = $request->file('dok_1')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Deskripsi-Pengelolaan-Pencemaran-Udara', 'public');
+                $model->dok_2 = $request->file('dok_2')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Udara-Ambien', 'public');
+                $model->dok_3 = $request->file('dok_3')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Udara-Emisi', 'public');
+            } elseif ($request->get('jenis') == 'Lingkungan') {
+                $model->dok_1 = $request->file('dok_1')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Dokumen-Pelaporan', 'public');
             } else {
-
+                abort(404);
             }
             
             $model->user_id = auth()->user()->id;
 
-
             $model->save();
+
+            $pelaporan = Pelaporan::find($model->id);
+            User::find(8)->notify(new NotifyPelaporanStats($pelaporan));
 
             Alert::success('Berhasil', 'Pelaporan berhasil dikirim!');
 
@@ -259,21 +392,135 @@ class PelaporanController extends Controller
     public function review(Request $request, Review $model)
     {  
         if (Gate::allows('isAdmin')) {
+            if ($request->jenis == 'Air') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'nama_pelapor' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat' => 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'review_dok_1' => 'required|min:3',
+                    'review_dok_2' => 'required|min:3',
+                    'review_dok_3' => 'required|min:3',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'review_dok_1.required' => 'Tanggapan dokumen Gambaran Pengelolaan Air wajib diisi.',
+                        'review_dok_2.required' => 'Tanggapan dokumen Sertifikat Uji Lab wajib diisi.',
+                        'review_dok_3.required' => 'Tanggapan dokumen Izin Ipalasa wajib diisi.',
+                    ]
+                 );
+            } elseif ($request->jenis == 'Udara') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'nama_pelapor' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat' => 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'review_dok_1' => 'required|min:3',
+                    'review_dok_2' => 'required|min:3',
+                    'review_dok_3' => 'required|min:3',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'review_dok_1.required' => 'Tanggapan dokumen Deskripsi Pengelolaan Pencemaran Udara wajib diisi.',
+                        'review_dok_2.required' => 'Tanggapan dokumen Udara Ambien (Hasil Uji Lab) wajib diisi.',
+                        'review_dok_3.required' => 'Tanggapan dokumen Udara Emisi (Hasil Uji Lab) wajib diisi.',
+                    ]
+                    );
+            } elseif ($request->jenis == 'LimbahB3') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'nama_pelapor' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat' => 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'review_dok_1' => 'required|min:3',
+                    'review_dok_2' => 'required|min:3',
+                    'review_dok_3' => 'required|min:3',
+                    'review_dok_4' => 'required|min:3',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'review_dok_1.required' => 'Tanggapan dokumen Deskripsi Pengelolaan Limbah B3 wajib diisi.',
+                        'review_dok_2.required' => 'Tanggapan dokumen Bukti Manifest wajib diisi.',
+                        'review_dok_3.required' => 'Tanggapan dokumen MOU Pengelolaan Limbah B3 wajib diisi.',
+                        'review_dok_4.required' => 'Tanggapan dokumen Izin TPS Limbah B3 wajib diisi.',
+                    ]
+                    );
+            } elseif ($request->jenis == 'Lingkungan') {
+                $this->validate($request, [
+                    'nama' => 'required|min:3',
+                    'nama_pelapor' => 'required|min:6',
+                    'email' => 'required|min:6',
+                    'nama_perusahaan' => 'required|min:6',
+                    'bidang_usaha'=> 'required|min:3',
+                    'alamat' => 'required|min:3',
+                    'jenis' => 'required|min:3',
+                    'periode' => 'required|min:1',
+                    'tahun' => 'required|min:1',
+                    'review_dok_1' => 'required|min:3',
+                    ],
+                    [
+                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                        'review_dok_1.required' => 'Tanggapan dokumen Pelaporan wajib diisi.',
+                    ]
+                    );
+            } else {
+                 abort(404);
+            }
             $model = new Review;
             $model->nama = auth()->user()->name;
             $model->nama_pelapor = $request->get('nama_pelapor');
             $model->email = $request->get('email');
             $model->nama_perusahaan = $request->get('nama_perusahaan');
             $model->bidang_usaha = $request->get('bidang_usaha');
+            $model->alamat = $request->get('alamat');
             $model->jenis = $request->get('jenis');  
             $model->periode = $request->get('periode');  
             $model->tahun = $request->get('tahun');  
-            $model->review_dok_pelaporan = $request->get('review_dok_pelaporan');
-            $model->review_dok_izin = $request->get('review_dok_izin');
-            $model->review_dok_lab = $request->get('review_dok_lab');
+            $model->review_dok_1 = $request->get('review_dok_1');
+            $model->review_dok_2 = $request->get('review_dok_2');
+            $model->review_dok_3 = $request->get('review_dok_3');
+            $model->review_dok_4 = $request->get('review_dok_4');
             $model->kesimpulan = $request->get('kesimpulan');
-            $nextId = DB::table('review')->max('id') + 1;
-            $model->no_surat = 'XXX/XXX/XXX/00'.$nextId;
+
+            $nomorSurat = Review::whereYear("created_at", Carbon::now()->year)->count();
+            $no_surat = $nomorSurat + 1;
+            $model->no_surat = '660.1/'.$no_surat.'/DLH/'.date('Y');
+
             do {
                 $model->id_verifikasi = mt_rand(10000000, 99999999);
             } while ( DB::table( 'review' )->where( 'id_verifikasi', $model->id_verifikasi )->exists());
@@ -288,7 +535,7 @@ class PelaporanController extends Controller
             $data["email"]=$request->get("email");
             $data["client_name"]=$request->get("nama_pelapor");
             $data["subject"]='Hasil Pelaporan '.$request->get('jenis');
-            $model->pdf = 'PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->nama_perusahaan.'.pdf';
+            $model->pdf = 'PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->id_verifikasi.'.pdf';
             $pdf = PDF::loadView('pelaporan.mail', ['model' => $model, 'date' => $date])->setPaper('a4');
             $pdf->getDomPDF()->setHttpContext(
                 stream_context_create([
@@ -319,9 +566,13 @@ class PelaporanController extends Controller
             $this->statusdesc  =   "Message sent Succesfully";
             $this->statuscode  =   "1";
             }
-            \Storage::disk('local')->put('public/PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->nama_perusahaan.'.pdf', $pdf->output());
-           
+            \Storage::disk('local')->put('public/PDF-Pelaporan/'.date('Y').'/Triwulan-'.$model->periode.'/Pelaporan-'.$model->jenis.'-'.$model->id_verifikasi.'.pdf', $pdf->output());
+        
             $model->save();
+
+            $review = Review::find($model->id);
+            User::find($update->user_id)->notify(new NotifyReview($review));
+
             Alert::success('Berhasil', 'Pelaporan berhasil ditanggapi!');
             return redirect()->route('pelaporan.index')->withStatus(__('Pelaporan berhasil ditanggapi.'));            
         } else {
@@ -373,14 +624,17 @@ class PelaporanController extends Controller
     {
         //
         $pelaporan = Pelaporan::findOrFail($id);
-        if(file_exists(storage_path('app/public/' . $pelaporan->dok_pelaporan))){
-            \Storage::delete('public/' . $pelaporan->dok_pelaporan); 
+        if(file_exists(storage_path('app/public/' . $pelaporan->dok_1))){
+            \Storage::delete('public/' . $pelaporan->dok_1); 
         }
-        if(file_exists(storage_path('app/public/' . $pelaporan->dok_izin))){
-            \Storage::delete('public/' . $pelaporan->dok_izin); 
+        if(file_exists(storage_path('app/public/' . $pelaporan->dok_2))){
+            \Storage::delete('public/' . $pelaporan->dok_2); 
         }
-        if(file_exists(storage_path('app/public/' . $pelaporan->dok_lab))){
-            \Storage::delete('public/' . $pelaporan->dok_lab); 
+        if(file_exists(storage_path('app/public/' . $pelaporan->dok_3))){
+            \Storage::delete('public/' . $pelaporan->dok_3); 
+        }
+        if(file_exists(storage_path('app/public/' . $pelaporan->dok_4))){
+            \Storage::delete('public/' . $pelaporan->dok_4); 
         }
         $pelaporan->delete();
 

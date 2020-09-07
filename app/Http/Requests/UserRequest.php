@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
             'telp' => ['required', 'min:3'],
             'nama_perusahaan' => ['required', 'min:3'],
             'bidang_usaha' => ['required', 'min:3'],
+            'alamat' => ['required', 'min:3'],
             'jabatan' => ['required', 'min:3'],
         ];
     }

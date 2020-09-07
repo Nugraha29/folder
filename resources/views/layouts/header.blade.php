@@ -15,8 +15,8 @@
               <img src="{{ url('https://img.favpng.com/23/0/3/computer-icons-user-profile-clip-art-portable-network-graphics-png-favpng-YEj6NsJygkt6nFTNgiXg9fg9w.jpg') }}" alt="">
             </div>
             <div class="info text-center">
-              <p class="name font-weight-bold mb-0">{{ auth()->user()->name }}</p>
-              <p class="email text-muted mb-3">{{ auth()->user()->email }}</p>
+              <p class="name font-weight-bold mb-0">{{ auth()->user()->name ?? '' }}</p>
+              <p class="email text-muted mb-3">{{ auth()->user()->email ?? '' }}</p>
             </div>
           </div>
           <div class="dropdown-body">

@@ -17,7 +17,7 @@ class Review extends Model
     protected $fillable = [
         'nama', 'nama_pelapor', 'nama_perusahaan',
         'bidang_usaha', 'jenis', 
-        'review_dok_pelaporan', 'review_dok_izin','review_dok_lab', 
+        'review_dok_1', 'review_dok_2','review_dok_3', 'review_dok_4', 
         'pelaporan_id', 'user_id'
     ];
 

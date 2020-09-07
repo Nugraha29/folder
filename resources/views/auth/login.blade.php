@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Alamat email</label>
-                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="{{ old('email', 'admin@gmail.com') }}">
+                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="{{ old('email') }}">
                   @if ($errors->has('email'))
                     <div id="email-error" class="error text-danger pt-1" for="email" style="display: block;">
                       <strong>{{ $errors->first('email') }}</strong>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Kata sandi</label>
-                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password" value="{{ !$errors->has('password') ? "12345678" : "" }}" >
+                  <input type="password" name="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password" >
                   @if ($errors->has('password'))
                     <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
                       <strong>{{ $errors->first('password') }}</strong>
@@ -42,7 +42,10 @@
                 </div>
                 <div class="mt-3">
                  Bukan pengguna?<a href="{{ url('/register') }}"> Daftar</a> 
-                </div>                 
+                </div>   
+                <div>
+                  Lupa Kata sandi?<a href="{{ url('/password/reset') }}"> Reset Kata sandi</a> 
+                 </div>                 
               </form>
             </div>
 

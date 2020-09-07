@@ -168,6 +168,8 @@ $(function() {
         { data: 'email', name: 'email' },
         { data: 'telp', name: 'telp' },
         { data: 'nama_perusahaan', name: 'nama_perusahaan' },
+        { data: 'bidang_usaha', name: 'bidang_usaha' },
+        { data: 'alamat', name: 'alamat' },
         { data: 'jabatan', name: 'jabatan' },
         { data: 'status', name: 'status' },
         { data: 'action', name: 'action' },
@@ -175,15 +177,16 @@ $(function() {
       "order": [[0, 'desc']],
       "createdRow": function ( row, data, index ) {
         if ( data['status'] === 'aktif' ) {
-          $('td', row).eq(7).html('<button class="btn btn-success">Aktif</button>');
+          $('td', row).eq(9).html('<button class="btn btn-success">Aktif</button>');
         } else {
-          $('td', row).eq(7).html('<button class="btn btn-warning text-white">Menunggu</button>');
+          $('td', row).eq(9).html('<button class="btn btn-warning text-white">Menunggu</button>');
         }
         if ( data['status'] === 'menunggu' ) {
-          $('td', row).eq(8).html('<a type="button" name="aktivasi" id="'+data['id']+'" class="aktivasi btn btn-warning btn-icon p-2 mr-1 text-white" role="button" title="Aktivasi"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit link-icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a> <a type="button" name="delete" id="'+data['id']+'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>');
+          $('td', row).eq(10).html('<a type="button" name="aktivasi" id="'+data['id']+'" class="aktivasi btn btn-warning btn-icon p-2 mr-1 text-white" role="button" title="Aktivasi"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit link-icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a> <a type="button" name="delete" id="'+data['id']+'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>');
     
         } else {
-          $('td', row).eq(8).html('<a type="button" name="delete" id="'+data['id']+'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>');
+          $('td', row).eq(10).html('<a type="button" name="deaktivasi" id="'+data['id']+'" class="deaktivasi btn btn-warning btn-icon p-2 mr-1 text-white" role="button" title="Deaktivasi"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit link-icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a> <a type="button" name="delete" id="'+data['id']+'" class="delete btn btn-danger btn-icon p-2 text-white" title="Hapus"><svg xmlns="http://www.w3.org/2000/svg" style="height:15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>');
+
         }
       }  
     });

@@ -65,6 +65,11 @@
                           <td>{{ $review->bidang_usaha }}</td>
                         </tr>
                         <tr>
+                          <td style="width: 250px">Alamat</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->alamat }}</td>
+                        </tr>
+                        <tr>
                           <td style="width: 250px">Jenis Pelaporan</td>
                           <td style="width: 1px">:</td>
                           <td>{{ $review->jenis }}</td>
@@ -72,6 +77,8 @@
                         <tr>
                           <td style="width: 250px">
                             @if ($review->jenis == 'Lingkungan')
+                                Periode/Semester
+                            @elseif ($review->jenis == 'Udara')
                                 Periode/Semester
                             @else
                                 Periode/Triwulan
@@ -85,21 +92,69 @@
                           <td style="width: 1px">:</td>
                           <td>{{ $review->tahun }}</td>
                         </tr>
+                        @if ($review->jenis == 'Air')
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Gambaran Pengelolaan Air</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_1 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Sertifikat Uji Lab</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_2 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Izin Ipalasa</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_3 }}</td>
+                        </tr>
+                        @elseif ($review->jenis == 'Udara')
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Deskripsi Pengelolaan Pencemaran Udara</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_1 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Udara Ambien (Hasil Uji Lab)</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_2 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Udara Emisi (Hasil Uji Lab)</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_3 }}</td>
+                        </tr>
+                        @elseif ($review->jenis == 'LimbahB3')
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Deskripsi Pengelolaan Limbah B3</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_1 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Bukti Manifest</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_2 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen MOU Pengelolaan Limbah B3</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_3 }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 250px">Tanggapan Dokumen Izin TPS Limbah B3</td>
+                          <td style="width: 1px">:</td>
+                          <td>{{ $review->review_dok_4 }}</td>
+                        </tr>
+                        @elseif ($review->jenis == 'Lingkungan')
                         <tr>
                           <td style="width: 250px">Tanggapan Dokumen Pelaporan</td>
                           <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_pelaporan }}</td>
+                          <td>{{ $review->review_dok_1 }}</td>
                         </tr>
-                        <tr>
-                          <td style="width: 250px">Tanggapan Dokumen Izin</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_izin }}</td>
-                        </tr>
-                        <tr>
-                          <td style="width: 250px">Tanggapan Dokumen Hasil Uji Lab</td>
-                          <td style="width: 1px">:</td>
-                          <td>{{ $review->review_dok_lab }}</td>
-                        </tr>
+                        @else
+                            
+                        @endif
+                        
                         <tr>
                           <td style="width: 250px">Kesimpulan</td>
                           <td style="width: 1px">:</td>

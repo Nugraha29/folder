@@ -7,7 +7,7 @@
 
 @section('content')  
   <div class="row">
-    <div class="col-12 col-xl-12 stretch-card">
+    <div class="col-12 col-xl-12">
       <div class="row flex-grow">
         <div class="col-md-4 grid-margin stretch-card">
           <div class="card">
@@ -80,19 +80,16 @@
   </div> <!-- row -->
   
   <div class="row">
-    <div class="col-12 col-xl-12 grid-margin stretch-card">
+    <div class="col-6 grid-margin">
       <div class="card overflow-hidden">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-            <h6 class="card-title mb-0">Grafik Pelaporan</h6>
+            <h6 class="card-title mb-0">Grafik Pelaporan Air</h6>
           </div>
           <div class="row align-items-start mb-2">
-            <div class="col-md-7">
-              <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
-            </div>
-            <div class="col-md-5 d-flex justify-content-md-end">
+            <div class="col-md-12">
               <div class="form-group">
-                <select class="pelaporan form-control text-dark" data-style="btn btn-link" name="pelaporanyear">
+                <select class="pelaporan form-control text-dark" data-style="btn btn-link" name="pelaporanyear" id="pelaporanair">
                   <option disabled selected>Pilih Tahun</option>   
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
@@ -105,9 +102,99 @@
               </div>
             </div>
           </div>
-          <div class="flot-wrapper">
-            {!! $pelaporanchart->container() !!}
-            {!! $pelaporanchart->script() !!}      
+          <div class="flot-wrapper mx-auto" style="width: 300px;height: 300px;">
+            {!! $pelaporanairchart->container() !!}
+            {!! $pelaporanairchart->script() !!}      
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-6 grid-margin">
+      <div class="card overflow-hidden">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+            <h6 class="card-title mb-0">Grafik Pelaporan Udara</h6>
+          </div>
+          <div class="row align-items-start mb-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <select class="pelaporan form-control text-dark" data-style="btn btn-link" name="pelaporanyear" id="pelaporanudara">
+                  <option disabled selected>Pilih Tahun</option>   
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="flot-wrapper mx-auto" style="width: 300px;height: 300px;">
+            {!! $pelaporanudarachart->container() !!}
+            {!! $pelaporanudarachart->script() !!}      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- row -->
+  
+  <div class="row">
+    <div class="col-6 grid-margin">
+      <div class="card overflow-hidden">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+            <h6 class="card-title mb-0">Grafik Pelaporan Limbah B3</h6>
+          </div>
+          <div class="row align-items-start mb-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <select class="pelaporan form-control text-dark" data-style="btn btn-link" name="pelaporanyear" id="pelaporanlimbahb3">
+                  <option disabled selected>Pilih Tahun</option>   
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="flot-wrapper mx-auto" style="width: 300px;height: 300px;">
+            {!! $pelaporanlimbahb3chart->container() !!}
+            {!! $pelaporanlimbahb3chart->script() !!}      
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 grid-margin">
+      <div class="card overflow-hidden">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
+            <h6 class="card-title mb-0">Grafik Pelaporan Lingkungan</h6>
+          </div>
+          <div class="row align-items-start mb-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <select class="pelaporan form-control text-dark" data-style="btn btn-link" name="pelaporanyear" id="pelaporanlingkungan">
+                  <option disabled selected>Pilih Tahun</option>   
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="flot-wrapper mx-auto" style="width: 300px;height: 300px;">
+            {!! $pelaporanlingkunganchart->container() !!}
+            {!! $pelaporanlingkunganchart->script() !!}      
           </div>
         </div>
       </div>
@@ -123,7 +210,7 @@
           </div>
           <div class="row align-items-start mb-2">
             <div class="col-md-7">
-              <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
+              <p class="text-muted tx-13 mb-3 mb-md-0">Statistik jumlah pengaduan per-tahun.</p>
             </div>
             <div class="col-md-5 d-flex justify-content-md-end">
               <div class="form-group">
@@ -162,17 +249,38 @@
 @push('js')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
   <script type="text/javascript">
-      var original_api_url = {{ $pelaporanchart->id }}_api_url;
-      $(".pelaporan").change(function(){
+      var original_api_url = {{ $pelaporanairchart->id }}_api_url;
+      $("#pelaporanair").change(function(){
           var pelaporanyear = $(this).val();
-          {{ $pelaporanchart->id }}_refresh(original_api_url + "?pelaporanyear="+pelaporanyear);
+          {{ $pelaporanairchart->id }}_refresh(original_api_url + "?pelaporanyear="+pelaporanyear);
       });
   </script>
   <script type="text/javascript">
-    var original_api_url2 = {{ $pengaduanchart->id }}_api_url;
+    var original_api_url1 = {{ $pelaporanudarachart->id }}_api_url;
+    $("#pelaporanudara").change(function(){
+        var pelaporanyear = $(this).val();
+        {{ $pelaporanudarachart->id }}_refresh(original_api_url1 + "?pelaporanyear="+pelaporanyear);
+    });
+  </script>
+  <script type="text/javascript">
+    var original_api_url2 = {{ $pelaporanlimbahb3chart->id }}_api_url;
+    $("#pelaporanlimbahb3").change(function(){
+        var pelaporanyear = $(this).val();
+        {{ $pelaporanlimbahb3chart->id }}_refresh(original_api_url2 + "?pelaporanyear="+pelaporanyear);
+    });
+  </script>
+  <script type="text/javascript">
+    var original_api_url3 = {{ $pelaporanudarachart->id }}_api_url;
+    $("#pelaporanlingkungan").change(function(){
+        var pelaporanyear = $(this).val();
+        {{ $pelaporanlingkunganchart->id }}_refresh(original_api_url3 + "?pelaporanyear="+pelaporanyear);
+    });
+  </script>
+  <script type="text/javascript">
+    var original_api_url3 = {{ $pengaduanchart->id }}_api_url;
     $(".pengaduan").change(function(){
         var pengaduanyear = $(this).val();
-        {{ $pengaduanchart->id }}_refresh(original_api_url2 + "?pengaduanyear="+pengaduanyear);
+        {{ $pengaduanchart->id }}_refresh(original_api_url3 + "?pengaduanyear="+pengaduanyear);
     });
   </script>
   <script src="{{ asset('assets/js/dashboard.js') }}"></script>
@@ -235,7 +343,7 @@
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-3">Pengaduan Limbah B3</h6>
+                <h6 class="card-title mb-3">Pelaporan Limbah B3</h6>
               </div>
               <div class="row">
                 <div class="col-6">
@@ -257,7 +365,7 @@
           <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-3">Pengaduan Lingkungan</h6>
+                <h6 class="card-title mb-3">Pelaporan Lingkungan</h6>
               </div>
               <div class="row">
                 <div class="col-6">
@@ -279,15 +387,18 @@
     </div>
   </div> 
   <!-- row -->
-  <div class="row">
+  @if ($countpelaporan == 0)
+   
+  @else 
+ <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Timeline</h6>
+          <h6 class="card-title">Timeline Pelaporan</h6>
           <div id="content">
             <ul class="timeline">
               @foreach ($pelaporan as $p)
-              <li class="event" data-date="{{ $p->created_at->format('d F Y-H:i:s') }}">
+              <li class="event" data-date="{{ $p->created_at->format('d/m/Y-H:i:s') }}">
                 <h3>Pelaporan {{ $p->jenis }}</h3>
                 <p>Triwulan {{ $p->periode }}</p>
                 <p>
@@ -305,7 +416,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  
+  @endif
+  
 @endsection 
 
 @endcan

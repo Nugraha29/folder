@@ -33,12 +33,13 @@ class PelaporanRequest extends FormRequest
             'jenis' => ['required', 'min:3'],
             'periode' => ['required', 'min:1'],
             'tahun' => ['required', 'min:1'],
-            'dok_pelaporan' => ['required', 'mimes:docx,doc,pdf'],
-            'dok_izin' => ['required', 'mimes:docx,doc,pdf'],
-            'dok_lab' => ['mimes:docx,doc,pdf'],
+            'dok_1' => ['mimes:docx,doc,pdf'],
+            'dok_2' => ['mimes:docx,doc,pdf'],
+            'dok_3' => ['mimes:docx,doc,pdf'],
+            'dok_4' => ['mimes:docx,doc,pdf'],
         ];
     }
-
+    
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -52,6 +53,10 @@ class PelaporanRequest extends FormRequest
             'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
             'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
             'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+            'dok_1.mimes' => 'Inputan dokumen harus berupa file bertipe: docx, doc, pdf.',
+            'dok_2.mimes' => 'Inputan dokumen harus berupa file bertipe: docx, doc, pdf.',
+            'dok_3.mimes' => 'Inputan dokumen harus berupa file bertipe: docx, doc, pdf.',
+            'dok_4.mimes' => 'Inputan dokumen harus berupa file bertipe: docx, doc, pdf.',
         ];
     }
 

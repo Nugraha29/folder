@@ -1,23 +1,23 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => '', 'title' => __('Material Dashboard')])
+@extends('layouts.app2')
 
-@section('content')
+@section('content')  
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
-    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+    <div class="col-lg-4 mx-auto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
       <form class="form" method="POST" action="{{ route('password.update') }}">
         @csrf
 
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Reset Password') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Reset Kata sandi') }}</strong></h4>
           </div>
           <div class="card-body ">
             <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }} mt-3">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">email</i>
+                    <i class="link-icons" data-feather="mail" height="17px"></i>
                   </span>
                 </div>
                 <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" value="{{ old('email') }}" required>
@@ -32,10 +32,10 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
+                    <i class="link-icons" data-feather="lock" height="17px"></i>
                   </span>
                 </div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password...') }}" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Kata sandi...') }}" required>
               </div>
               @if ($errors->has('password'))
                 <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
@@ -47,7 +47,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">lock_outline</i>
+                    <i class="link-icons" data-feather="lock" height="17px"></i>
                   </span>
                 </div>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('Confirm Password...') }}" required>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Reset Password') }}</button>
+            <button type="submit" class="btn btn-primary btn-md">{{ __('Reset Kata sandi') }}</button>
           </div>
         </div>
       </form>
@@ -68,3 +68,6 @@
   </div>
 </div>
 @endsection
+
+
+

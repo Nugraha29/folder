@@ -180,7 +180,7 @@
         $('#confirmModal').modal('hide');
         $('#ok_button').text('OK');
         $('#dataTablePelaporanUsers').DataTable().ajax.reload();
-        swal('Berhasil','Data berhasil dihapus!', 'success');
+        swal.fire('Berhasil','Data berhasil dihapus!', 'success');
         }, 2000);
       }
       })

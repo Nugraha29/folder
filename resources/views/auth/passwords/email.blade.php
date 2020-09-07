@@ -1,15 +1,15 @@
-@extends('layouts.app', ['class' => 'off-canvas-sidebar', 'activePage' => 'email', 'title' => __('Material Dashboard')])
+@extends('layouts.app2')
 
 @section('content')
 <div class="container" style="height: auto;">
   <div class="row align-items-center">
-    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+    <div class="col-lg-4 mx-auto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
       <form class="form" method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
-            <h4 class="card-title"><strong>{{ __('Forgot Password') }}</strong></h4>
+            <h4 class="card-title"><strong>{{ __('Lupa Kata sandi') }}</strong></h4>
           </div>
           <div class="card-body">
             @if (session('status'))
@@ -17,7 +17,7 @@
                 <div class="col-sm-12">
                   <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <i class="material-icons">close</i>
+                      <i class="link-icons" data-feather="x"></i>
                     </button>
                     <span>{{ session('status') }}</span>
                   </div>
@@ -28,7 +28,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="material-icons">email</i>
+                    <i class="link-icons" data-feather="mail" height="17px"></i>
                   </span>
                 </div>
                 <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" value="{{ old('email') }}" required>
@@ -40,8 +40,11 @@
               @endif
             </div>
           </div>
-          <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Send Password Reset Link') }}</button>
+          <div class="card-footer text-center">
+            
+              <a class="btn btn-danger btn-icon-text" href="{{ url('/') }}"><i class="btn-icon-append" data-feather="chevron-left"></i>Kembali</a> 
+            
+            <button type="submit" class="btn btn-primary btn-md">{{ __('Kirim Tautan Reset Kata sandi') }}</button>
           </div>
         </div>
       </form>

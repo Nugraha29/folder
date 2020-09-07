@@ -50,15 +50,15 @@
                     </tr>
                     <tr>
                         <td>Dokumen Pelaporan</td>
-                        <td>{{ $review->review_dok_pelaporan }}</td>                      
+                        <td>{{ $review->review_dok_1 }}</td>                      
                     </tr>
                     <tr>
                         <td>Dokumen Izin</td>
-                        <td>{{ $review->review_dok_izin }}</td>                      
+                        <td>{{ $review->review_dok_2 }}</td>                      
                     </tr>
                     <tr>
                         <td>Dokumen Hasil Uji Lab</td>
-                        <td>{{ $review->review_dok_lab }}</td>                      
+                        <td>{{ $review->review_dok_3 }}</td>                      
                     </tr>
                     <tr>
                         <td>Kesimpulan</td>

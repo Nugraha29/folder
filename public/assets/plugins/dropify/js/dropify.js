@@ -46,8 +46,8 @@ function Dropify(element, options) {
         allowedFormats: ['portrait', 'square', 'landscape'],
         allowedFileExtensions: ['*'],
         messages: {
-            'default': 'Tarik dan lepas atau klik untuk pilih berkas',
-            'replace': 'Tarik dan lepas atau klik untuk mengganti berkas',
+            'default': 'Pilih berkas',
+            'replace': 'Ganti berkas',
             'remove':  'Hapus',
             'error':   'Ooops, something wrong happended.'
         },

@@ -64,6 +64,12 @@
                         <td><input type="text" value="{{ $pelaporan->bidang_usaha }}" name="bidang_usaha" hidden></td>
                     </tr>
                     <tr>
+                      <td style="width: 180px">Alamat</td>
+                      <td style="width: 1px">:</td>
+                      <td>{{ $pelaporan->alamat }}</td>
+                      <td><input type="text" value="{{ $pelaporan->alamat }}" name="alamat" hidden></td>
+                    </tr>
+                    <tr>
                         <td style="width: 180px">Jenis Pelaporan</td>
                         <td style="width: 1px">:</td>
                         <td>{{ $pelaporan->jenis }}</td>
@@ -87,36 +93,123 @@
                       <td>{{ $pelaporan->tahun }}</td>
                       <td><input type="text" value="{{ $pelaporan->tahun }}" name="tahun" hidden></td>
                     </tr>
+                    @if ($pelaporan->jenis == 'Air')
                     <tr>
-                        <td style="width: 180px">Dokumen Pelaporan</td>
-                        <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_pelaporan) }}" target="_blank">Download</a></td>
-                        <td>
-                            <div class="form-group">
-                                <input class="form-control" name="review_dok_pelaporan" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
-                            </div> 
-                        </td>
+                      <td style="width: 180px">Dokumen Gambaran Pengelolaan Air</td>
+                      <td style="width: 1px">:</td>
+                      <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                      <td>
+                          <div class="form-group">
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Gambaran Pengelolaan Air') }}" required="true" aria-required="true"/>
+                          </div> 
+                      </td>
                     </tr>
                     <tr>
-                        <td style="width: 180px">Dokumen Izin</td>
+                        <td style="width: 180px">Dokumen Sertifikat Uji Lab</td>
                         <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_izin) }}" target="_blank">Download</a></td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_izin" type="text" placeholder="{{ __('Tanggapi Dokumen Izin') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Sertifikat Uji Lab') }}" required="true" aria-required="true"/>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 180px">Dokumen Hasil Uji Lab</td>
+                        <td style="width: 180px">Dokumen Izin Ipalasa</td>
                         <td style="width: 1px">:</td>
-                        <td><a href="{{ asset('storage/'.$pelaporan->dok_lab) }}" target="_blank">Download</a></td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
                         <td style="width: 600px">
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_lab" type="text" placeholder="{{ __('Tanggapi Dokumen Hasil Uji Lab') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Izin Ipalasa') }}" required="true" aria-required="true"/>
                             </div>
                         </td>
                     </tr>
+                    @elseif ($pelaporan->jenis == 'Udara')
+                    <tr>
+                      <td style="width: 180px">Dokumen Deskripsi Pengelolaan Pencemaran Udara</td>
+                      <td style="width: 1px">:</td>
+                      <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                      <td>
+                          <div class="form-group">
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Pencemaran Udara') }}" required="true" aria-required="true"/>
+                          </div> 
+                      </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 180px">Dokumen Udara Ambien (Hasil Uji Lab)</td>
+                        <td style="width: 1px">:</td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Ambien (Hasil Uji Lab)') }}" required="true" aria-required="true"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 180px">Dokumen Udara Emisi (Hasil Uji Lab)</td>
+                        <td style="width: 1px">:</td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
+                        <td style="width: 600px">
+                            <div class="form-group">
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Emisi (Hasil Uji Lab)') }}" required="true" aria-required="true"/>
+                            </div>
+                        </td>
+                    </tr> 
+                    @elseif ($pelaporan->jenis == 'LimbahB3')
+                    <tr>
+                      <td style="width: 180px">Dokumen Deskripsi Pengelolaan Limbah B3</td>
+                      <td style="width: 1px">:</td>
+                      <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                      <td>
+                          <div class="form-group">
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Limbah B3') }}" required="true" aria-required="true"/>
+                          </div> 
+                      </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 180px">Dokumen Bukti Manifest</td>
+                        <td style="width: 1px">:</td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Bukti Manifest') }}" required="true" aria-required="true"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 180px">Dokumen MOU Pengelolaan Limbah B3</td>
+                        <td style="width: 1px">:</td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
+                        <td style="width: 600px">
+                            <div class="form-group">
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen MOU Pengelolaan Limbah B3') }}" required="true" aria-required="true"/>
+                            </div>
+                        </td>
+                    </tr> 
+                    <tr>
+                      <td style="width: 180px">Dokumen Izin TPS Limbah B3</td>
+                      <td style="width: 1px">:</td>
+                      <td><a href="{{ asset('storage/'.$pelaporan->dok_4) }}" target="_blank">Download</a></td>
+                      <td style="width: 600px">
+                          <div class="form-group">
+                              <input class="form-control" name="review_dok_4" type="text" placeholder="{{ __('Tanggapi Dokumen Izin TPS Limbah B3') }}" required="true" aria-required="true"/>
+                          </div>
+                      </td>
+                    </tr> 
+                    @elseif ($pelaporan->jenis == 'Lingkungan')
+                    <tr>
+                      <td style="width: 180px">Dokumen Pelaporan</td>
+                      <td style="width: 1px">:</td>
+                      <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
+                      <td>
+                          <div class="form-group">
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
+                          </div> 
+                      </td>
+                    </tr>
+                    @else
+                      
+                    @endif
                     <tr>
                         <td style="width: 180px">Kesimpulan</td>
                         <td style="width: 1px">:</td>

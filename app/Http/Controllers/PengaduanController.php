@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengaduan;
+use App\User;
 use App\Http\Requests\PengaduanRequest;
 use Illuminate\Http\Request;
 use App\Exports\PengaduanExport;
@@ -10,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Notifications\NotifyPengaduan;
 
 class PengaduanController extends Controller
 {
@@ -75,8 +77,8 @@ class PengaduanController extends Controller
                 'jenis'=>'required|min:3',
                 'deskripsi' => 'required|min:3',
                 'img1' => 'required|mimes:jpg,jpeg,png',
-                'img2' => 'required|mimes:jpg,jpeg,png',
-                'img3' => 'required|mimes:jpg,jpeg,png',
+                'img2' => 'mimes:jpg,jpeg,png',
+                'img3' => 'mimes:jpg,jpeg,png',
                 'img4' => 'required|mimes:jpg,jpeg,png',
                 'g-recaptcha-response' => 'required|captcha'
             ],
@@ -85,9 +87,7 @@ class PengaduanController extends Controller
                 'img2.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',    
                 'img3.mimes' => 'Inputan Bukti Foto harus berupa file bertipe: jpg, jpeg, png.',                      
                 'img4.mimes' => 'Inputan Foto KTP harus berupa file bertipe: jpg, jpeg, png.',  
-                'img1.required' => 'Inputan Bukti Foto wajib diisi.',    
-                'img2.required' => 'Inputan Bukti Foto wajib diisi.',    
-                'img3.required' => 'Inputan Bukti Foto wajib diisi.',                      
+                'img1.required' => 'Inputan Bukti Foto wajib diisi.',                      
                 'img4.required' => 'Inputan Bukti Foto wajib diisi.',                   
                 'g-recaptcha-response.required' => 'Please verify that you are not a robot.',                  
                 'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',                     
@@ -119,6 +119,9 @@ class PengaduanController extends Controller
         }
 
         $model->save();
+
+        $pengaduan = Pengaduan::find($model->id);
+        User::find(8)->notify(new NotifyPengaduan($pengaduan));
 
         Alert::success('Berhasil', 'Pengaduan berhasil dikirim!');
 

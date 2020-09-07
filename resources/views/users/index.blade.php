@@ -6,9 +6,9 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="card-title font-weight-bold">Data Pengaduan</h4>
+          <h4 class="card-title font-weight-bold">Data Pengguna</h4>
           <div>
-            <a class="btn btn-success" role="button" href="{{ route('pengaduan.export') }}">
+            <a class="btn btn-success" role="button" href="{{ route('user.export') }}">
               <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
             </a>
           </div>
@@ -23,6 +23,8 @@
                 <th>Email</th>
                 <th>Telepon</th>
                 <th>Nama Perusahaan</th>
+                <th>Bidang Usaha</th>
+                <th>Alamat</th>
                 <th>Jabatan</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -59,13 +61,33 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-              <h5 align="center" style="margin:0;">Apakah Anda yakin akan <a class="text-success">mengaktivasi</a> data ini?</h5>
+              <h5 align="center" style="margin:0;">Apakah Anda yakin akan <a class="text-success">mengaktifkan</a> data ini?</h5>
               
                 <input class="getinfo" value="aktif" hidden>
               
           </div>
           <div class="modal-footer">
             <button type="button" name="ok_button1" id="ok_button1" class="btn btn-sm btn-danger">OK</button>
+            <button type="button" class="btn btn-sm" data-dismiss="modal">Batal</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div id="confirmModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">              
+              <h5 class="modal-title">Konfirmasi</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+              <h5 align="center" style="margin:0;">Apakah Anda yakin akan <a class="text-success">menonaktifkan</a> data ini?</h5>
+              
+                <input class="menunggu" id value="menunggu" hidden>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" name="ok_button2" id="ok_button2" class="btn btn-sm btn-danger">OK</button>
             <button type="button" class="btn btn-sm" data-dismiss="modal">Batal</button>
           </div>
       </div>
@@ -83,6 +105,7 @@
     var CSRF_TOKEN = $('meta[name="_token"]').attr('content');
     var user_id;
     var user_id1;
+    var user_id2;
 
     $(document).on('click', '.delete', function(){
       user_id = $(this).attr('id');
@@ -92,6 +115,11 @@
     $(document).on('click', '.aktivasi', function(){
       user_id1 = $(this).attr('id');
       $('#confirmModal1').modal('show');
+    });
+
+    $(document).on('click', '.deaktivasi', function(){
+      user_id2 = $(this).attr('id');
+      $('#confirmModal2').modal('show');
     });
 
     $('#ok_button').click(function(){
@@ -106,9 +134,9 @@
       {
         setTimeout(function(){
         $('#confirmModal').modal('hide');
+        $('#ok_button').text('OK');
         $('#dataTableUsers').DataTable().ajax.reload();
-        window.location.reload();
-        alert('Data Terhapus');
+        swal.fire('Berhasil','Data berhasil dihapus!', 'success');
         }, 2000);
       }
       })
@@ -123,15 +151,38 @@
         status: $(".getinfo").val()
       },
       beforeSend:function(){
-        $('#ok_button1').text('Mengaktivasi data...');
+        $('#ok_button1').text('Mengaktifkan data...');
       },
       success:function(data)
       {
         setTimeout(function(){
         $('#confirmModal1').modal('hide');
+        $('#ok_button1').text('OK');
         $('#dataTableUsers').DataTable().ajax.reload();
-        window.location.reload();
-        alert('Data Teraktivasi');
+        swal.fire('Berhasil','Data berhasil diaktifkan!', 'success');
+        }, 2000);
+      }
+      })
+    });
+
+    $('#ok_button2').click(function(){
+      $.ajax({
+      url:"user/deaktivasi/"+user_id2,
+      method:"POST",  
+      data: {
+        _token: CSRF_TOKEN, 
+        status: $(".menunggu").val()
+      },
+      beforeSend:function(){
+        $('#ok_button2').text('Menonaktfikan data...');
+      },
+      success:function(data)
+      {
+        setTimeout(function(){
+        $('#confirmModal2').modal('hide');
+        $('#ok_button2').text('OK');
+        $('#dataTableUsers').DataTable().ajax.reload();
+        swal.fire('Berhasil','Data berhasil dinokaktifkan!', 'success');
         }, 2000);
       }
       })
