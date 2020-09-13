@@ -93,6 +93,11 @@
                       <td>{{ $pelaporan->tahun }}</td>
                       <td><input type="text" value="{{ $pelaporan->tahun }}" name="tahun" hidden></td>
                     </tr>
+                    <tr>
+                        <td style="width: 180px">Dokumentasi Pelaporan</td>
+                        <td style="width: 1px">:</td>
+                        <td><a href="{{ asset('storage/'.$pelaporan->dokumentasi) }}" target="_blank">Download</a></td>
+                      </tr>
                     @if ($pelaporan->jenis == 'Air')
                     <tr>
                       <td style="width: 180px">Dokumen Gambaran Pengelolaan Air</td>
@@ -100,8 +105,13 @@
                       <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
                       <td>
                           <div class="form-group">
-                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Gambaran Pengelolaan Air') }}" required="true" aria-required="true"/>
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Gambaran Pengelolaan Air') }}" required="true" aria-required="true" value="{{old('review_dok_1')}}"/>
                           </div> 
+                            @if ($errors->has('review_dok_1'))
+                                <div id="review_dok_1-error" class="error text-danger pt-1" for="review_dok_1" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_1') }}</strong>
+                                </div>
+                            @endif
                       </td>
                     </tr>
                     <tr>
@@ -110,8 +120,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Sertifikat Uji Lab') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Sertifikat Uji Lab') }}" required="true" aria-required="true" value="{{old('review_dok_2')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_2'))
+                                <div id="review_dok_2-error" class="error text-danger pt-1" for="review_dok_2" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_2') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -120,8 +135,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
                         <td style="width: 600px">
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Izin Ipalasa') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Izin Ipalasa') }}" required="true" aria-required="true" value="{{old('review_dok_3')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_3'))
+                                <div id="review_dok_3-error" class="error text-danger pt-1" for="review_dok_3" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_3') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     @elseif ($pelaporan->jenis == 'Udara')
@@ -131,8 +151,13 @@
                       <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
                       <td>
                           <div class="form-group">
-                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Pencemaran Udara') }}" required="true" aria-required="true"/>
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Pencemaran Udara') }}" required="true" aria-required="true" value="{{old('review_dok_1')}}"/>
                           </div> 
+                            @if ($errors->has('review_dok_1'))
+                                <div id="review_dok_1-error" class="error text-danger pt-1" for="review_dok_1" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_1') }}</strong>
+                                </div>
+                            @endif
                       </td>
                     </tr>
                     <tr>
@@ -141,8 +166,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Ambien (Hasil Uji Lab)') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Ambien (Hasil Uji Lab)') }}" required="true" aria-required="true" value="{{old('review_dok_2')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_2'))
+                                <div id="review_dok_2-error" class="error text-danger pt-1" for="review_dok_2" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_2') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -151,8 +181,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
                         <td style="width: 600px">
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Emisi (Hasil Uji Lab)') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen Udara Emisi (Hasil Uji Lab)') }}" required="true" aria-required="true" value="{{old('review_dok_3')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_3'))
+                                <div id="review_dok_3-error" class="error text-danger pt-1" for="review_dok_3" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_3') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr> 
                     @elseif ($pelaporan->jenis == 'LimbahB3')
@@ -162,8 +197,13 @@
                       <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
                       <td>
                           <div class="form-group">
-                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Limbah B3') }}" required="true" aria-required="true"/>
+                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Deskripsi Pengelolaan Limbah B3') }}" required="true" aria-required="true" value="{{old('review_dok_1')}}"/>
                           </div> 
+                            @if ($errors->has('review_dok_1'))
+                                <div id="review_dok_1-error" class="error text-danger pt-1" for="review_dok_1" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_1') }}</strong>
+                                </div>
+                            @endif
                       </td>
                     </tr>
                     <tr>
@@ -172,8 +212,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_2) }}" target="_blank">Download</a></td>
                         <td>
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Bukti Manifest') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_2" type="text" placeholder="{{ __('Tanggapi Dokumen Bukti Manifest') }}" required="true" aria-required="true" value="{{old('review_dok_2')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_2'))
+                                <div id="review_dok_2-error" class="error text-danger pt-1" for="review_dok_2" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_2') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -182,8 +227,13 @@
                         <td><a href="{{ asset('storage/'.$pelaporan->dok_3) }}" target="_blank">Download</a></td>
                         <td style="width: 600px">
                             <div class="form-group">
-                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen MOU Pengelolaan Limbah B3') }}" required="true" aria-required="true"/>
+                                <input class="form-control" name="review_dok_3" type="text" placeholder="{{ __('Tanggapi Dokumen MOU Pengelolaan Limbah B3') }}" required="true" aria-required="true" value="{{old('review_dok_3')}}"/>
                             </div>
+                            @if ($errors->has('review_dok_3'))
+                                <div id="review_dok_3-error" class="error text-danger pt-1" for="review_dok_3" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_3') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr> 
                     <tr>
@@ -192,8 +242,13 @@
                       <td><a href="{{ asset('storage/'.$pelaporan->dok_4) }}" target="_blank">Download</a></td>
                       <td style="width: 600px">
                           <div class="form-group">
-                              <input class="form-control" name="review_dok_4" type="text" placeholder="{{ __('Tanggapi Dokumen Izin TPS Limbah B3') }}" required="true" aria-required="true"/>
+                              <input class="form-control" name="review_dok_4" type="text" placeholder="{{ __('Tanggapi Dokumen Izin TPS Limbah B3') }}" required="true" aria-required="true" value="{{old('review_dok_4')}}"/>
                           </div>
+                            @if ($errors->has('review_dok_4'))
+                                <div id="review_dok_4-error" class="error text-danger pt-1" for="review_dok_4" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_4') }}</strong>
+                                </div>
+                            @endif
                       </td>
                     </tr> 
                     @elseif ($pelaporan->jenis == 'Lingkungan')
@@ -203,8 +258,13 @@
                       <td><a href="{{ asset('storage/'.$pelaporan->dok_1) }}" target="_blank">Download</a></td>
                       <td>
                           <div class="form-group">
-                              <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true"/>
+                            <input class="form-control" name="review_dok_1" type="text" placeholder="{{ __('Tanggapi Dokumen Pelaporan') }}" required="true" aria-required="true" value="{{old('review_dok_1')}}"/>
                           </div> 
+                            @if ($errors->has('review_dok_1'))
+                                <div id="review_dok_1-error" class="error text-danger pt-1" for="review_dok_1" style="display: block;">
+                                    <strong>{{ $errors->first('review_dok_1') }}</strong>
+                                </div>
+                            @endif
                       </td>
                     </tr>
                     @else
@@ -223,11 +283,16 @@
                             </div>
                             <div class="form-check form-check-inline">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="kesimpulan" id="Tidak Taat" value="Tidak Taat">
-                                Tidak Taat
+                                <input type="radio" class="form-check-input" name="kesimpulan" id="Taat dengan Perbaikan" value="Taat dengan Perbaikan">
+                                Taat dengan Perbaikan
                               </label>
                             </div>                            
                           </div>
+                            @if ($errors->has('kesimpulan'))
+                                <div id="kesimpulan-error" class="error text-danger pt-1" for="kesimpulan" style="display: block;">
+                                    <strong>{{ $errors->first('kesimpulan') }}</strong>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     </tbody>

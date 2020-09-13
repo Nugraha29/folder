@@ -159,6 +159,7 @@ class PelaporanController extends Controller
                 'jenis' => 'required|min:3',
                 'periode' => 'required|min:1',
                 'tahun' => 'required|min:1',
+                'dokumentasi' => 'mimes:png,jpg,jpeg',
                 'dok_1' => 'mimes:docx,doc,pdf',
                 'dok_2' => 'mimes:docx,doc,pdf',
                 'dok_3' => 'mimes:docx,doc,pdf',
@@ -171,6 +172,7 @@ class PelaporanController extends Controller
                     'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                     'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                     'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
+                    'dokumentasi.mimes' => 'Inputan Dokumentasi Pelaporan harus berupa file bertipe: png, jpg, jpeg.',
                     'dok_1.mimes' => 'Inputan dokumen Gambaran Pengelolaan Air harus berupa file bertipe: docx, doc, pdf.',
                     'dok_2.mimes' => 'Inputan dokumen Sertifikat Uji Lab harus berupa file bertipe: docx, doc, pdf.',
                     'dok_3.mimes' => 'Inputan dokumen Izin Ipalasa harus berupa file bertipe: docx, doc, pdf.',
@@ -276,6 +278,10 @@ class PelaporanController extends Controller
             $model->jenis = $request->get('jenis');
             $model->periode = $request->get('periode');  
             $model->tahun = $request->get('tahun');  
+            if ($request->file('dokumentasi')) {
+                $model->dokumentasi = $request->file('dokumentasi')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Dokumentasi', 'public');
+            } 
+
             if ($request->get('jenis') == 'Air') {
                 $model->dok_1 = $request->file('dok_1')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Gambaran-Pengelolaan-Air', 'public');
                 $model->dok_2 = $request->file('dok_2')->store('Pelaporan-'.$model->jenis.'/Periode-'.$model->periode.'/Tahun-'.$model->tahun.'/Sertifikat-Uji-Lab', 'public');
@@ -394,108 +400,59 @@ class PelaporanController extends Controller
         if (Gate::allows('isAdmin')) {
             if ($request->jenis == 'Air') {
                 $this->validate($request, [
-                    'nama' => 'required|min:3',
-                    'nama_pelapor' => 'required|min:6',
-                    'email' => 'required|min:6',
-                    'nama_perusahaan' => 'required|min:6',
-                    'bidang_usaha'=> 'required|min:3',
-                    'alamat' => 'required|min:3',
-                    'jenis' => 'required|min:3',
-                    'periode' => 'required|min:1',
-                    'tahun' => 'required|min:1',
                     'review_dok_1' => 'required|min:3',
                     'review_dok_2' => 'required|min:3',
                     'review_dok_3' => 'required|min:3',
                     ],
                     [
-                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                         'review_dok_1.required' => 'Tanggapan dokumen Gambaran Pengelolaan Air wajib diisi.',
                         'review_dok_2.required' => 'Tanggapan dokumen Sertifikat Uji Lab wajib diisi.',
                         'review_dok_3.required' => 'Tanggapan dokumen Izin Ipalasa wajib diisi.',
+                        'review_dok_1.min' => 'Tanggapan dokumen Gambaran Pengelolaan Air minimal 3 karakter.',
+                        'review_dok_2.min' => 'Tanggapan dokumen Sertifikat Uji Lab minimal 3 karakter.',
+                        'review_dok_3.min' => 'Tanggapan dokumen Izin Ipalasa minimal 3 karakter.',
                     ]
                  );
             } elseif ($request->jenis == 'Udara') {
                 $this->validate($request, [
-                    'nama' => 'required|min:3',
-                    'nama_pelapor' => 'required|min:6',
-                    'email' => 'required|min:6',
-                    'nama_perusahaan' => 'required|min:6',
-                    'bidang_usaha'=> 'required|min:3',
-                    'alamat' => 'required|min:3',
-                    'jenis' => 'required|min:3',
-                    'periode' => 'required|min:1',
-                    'tahun' => 'required|min:1',
                     'review_dok_1' => 'required|min:3',
                     'review_dok_2' => 'required|min:3',
                     'review_dok_3' => 'required|min:3',
                     ],
                     [
-                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                         'review_dok_1.required' => 'Tanggapan dokumen Deskripsi Pengelolaan Pencemaran Udara wajib diisi.',
                         'review_dok_2.required' => 'Tanggapan dokumen Udara Ambien (Hasil Uji Lab) wajib diisi.',
                         'review_dok_3.required' => 'Tanggapan dokumen Udara Emisi (Hasil Uji Lab) wajib diisi.',
+                        'review_dok_1.min' => 'Tanggapan dokumen Deskripsi Pengelolaan Pencemaran Udara minimal 3 karakter.',
+                        'review_dok_2.min' => 'Tanggapan dokumen Udara Ambien (Hasil Uji Lab) minimal 3 karakter.',
+                        'review_dok_3.min' => 'Tanggapan dokumen Udara Emisi (Hasil Uji Lab) minimal 3 karakter.',
                     ]
                     );
             } elseif ($request->jenis == 'LimbahB3') {
                 $this->validate($request, [
-                    'nama' => 'required|min:3',
-                    'nama_pelapor' => 'required|min:6',
-                    'email' => 'required|min:6',
-                    'nama_perusahaan' => 'required|min:6',
-                    'bidang_usaha'=> 'required|min:3',
-                    'alamat' => 'required|min:3',
-                    'jenis' => 'required|min:3',
-                    'periode' => 'required|min:1',
-                    'tahun' => 'required|min:1',
                     'review_dok_1' => 'required|min:3',
                     'review_dok_2' => 'required|min:3',
                     'review_dok_3' => 'required|min:3',
                     'review_dok_4' => 'required|min:3',
                     ],
                     [
-                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                         'review_dok_1.required' => 'Tanggapan dokumen Deskripsi Pengelolaan Limbah B3 wajib diisi.',
                         'review_dok_2.required' => 'Tanggapan dokumen Bukti Manifest wajib diisi.',
                         'review_dok_3.required' => 'Tanggapan dokumen MOU Pengelolaan Limbah B3 wajib diisi.',
                         'review_dok_4.required' => 'Tanggapan dokumen Izin TPS Limbah B3 wajib diisi.',
+                        'review_dok_1.min' => 'Tanggapan dokumen Deskripsi Pengelolaan Limbah B3 minimal 3 karakter.',
+                        'review_dok_2.min' => 'Tanggapan dokumen Bukti Manifest minimal 3 karakter.',
+                        'review_dok_3.min' => 'Tanggapan dokumen MOU Pengelolaan Limbah B3 minimal 3 karakter.',
+                        'review_dok_4.min' => 'Tanggapan dokumen Izin TPS Limbah B3 minimal 3 karakter.',
                     ]
                     );
             } elseif ($request->jenis == 'Lingkungan') {
                 $this->validate($request, [
-                    'nama' => 'required|min:3',
-                    'nama_pelapor' => 'required|min:6',
-                    'email' => 'required|min:6',
-                    'nama_perusahaan' => 'required|min:6',
-                    'bidang_usaha'=> 'required|min:3',
-                    'alamat' => 'required|min:3',
-                    'jenis' => 'required|min:3',
-                    'periode' => 'required|min:1',
-                    'tahun' => 'required|min:1',
                     'review_dok_1' => 'required|min:3',
                     ],
                     [
-                        'nama.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'telp.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'email.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'nama_perusahaan.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'bidang_usaha.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
-                        'alamat.required' => 'Harap edit terlebih dahulu di halaman edit profil.',
                         'review_dok_1.required' => 'Tanggapan dokumen Pelaporan wajib diisi.',
+                        'review_dok_1.min' => 'Tanggapan dokumen Pelaporan minimal 3 karakter.',
                     ]
                     );
             } else {

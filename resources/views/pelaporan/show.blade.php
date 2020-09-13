@@ -78,6 +78,11 @@
                   <tr>
                     <th colspan="3">Dokumen</th>
                   </tr>
+                  <tr>
+                    <td style="width: 180px">Dokumentasi Pelaporan</td>
+                    <td style="width: 1px">:</td>
+                    <td><a href="{{ asset('storage/'.$pelaporan->dokumentasi) }}" target="_blank">Download</a></td>
+                  </tr>
                   @if ($pelaporan->jenis == 'Air')
                   <tr>
                     <td style="width: 180px">Dokumen Gambaran Pengelolaan Air</td>

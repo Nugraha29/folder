@@ -59,19 +59,32 @@
                   <td style="width: 150px">Deskripsi Pengaduan</td>
                   <td style="width: 1px">:</td>
                   <td>{{$pengaduan->deskripsi}}</td>
-                </tr>
-                <tr>
-                  <td colspan="4">
-                    <div id="map" style="width:100%;height:350px;"></div>
-                  </td>
-                </tr>           
+                </tr>       
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <!--Card image-->
+            <div class="view view-cascade gradient-card-header blue-gradient narrower d-flex justify-content-between align-items-center">
+
+                <h4 class="card-title ">Lokasi Pengaduan</h4>
+
+            </div>
+            <!--/Card image-->
+          </div>
+          <div class="card-body">
+            <div id="map" style="width:100%;height:350px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">

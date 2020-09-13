@@ -400,7 +400,16 @@
               @foreach ($pelaporan as $p)
               <li class="event" data-date="{{ $p->created_at->format('d/m/Y-H:i:s') }}">
                 <h3>Pelaporan {{ $p->jenis }}</h3>
+                @if ($p->jenis == 'Air')
                 <p>Triwulan {{ $p->periode }}</p>
+                @elseif ($p->jenis == 'Udara')
+                <p>Semester {{ $p->periode }}</p>
+                @elseif ($p->jenis == 'LimbahB3')
+                <p>Triwulan {{ $p->periode }}</p>
+                @elseif ($p->jenis == 'Lingkungan')
+                <p>Semester {{ $p->periode }}</p>
+                @endif
+               
                 <p>
                   @if ($p->status == 'Reviewed')
                     <button class="btn btn-success">Telah ditanggapi</button>

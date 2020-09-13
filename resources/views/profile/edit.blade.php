@@ -50,7 +50,7 @@
                 <fieldset>
                   <div class="form-group">
                     <label for="nama">Nama Penanggung Jawab</label>
-                    <input id="name" class="form-control" name="name" type="text" value="{{ auth()->user()->name }}">
+                    <input id="name-profile" class="form-control" maxlength="50" name="name" type="text" value="{{ auth()->user()->name }}">
                     @if ($errors->has('nama'))
                       <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="form-group">
                     <label for="telp">Telepon</label>
-                    <input id="telp" class="form-control" maxlength="20" name="telp" type="number" value="{{ auth()->user()->telp }}">
+                    <input id="telp-profile" class="form-control" maxlength="13" name="telp" type="text" value="{{ auth()->user()->telp }}">
                     @if ($errors->has('telp'))
                       <div id="telp-error" class="error text-danger pt-1" for="telp" style="display: block;">
                         <strong>{{ $errors->first('telp') }}</strong>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="form-group">
                     <label for="nama_perusahaan">Nama Perusahaan</label>
-                    <input id="nama_perusahaan" class="form-control" name="nama_perusahaan" type="text" value="{{ auth()->user()->nama_perusahaan }}">
+                    <input id="nama_perusahaan-profile" class="form-control" maxlength="30" name="nama_perusahaan" type="text" value="{{ auth()->user()->nama_perusahaan }}">
                     @if ($errors->has('nama_perusahaan'))
                       <div id="nama_perusahaan-error" class="error text-danger pt-1" for="nama_perusahaan" style="display: block;">
                         <strong>{{ $errors->first('nama_perusahaan') }}</strong>
@@ -116,7 +116,7 @@
                   </div>
                   <div class="form-group">
                     <label for="alamat">Alamat</label>
-                    <input id="alamat" class="form-control" name="alamat" type="text" value="{{ auth()->user()->alamat }}">
+                    <textarea name="alamat" maxlength="100" class="form-control" id="alamat-profile" rows="8">{{ auth()->user()->alamat }}</textarea>
                     @if ($errors->has('alamat'))
                       <div id="alamat-error" class="error text-danger pt-1" for="alamat" style="display: block;">
                         <strong>{{ $errors->first('alamat') }}</strong>
@@ -125,7 +125,7 @@
                   </div>   
                   <div class="form-group">
                     <label for="jabatan">Jabatan</label>
-                    <input id="jabatan" class="form-control" name="jabatan" type="text" value="{{ auth()->user()->jabatan }}">
+                    <input id="jabatan-profile" class="form-control" name="jabatan" maxlength="30" type="text" value="{{ auth()->user()->jabatan }}">
                     @if ($errors->has('jabatan'))
                       <div id="jabatan-error" class="error text-danger pt-1" for="jabatan" style="display: block;">
                         <strong>{{ $errors->first('jabatan') }}</strong>

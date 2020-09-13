@@ -25,9 +25,9 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => ['required', 'min:6', new CurrentPasswordCheckRule],
-            'password' => ['required', 'min:6', 'confirmed', 'different:old_password'],
-            'password_confirmation' => ['required', 'min:6'],
+            'old_password' => ['required', 'min:8', new CurrentPasswordCheckRule],
+            'password' => ['required', 'min:8', 'confirmed', 'different:old_password'],
+            'password_confirmation' => ['required', 'min:8'],
         ];
     }
 
@@ -40,6 +40,22 @@ class PasswordRequest extends FormRequest
     {
         return [
             'old_password' => __('current password'),
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'old_password.required' => 'Harap katasandi yang lama diisi terlebih dahulu.',
+            'password.required' => 'Harap katasandi yang bari diisi.',
+            'password_confirmation.required' => 'Harap konfirmasi katasandi diisi.',
+
+            'old_password.min' => 'Katasandi minimal 8 karakter.',
+            'password.min' => 'Katasandi minimal 8 karakter.',
+            'password_confirmation.min' => 'Katasandi minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi katasandi tidak cocok',
+            'password.different' => 'Katasandi baru tidak boleh sama dengan yang sebelumnya.',
+
         ];
     }
 }

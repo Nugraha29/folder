@@ -164,7 +164,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label>Gambaran Pelaporan Air (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <label>Gambaran Pengelolaan Air (format file pdf, docx)<a class="text-danger">*</a></label>
                                                     <div class="input-group col-xs-12">
                                                     <input type="file" id="myDropify" class="border" name="dok_1" required>
                                                     </div>
@@ -201,10 +201,27 @@
                                                     @endif  
                                                 </div>   
                                             </div>
-                                        </div>
-                                        
-                                        
-                                                     
+                                        </div>                 
+                                    </div>          
+                                </div>
+                            </div>
+                            <div class="card-deck mt-3">
+                                <div class="card">  
+                                    <div class="card-header">
+                                        <h5 class="text-primary text-center" style="text-transform:uppercase;">Dokumentasi Pelaporan</h5>
+                                    </div> 
+                                    <div class="card-body">       
+                                        <div class="form-group">
+                                            <label>Dokumentasi Pelaporan (format file png, jpg, jpeg)<a class="text-danger">*</a></label>
+                                            <div class="input-group col-xs-12">
+                                            <input type="file" id="dokumentasi" class="border" name="dokumentasi">
+                                            </div>
+                                            @if ($errors->has('dokumentasi'))
+                                            <div id="dokumentasi-error" class="error text-danger pt-1" for="dokumentasi" style="display: block;">
+                                                <strong>{{ $errors->first('dokumentasi') }}</strong>
+                                            </div>
+                                            @endif  
+                                        </div>                
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('pelaporan.form') }}" class="btn btn-danger">Kembali</a>
@@ -275,7 +292,16 @@
                                                 <strong>{{ $errors->first('bidang_usaha') }}</strong>
                                             </div>
                                             @endif
-                                        </div>               
+                                        </div>     
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat<a class="text-danger">*</a></label>
+                                            <input id="alamat" class="form-control" name="alamat" type="text" value="{{ auth()->user()->alamat }}" readonly>
+                                            @if ($errors->has('alamat'))
+                                            <div id="alamat-error" class="error text-danger pt-1" for="alamat" style="display: block;">
+                                                <strong>{{ $errors->first('alamat') }}</strong>
+                                            </div>
+                                            @endif
+                                        </div> 
                                     </div>            
                                 </div>
                             </div>
@@ -312,50 +338,80 @@
                                             </div>
                                             @endif
                                         </div>
-                                        <div class="form-group">
-                                            <label>Deskripsi Pengelolaan Limbah B3 (format file pdf, docx)<a class="text-danger">*</a></label>
-                                            <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify" class="border" name="dok_1" required>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Deskripsi Pengelolaan Limbah B3 (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify" class="border" name="dok_1" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_1'))
+                                                    <div id="dok_1-error" class="error text-danger pt-1" for="dok_1" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_1') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
                                             </div>
-                                            @if ($errors->has('dok_1'))
-                                            <div id="dok_1-error" class="error text-danger pt-1" for="dok_1" style="display: block;">
-                                                <strong>{{ $errors->first('dok_1') }}</strong>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Bukti Manifest (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify1" class="border" name="dok_2" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_2'))
+                                                    <div id="dok_2-error" class="error text-danger pt-1" for="dok_2" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_2') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
                                             </div>
-                                            @endif  
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>MOU Pengelolaan Limbah B3 (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify2" class="border" name="dok_3" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_3'))
+                                                    <div id="dok_3-error" class="error text-danger pt-1" for="dok_3" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_3') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Izin TPS Limbah B3 (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify3" class="border" name="dok_4" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_4'))
+                                                    <div id="dok_4-error" class="error text-danger pt-1" for="dok_4" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_4') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>          
+                                </div>
+                            </div>
+                            <div class="card-deck mt-3">
+                                <div class="card">  
+                                    <div class="card-header">
+                                        <h5 class="text-primary text-center" style="text-transform:uppercase;">Dokumentasi Pelaporan</h5>
+                                    </div> 
+                                    <div class="card-body">       
                                         <div class="form-group">
-                                            <label>Bukti Manifest (format file pdf, docx)<a class="text-danger">*</a></label>
+                                            <label>Dokumentasi Pelaporan (format file png, jpg, jpeg)<a class="text-danger">*</a></label>
                                             <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify1" class="border" name="dok_2" required>
+                                            <input type="file" id="dokumentasi" class="border" name="dokumentasi">
                                             </div>
-                                            @if ($errors->has('dok_2'))
-                                            <div id="dok_2-error" class="error text-danger pt-1" for="dok_2" style="display: block;">
-                                                <strong>{{ $errors->first('dok_2') }}</strong>
+                                            @if ($errors->has('dokumentasi'))
+                                            <div id="dokumentasi-error" class="error text-danger pt-1" for="dokumentasi" style="display: block;">
+                                                <strong>{{ $errors->first('dokumentasi') }}</strong>
                                             </div>
                                             @endif  
-                                        </div>
-                                        <div class="form-group">
-                                            <label>MOU Pengelolaan Limbah B3 dengan Pihak ke-3 (format file pdf, docx)<a class="text-danger">*</a></label>
-                                            <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify2" class="border" name="dok_3" required>
-                                            </div>
-                                            @if ($errors->has('dok_3'))
-                                            <div id="dok_3-error" class="error text-danger pt-1" for="dok_3" style="display: block;">
-                                                <strong>{{ $errors->first('dok_3') }}</strong>
-                                            </div>
-                                            @endif  
-                                        </div> 
-                                        <div class="form-group">
-                                            <label>Izin TPS Limbah B3 (format file pdf, docx)<a class="text-danger">*</a></label>
-                                            <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify3" class="border" name="dok_4" required>
-                                            </div>
-                                            @if ($errors->has('dok_4'))
-                                            <div id="dok_4-error" class="error text-danger pt-1" for="dok_4" style="display: block;">
-                                                <strong>{{ $errors->first('dok_4') }}</strong>
-                                            </div>
-                                            @endif  
-                                        </div>                  
+                                        </div>                
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('pelaporan.form') }}" class="btn btn-danger">Kembali</a>
@@ -426,7 +482,16 @@
                                                 <strong>{{ $errors->first('bidang_usaha') }}</strong>
                                             </div>
                                             @endif
-                                        </div>               
+                                        </div>       
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat<a class="text-danger">*</a></label>
+                                            <input id="alamat" class="form-control" name="alamat" type="text" value="{{ auth()->user()->alamat }}" readonly>
+                                            @if ($errors->has('alamat'))
+                                            <div id="alamat-error" class="error text-danger pt-1" for="alamat" style="display: block;">
+                                                <strong>{{ $errors->first('alamat') }}</strong>
+                                            </div>
+                                            @endif
+                                        </div> 
                                     </div>            
                                 </div>
                             </div>
@@ -463,39 +528,67 @@
                                             </div>
                                             @endif
                                         </div>
-                                        <div class="form-group">
-                                            <label>Gambaran Pengelolaan Pencernaan Udara (format file pdf, docx)<a class="text-danger">*</a></label>
-                                            <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify" class="border" name="dok_1" required>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Deskripsi Pengelolaan Pencernaan Udara (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify" class="border" name="dok_1" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_1'))
+                                                    <div id="dok_1-error" class="error text-danger pt-1" for="dok_1" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_1') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
                                             </div>
-                                            @if ($errors->has('dok_1'))
-                                            <div id="dok_1-error" class="error text-danger pt-1" for="dok_1" style="display: block;">
-                                                <strong>{{ $errors->first('dok_1') }}</strong>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Udara Ambien (Hasil Uji Lab) (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify1" class="border" name="dok_2" required>
+                                                    </div>
+                                                    @if ($errors->has('dok_2'))
+                                                    <div id="dok_2-error" class="error text-danger pt-1" for="dok_2" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_2') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
                                             </div>
-                                            @endif  
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>Udara Emisi (Hasil Uji Lab) (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <div class="input-group col-xs-12">
+                                                    <input type="file" id="myDropify2" class="border" name="dok_3">
+                                                    </div>
+                                                    @if ($errors->has('dok_3'))
+                                                    <div id="dok_3-error" class="error text-danger pt-1" for="dok_3" style="display: block;">
+                                                        <strong>{{ $errors->first('dok_3') }}</strong>
+                                                    </div>
+                                                    @endif  
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>         
+                                </div>
+                            </div>
+                            <div class="card-deck mt-3">
+                                <div class="card">  
+                                    <div class="card-header">
+                                        <h5 class="text-primary text-center" style="text-transform:uppercase;">Dokumentasi Pelaporan</h5>
+                                    </div> 
+                                    <div class="card-body">       
                                         <div class="form-group">
-                                            <label>Udara Ambien (Hasil Uji Lab) (format file pdf, docx)<a class="text-danger">*</a></label>
+                                            <label>Dokumentasi Pelaporan (format file png, jpg, jpeg)<a class="text-danger">*</a></label>
                                             <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify1" class="border" name="dok_2" required>
+                                            <input type="file" id="dokumentasi" class="border" name="dokumentasi">
                                             </div>
-                                            @if ($errors->has('dok_2'))
-                                            <div id="dok_2-error" class="error text-danger pt-1" for="dok_2" style="display: block;">
-                                                <strong>{{ $errors->first('dok_2') }}</strong>
+                                            @if ($errors->has('dokumentasi'))
+                                            <div id="dokumentasi-error" class="error text-danger pt-1" for="dokumentasi" style="display: block;">
+                                                <strong>{{ $errors->first('dokumentasi') }}</strong>
                                             </div>
                                             @endif  
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Udara Emisi (Hasil Uji Lab) (format file pdf, docx)<a class="text-danger">*</a></label>
-                                            <div class="input-group col-xs-12">
-                                            <input type="file" id="myDropify2" class="border" name="dok_3">
-                                            </div>
-                                            @if ($errors->has('dok_3'))
-                                            <div id="dok_3-error" class="error text-danger pt-1" for="dok_3" style="display: block;">
-                                                <strong>{{ $errors->first('dok_3') }}</strong>
-                                            </div>
-                                            @endif  
-                                        </div>               
+                                        </div>                
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('pelaporan.form') }}" class="btn btn-danger">Kembali</a>
@@ -566,7 +659,16 @@
                                                 <strong>{{ $errors->first('bidang_usaha') }}</strong>
                                             </div>
                                             @endif
-                                        </div>               
+                                        </div>      
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat<a class="text-danger">*</a></label>
+                                            <input id="alamat" class="form-control" name="alamat" type="text" value="{{ auth()->user()->alamat }}" readonly>
+                                            @if ($errors->has('alamat'))
+                                            <div id="alamat-error" class="error text-danger pt-1" for="alamat" style="display: block;">
+                                                <strong>{{ $errors->first('alamat') }}</strong>
+                                            </div>
+                                            @endif
+                                        </div> 
                                     </div>            
                                 </div>
                             </div>
@@ -614,6 +716,26 @@
                                             </div>
                                             @endif  
                                         </div>           
+                                    </div>         
+                                </div>
+                            </div>
+                            <div class="card-deck mt-3">
+                                <div class="card">  
+                                    <div class="card-header">
+                                        <h5 class="text-primary text-center" style="text-transform:uppercase;">Dokumentasi Pelaporan</h5>
+                                    </div> 
+                                    <div class="card-body">       
+                                        <div class="form-group">
+                                            <label>Dokumentasi Pelaporan (format file png, jpg, jpeg)<a class="text-danger">*</a></label>
+                                            <div class="input-group col-xs-12">
+                                            <input type="file" id="dokumentasi" class="border" name="dokumentasi">
+                                            </div>
+                                            @if ($errors->has('dokumentasi'))
+                                            <div id="dokumentasi-error" class="error text-danger pt-1" for="dokumentasi" style="display: block;">
+                                                <strong>{{ $errors->first('dokumentasi') }}</strong>
+                                            </div>
+                                            @endif  
+                                        </div>                
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('pelaporan.form') }}" class="btn btn-danger">Kembali</a>

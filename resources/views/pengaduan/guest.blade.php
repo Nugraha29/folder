@@ -9,6 +9,7 @@
   <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+  
 @endpush
 
 @section('content')
@@ -46,7 +47,7 @@
                 @csrf
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="credit-card" height="20px"></i><label for="nik">NIK</label>
-                  <input type="number" name="nik" class="form-control" id="nik" placeholder="NIK" value="{{ old('nik') }}">
+                  <input class="form-control" maxlength="16" name="nik" id="nik" type="text" placeholder="Masukkan NIK" value="{{ old('nik') }}">
                   @if ($errors->has('nik'))
                     <div id="nik-error" class="error text-danger pt-1" for="nik" style="display: block;">
                       <strong>{{ $errors->first('nik') }}</strong>
@@ -67,7 +68,7 @@
                 </div>
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="user" height="20px"></i><label for="nama">Nama Pengadu</label>
-                  <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+                  <input class="form-control" maxlength="50" name="nama" id="nama" type="text" placeholder="Masukkan Nama" value="{{ old('nama') }}">
                   @if ($errors->has('nama'))
                     <div id="nama-error" class="error text-danger pt-1" for="nama" style="display: block;">
                       <strong>{{ $errors->first('nama') }}</strong>
@@ -76,7 +77,7 @@
                 </div>
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="phone" height="20px"></i><label for="nama">Telepon</label>
-                  <input type="number" name="telp" class="form-control" id="telp" placeholder="Telepon">
+                  <input type="text" name="telp" class="form-control" id="telp" placeholder="Telepon" value="{{ old('telp') }}"  maxlength="13">
                   @if ($errors->has('telp'))
                     <div id="telp-error" class="error text-danger pt-1" for="telp" style="display: block;">
                       <strong>{{ $errors->first('telp') }}</strong>
@@ -85,7 +86,7 @@
                 </div>
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="mail" height="20px"></i><label for="email">Email</label>
-                  <input id="email" class="form-control" name="email" type="email" placeholder="Email">
+                  <input id="email" class="form-control" name="email" type="email" placeholder="Email" value="{{ old('email') }}">
                   @if ($errors->has('email'))
                     <div id="email-error" class="error text-danger pt-1" for="email" style="display: block;">
                       <strong>{{ $errors->first('email') }}</strong>
@@ -100,7 +101,7 @@
                   <div class="col-6 text-center">
                     <div class="form-group">
                       <i class="link-icons mr-1" data-feather="map-pin" height="20px"></i><label for="lat">Latitude</label>
-                      <input id="lat" class="form-control" name="lat" type="lat" placeholder="Latitude">
+                      <input id="lat" class="form-control" name="lat" type="lat" placeholder="Latitude" value="{{ old('lat') }}" required>
                       @if ($errors->has('lat'))
                         <div id="lat-error" class="error text-danger pl-3" for="lat" style="display: block;">
                           <strong>{{ $errors->first('lat') }}</strong>
@@ -111,7 +112,7 @@
                   <div class="col-6 text-center">
                     <div class="form-group">
                       <i class="link-icons mr-1" data-feather="map-pin" height="20px"></i><label for="lng">Longitude</label>
-                      <input id="lng" class="form-control" name="lng" type="lng" placeholder="Longitude">
+                      <input id="lng" class="form-control" name="lng" type="lng" placeholder="Longitude" value="{{ old('lng') }}" required>
                       @if ($errors->has('lng'))
                         <div id="lng-error" class="error text-danger pl-3" for="lng" style="display: block;">
                           <strong>{{ $errors->first('lng') }}</strong>
@@ -122,14 +123,14 @@
                 </div>
                 <div class="form-group">
                   <i class="link-icons mr-1" data-feather="alert-triangle" height="20px"></i><label for="jenis">Jenis Pengaduan</label>
-                  <select class="form-control js-example-basic-single w-100" id="jenis" name="jenis" required>
+                  <select class="form-control js-example-basic-single js-states" style="width: 100%" id="jenis" name="jenis" required>
                     <option disabled selected>Pilih Jenis Pengaduan</option>
-                    <option value="Pencemaran Air">Pencemaran Air</option>
-                    <option value="Pencemaran Udara">Pencemaran Udara</option>
-                    <option value="Illegal Logging">Illegal Logging</option>
-                    <option value="Pembuangan Sampah">Pembuangan Sampah</option>
-                    <option value="Dumping">Dumping</option>  
-                    <option value="Lainnya">Lainnya</option>
+                    <option {{ old('jenis')  == "Pencemaran Air" ? "selected" : ""}} value="Pencemaran Air">Pencemaran Air</option>
+                    <option {{ old('jenis')  == "Pencemaran Udara" ? "selected" : ""}} value="Pencemaran Udara">Pencemaran Udara</option>
+                    <option {{ old('jenis')  == "Illegal Logging" ? "selected" : ""}} value="Illegal Logging">Illegal Logging</option>
+                    <option {{ old('jenis')  == "Pembuangan Sampah" ? "selected" : ""}} value="Pembuangan Sampah">Pembuangan Sampah</option>
+                    <option {{ old('jenis')  == "Dumping" ? "selected" : ""}} value="Dumping">Dumping</option>  
+                    <option {{ old('jenis')  == "Lainnya" ? "selected" : ""}} value="Lainnya">Lainnya</option>
                   </select>
                   @if ($errors->has('jenis'))
                     <div id="jenis-error" class="error text-danger pt-1" for="jenis" style="display: block;">
@@ -221,6 +222,7 @@
   <script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.js') }}"></script>
+  <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 @endpush
 
 @push('js')

@@ -60,7 +60,8 @@ $(function() {
         },
         telp: {
           required: true,
-          minlength: 3
+          minlength: 11,
+          number: true
         },
         nama_perusahaan: {
           required: true,
@@ -78,6 +79,11 @@ $(function() {
         name: {
           required: "Harap masukkan nama.",
           minlength: "Nama harus terdiri dari minimal 3 karakter."
+        },
+        telp: {
+          required: "Harap masukkan no telepon.",
+          minlength: "Telepon harus terdiri dari minimal 11 karakter.",
+          number: "Masukkan no telepon yang benar."
         },
         password: {
           required: "Harap masukkan kata sandi.",
@@ -107,7 +113,8 @@ $(function() {
       rules: {
         nik: {
           required: true,
-          minlength: 3
+          minlength: 16,
+          number: true
         },
         nama: {
           required: true,
@@ -115,7 +122,9 @@ $(function() {
         },
         telp: {
           required: true,
-          minlength: 3
+          minlength: 11,
+          maxlength: 13,
+          number: true
         },
         email: {
           required: true,
@@ -138,10 +147,44 @@ $(function() {
         },
       },
       messages: {
-        name: {
+        nik: {
+          required: "Harap masukkan NIK.",
+          minlength: "NIK harus terdiri dari minimal 16 Karakter.",
+          number: "NIK harus berupa angka.",
+        },
+        nama: {
           required: "Harap masukkan nama.",
           minlength: "Nama harus terdiri dari minimal 3 karakter."
-        }
+        },
+        
+        telp: {
+          required: "Harap masukkan nomor telepon.",
+          minlength: "Telepon harus terdiri dari minimal 11 karakter.",
+          maxlength: "Telepon harus terdiri dari maksimal 13 karakter.",
+          number: "Telepon harus berupa angka.",
+        },
+        
+        email: {
+          required: "Harap masukkan email.",
+          email: "Masukkan email dengan benar.",
+        },
+        
+        lat: {
+          required: "Harap masukkan latitude.",
+        },
+        
+        lng: {
+          required: "Harap masukkan longitude.",
+        },
+        
+        jenis: {
+          required: "Harap masukkan jenis."
+        },
+        
+        deskripsi: {
+          required: "Harap masukkan deskripsi.",
+          minlength: "Nama harus terdiri dari minimal 3 karakter."
+        },
       },
       errorPlacement: function(label, element) {
         label.addClass('mt-2 text-danger');

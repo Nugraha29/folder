@@ -4,7 +4,7 @@ $(function() {
   $(function() {
     $('#dataTablePelaporan').DataTable({
       "language": {
-        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        url: "https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         sEmptyTable: "Tidak ada data di database"
       },
       "processing": true,
@@ -40,7 +40,7 @@ $(function() {
   $(function() {
     $('#dataTablePelaporanUsers').DataTable({
       "language": {
-        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        url: "https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         sEmptyTable: "Tidak ada data di database"
       },
       "processing": true,
@@ -84,7 +84,7 @@ $(function() {
   $(function() {
     $('#dataTableRiwayat').DataTable({
       "language": {
-        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        url: "https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         sEmptyTable: "Tidak ada data di database"
       },
       "processing": true,
@@ -120,7 +120,7 @@ $(function() {
   $(function() {
     $('#dataTablePengaduan').DataTable({
       "language": {
-        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        url: "https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         sEmptyTable: "Tidak ada data di database"
       },
       "processing": true,
@@ -153,7 +153,7 @@ $(function() {
   $(function() {
     $('#dataTableUsers').DataTable({
       "language": {
-        url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        url: "https://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         sEmptyTable: "Tidak ada data di database"
       },
       "processing": true,

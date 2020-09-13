@@ -173,7 +173,7 @@
                             <td width="25%" style="border: 1px solid black;">
                                 <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->merge('https://www.garutkab.go.id/assets/img/logo-kabupaten-garut.png', 0.5, true)
                                 ->size(150)->errorCorrection('H')
-                                ->generate('http://localhost:8000/'.$model->pdf)) !!} ">
+                                ->generate('https://layanan.dlh.himagrib.co.id/'.$model->pdf)) !!} ">
                             </td>
                             <td width="75%" style="border: 1px solid black; padding: 5px">
                                 Dokumen pelaporan ini secara elektronik sudah diterima oleh
