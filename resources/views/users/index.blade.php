@@ -7,11 +7,6 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4 class="card-title font-weight-bold">Data Pengguna</h4>
-          <div>
-            <a class="btn btn-success" role="button" href="{{ route('user.export') }}">
-              <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
-            </a>
-          </div>
         </div>
         <div class="table-responsive">
           <table id="dataTableUsers" class="table" style="width: 100%; text-align:center;">
@@ -20,9 +15,9 @@
                 <th>ID</th>
                 <th>Tanggal Pendaftaran</th>
                 <th>Nama</th>
+                <th>Nama Perusahaan</th>
                 <th>Email</th>
                 <th>Telepon</th>
-                <th>Nama Perusahaan</th>
                 <th>Bidang Usaha</th>
                 <th>Alamat</th>
                 <th>Jabatan</th>

@@ -23,7 +23,10 @@
 
             </div>
           </div>
-          <div class="col-md-9 pl-md-0">
+          <div class="col-md-10 pl-md-0">
+            <div class="mt-3 mr-3 text-right">
+              <a class="btn btn-danger btn-icon-text" href="{{ url('/login') }}"><i class="btn-icon-append" data-feather="chevron-left"></i>Kembali</a> 
+            </div> 
             <div class="auth-form-wrapper px-4 py-5">
               <a href="#" class="noble-ui-logo d-block mb-2">Dinas Lingkungan Hidup <span>1.0</span></a>
               <h5 class="text-muted font-weight-normal mb-4">Buat akun baru.</h5>
@@ -32,10 +35,19 @@
                 <fieldset>
                   <div class="form-group">
                     <label for="name">Nama</label>
-                    <input id="name" class="form-control" minlength="10" name="name" type="text" value="{{ old('name') }}" placeholder="Nama">
+                    <input id="name-register" class="form-control" maxlength="30" name="name" type="text" value="{{ old('name') }}" placeholder="Nama">
                     @if ($errors->has('name'))
                       <div id="name-error" class="error text-danger pl-3" for="name" style="display: block;">
                         <strong>{{ $errors->first('name') }}</strong>
+                      </div>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="nama_perusahaan">Nama Perusahaan</label>
+                    <input id="nama-perusahaan-register" class="form-control" maxlength="50" name="nama_perusahaan" type="text" value="{{ old('nama_perusahaan') }}" placeholder="Nama Perusahaan">
+                    @if ($errors->has('nama_perusahaan'))
+                      <div id="nama_perusahaan-error" class="error text-danger pl-3" for="nama_perusahaan" style="display: block;">
+                        <strong>{{ $errors->first('nama_perusahaan') }}</strong>
                       </div>
                     @endif
                   </div>

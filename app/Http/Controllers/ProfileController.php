@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -54,7 +55,11 @@ class ProfileController extends Controller
             'jabatan' => 'required|min:3',
             ]
         );
-        auth()->user()->update($request->all());
+
+        $update = auth()->user()->update($request->all());
+        $profile = User::find(auth()->user()->id);
+        $profile->completed ='true';
+        $profile->save();
         Alert::success('Berhasil', 'Data profil berhasil diperbaharui!');
         return back()->withStatus(__('Profil berhasil diperbaharui.'));
     }

@@ -44,7 +44,7 @@ class PengaduanController extends Controller
 
     public function export()
     {
-        return Excel::download(new PengaduanExport, 'pengaduan.xlsx');
+        return Excel::download(new PengaduanExport, 'Pengaduan '.date('d-m-Y').'.xlsx');
     }
 
     /**
@@ -121,7 +121,7 @@ class PengaduanController extends Controller
         $model->save();
 
         $pengaduan = Pengaduan::find($model->id);
-        User::find(8)->notify(new NotifyPengaduan($pengaduan));
+        User::find(1)->notify(new NotifyPengaduan($pengaduan));
 
         Alert::success('Berhasil', 'Pengaduan berhasil dikirim!');
 

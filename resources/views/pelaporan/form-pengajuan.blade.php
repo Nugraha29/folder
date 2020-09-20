@@ -164,7 +164,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label>Gambaran Pengelolaan Air (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <label>Gambaran Pengelolaan Air<a class="text-danger">*</a></label>
+                                                    <p>(format file pdf, docx)</p>
                                                     <div class="input-group col-xs-12">
                                                     <input type="file" id="myDropify" class="border" name="dok_1" required>
                                                     </div>
@@ -177,7 +178,8 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label>Sertifikat Uji Lab (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <label>Sertifikat Uji Lab<a class="text-danger">*</a></label>
+                                                    <p>(format file pdf, docx)</p>
                                                     <div class="input-group col-xs-12">
                                                     <input type="file" id="myDropify1" class="border" name="dok_2"/ required>
                                                     </div>
@@ -190,7 +192,8 @@
                                             </div>
                                             <div class="col">
                                                <div class="form-group">
-                                                    <label>Izin Ipalasa (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <label>Izin Ipalasa<a class="text-danger">*</a></label>
+                                                    <p>(format file pdf, docx)</p>
                                                     <div class="input-group col-xs-12">
                                                     <input type="file" id="myDropify2" class="border" name="dok_3" required>
                                                     </div>
@@ -531,7 +534,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label>Deskripsi Pengelolaan Pencernaan Udara (format file pdf, docx)<a class="text-danger">*</a></label>
+                                                    <label>Deskripsi Pengelolaan Pencemaran Udara (format file pdf, docx)<a class="text-danger">*</a></label>
                                                     <div class="input-group col-xs-12">
                                                     <input type="file" id="myDropify" class="border" name="dok_1" required>
                                                     </div>

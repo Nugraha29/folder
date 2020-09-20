@@ -32,8 +32,8 @@ class ReviewEmail extends Mailable
         ->view('review.templateemail')
         ->with(
          [
-             'nama' => 'Diki Alfarabi Hadi',
-             'website' => 'www.malasngoding.com',
+             'nama' => 'asdads',
+             'website' => 'waasda',
          ]);
     }
 }

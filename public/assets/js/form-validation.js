@@ -9,6 +9,10 @@ $(function() {
           required: true,
           minlength: 3
         },
+        nama_perusahaan: {
+          required: true,
+          minlength: 3
+        },
         password: {
           required: true,
           minlength: 8
@@ -25,8 +29,12 @@ $(function() {
       },
       messages: {
         name: {
-          required: "Harap masukkan nama.",
+          required: "Harap masukkan Nama.",
           minlength: "Nama harus terdiri dari minimal 3 karakter."
+        },
+        nama_perusahaan: {
+          required: "Harap masukkan Nama Perusahaan.",
+          minlength: "Nama Perusahaan harus terdiri dari minimal 3 karakter."
         },
         password: {
           required: "Harap masukkan kata sandi.",
@@ -34,6 +42,7 @@ $(function() {
         },
         password_confirmation: {
           required: "Harap masukkan konfirmasi kata sandi.",
+          minlength: "Konfirmasi kata sandi harus terdiri dari minimal 8 karakter.",
           equalTo: "Harap masukkan kata sandi yang sama seperti di atas"
         },
         email: "Harap masukkan email yang benar.",

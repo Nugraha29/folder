@@ -70,6 +70,20 @@ $(function() {
     limitReachedClass: "badge mt-1 badge-danger"
   });   
 
+  $('#name-register').maxlength({
+    alwaysShow: true,
+    threshold: 20,
+    warningClass: "badge mt-1 badge-success",
+    limitReachedClass: "badge mt-1 badge-danger"
+  });
+
+  $('#nama-perusahaan-register').maxlength({
+    alwaysShow: true,
+    threshold: 20,
+    warningClass: "badge mt-1 badge-success",
+    limitReachedClass: "badge mt-1 badge-danger"
+  });
+
   $('#defaultconfig').maxlength({
     warningClass: "badge mt-1 badge-success",
     limitReachedClass: "badge mt-1 badge-danger"

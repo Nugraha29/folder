@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
+use App\Notifications\Aktivasi;
 
 class UserController extends Controller
 {
@@ -41,7 +42,7 @@ class UserController extends Controller
 
     public function export()
     {
-        return Excel::download(new UserExport, 'pengguna.xlsx');
+        return Excel::download(new UserExport, 'Pengguna '.date('d-m-Y').'.xlsx');
     }
 
      /**
@@ -104,6 +105,7 @@ class UserController extends Controller
     {
         $aktivasi = User::findOrFail($id);
         $aktivasi->update(['status' => $request->status]);
+        $aktivasi->notify(new Aktivasi);
 
         return back()->withStatusPassword(__('Pengguna successfully updated.'));
     }

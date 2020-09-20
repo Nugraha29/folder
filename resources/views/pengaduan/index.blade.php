@@ -7,11 +7,6 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4 class="card-title font-weight-bold">Data Pengaduan</h4>
-          <div>
-            <a class="btn btn-success" role="button" href="{{ route('pengaduan.export') }}">
-              <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
-            </a>
-          </div>
         </div>
         <div class="table-responsive">
           <table id="dataTablePengaduan" class="table" style="width: 100%; text-align:center;">

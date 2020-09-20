@@ -8,11 +8,6 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4 class="card-title font-weight-bold">Data Pelaporan</h4>
-          <div>
-            <a class="btn btn-success" role="button" href="{{ route('pelaporan.export') }}">
-              <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
-            </a>
-          </div>
         </div>
         @if (session('status'))
           <div class="row">
@@ -27,7 +22,7 @@
           </div>
         @endif
         <div class="table-responsive">
-          <table id="dataTablePelaporan" class="table" style="width: 100%; text-align:center;">
+          <table id="dataTablePelaporan" class="table datatable" style="width: 100%; text-align:center;">
             <thead>
               <tr>
                 <th>No</th>
@@ -108,11 +103,6 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4 class="card-title font-weight-bold">Data Pelaporan</h4>
-          <div>
-            <a class="btn btn-success" role="button" href="{{ route('pelaporan.export') }}">
-              <i class="link-icon" data-feather="file" width="18" height="18"></i> <span>Export</span>
-            </a>
-          </div>
         </div>
         <div class="table-responsive">
           <table id="dataTablePelaporanUsers" class="table" style="width: 100%; text-align:center;">

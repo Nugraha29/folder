@@ -82,7 +82,12 @@ class PelaporanController extends Controller
     public function form(Request $request)
     {      
         if (Gate::allows('isUser')) {
-            return view('pelaporan.form'); 
+            if(auth()->user()->completed == 'false'){
+                return view('profile.edit');   
+            } else {
+                return view('pelaporan.form');   
+            }
+
         } else {
             abort(403, 'Anda tidak memiliki cukup hak akses');
            
@@ -306,7 +311,7 @@ class PelaporanController extends Controller
             $model->save();
 
             $pelaporan = Pelaporan::find($model->id);
-            User::find(8)->notify(new NotifyPelaporanStats($pelaporan));
+            User::find(1)->notify(new NotifyPelaporanStats($pelaporan));
 
             Alert::success('Berhasil', 'Pelaporan berhasil dikirim!');
 
@@ -320,7 +325,7 @@ class PelaporanController extends Controller
         if (Gate::allows('isUserWaiting')) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         } else {
-            return Excel::download(new PelaporanExport, 'pelaporan.xlsx');
+            return Excel::download(new PelaporanExport, 'Pelaporan '.date('d-m-Y').'.xlsx');
         }
         
     }

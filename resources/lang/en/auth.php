@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Identitas ini tidak cocok dengan catatan kami.',
+    'failed' => 'Email atau kata sandi tidak valid.',
     'throttle' => 'Terlalu banyak upaya masuk. Silakan coba lagi dalam :seconds detik.',
 
 ];

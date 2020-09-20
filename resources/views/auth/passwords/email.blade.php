@@ -42,7 +42,7 @@
           </div>
           <div class="card-footer text-center">
             
-              <a class="btn btn-danger btn-icon-text" href="{{ url('/') }}"><i class="btn-icon-append" data-feather="chevron-left"></i>Kembali</a> 
+              <a class="btn btn-danger btn-icon-text" href="{{ url('/login') }}"><i class="btn-icon-append" data-feather="chevron-left"></i>Kembali</a> 
             
             <button type="submit" class="btn btn-primary btn-md">{{ __('Kirim Tautan Reset Kata sandi') }}</button>
           </div>
